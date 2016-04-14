@@ -1,91 +1,160 @@
 body {
-    font-family: 'Lato';
+	font-family: 'Lato';
+	background: #fafaeb;
+}
+.header i{
+	font-size:30px;
+	color:#fafaeb;
+	position:fixed;
+}
+.fa-arrow-circle-left{
+	top:20px;
+	right:10px
+}
+.fa-arrow-circle-right{
+	top:20px;
+	left:10px
 }
 .fa-btn {
-    margin-right: 6px;
+	margin-right: 6px;
+}
+
+.side{
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+}
+.side ul{
+	list-style-type: none;
 }
 #menu {
-         position: fixed;
-         top: 0;
-         bottom: 0;
-         width: 13.755em;
-         right: -13.755em;
-         height: 100%;
-         -webkit-transform: translate(0px, 0px);
-        -moz-transform: translate(0px, 0px);
-        -o-transform: translate(0px, 0px);
-        -ms-transform: translate(0px, 0px);
-        transform: translate(0px, 0px);
-        -webkit-transition: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: 0.15s ease;
-}
-#menu.active {
-        -webkit-transform: translate(-13.755em, 0px);
-        -moz-transform: translate(-13.755em, 0px);
-        -o-transform: translate(-13.755em, 0px);
-        -ms-transform: translate(-13.755em, 0px);
-        transform: translate(-13.755em, 0px);
-}
-.container {
-       -webkit-transform: translate(0px, 0px);
-       -moz-transform: translate(0px, 0px);
-       -o-transform: translate(0px, 0px);
-       -ms-transform: translate(0px, 0px);
-       transform: translate(0px, 0px);
-       -webkit-transition: 0.15s ease;
-       -moz-transition: 0.15s ease;
-       -o-transition: 0.15s ease;
-       transition: 0.15s ease;  
+	background-color: lightgray;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 17.755em;
+	right: -17.755em;
+	height: 100%;
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+	-webkit-transition: 0.15s ease;
+	-moz-transition: 0.15s ease;
+	-o-transition: 0.15s ease;
+	transition: 0.15s ease;
 }
 
-.container.active {
-       -webkit-transform: translate(-13.725em, 0px);
-       -moz-transform: translate(-13.725em, 0px);
-       -o-transform: translate(-13.725em, 0px);
-       -ms-transform: translate(-13.725em, 0px);
-       transform: translate(-13.725em, 0px);
+#menu.active {
+	z-index : 11;
+	-webkit-transform: translate(-17.755em, 0px);
+	-moz-transform: translate(-17.755em, 0px);
+	-o-transform: translate(-17.755em, 0px);
+	-ms-transform: translate(-17.755em, 0px);
+	transform: translate(-17.755em, 0px);
 }
-.menu-link {
-      position: absolute;
-      top: 15px;
-      left: -50px;
+
+.main-container {
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+	-webkit-transition: 0.15s ease;
+	-moz-transition: 0.15s ease;
+	-o-transition: 0.15s ease;
+	transition: 0.15s ease;
+	margin: 0 auto;
+}
+
+.main-container.active {
+	-webkit-transform: translate(-17.725em, 0px);
+	-moz-transform: translate(-17.725em, 0px);
+	-o-transform: translate(-17.725em, 0px);
+	-ms-transform: translate(-17.725em, 0px);
+	transform: translate(-17.725em, 0px);
 }
 #menu-left {
-         position: fixed;
-         top: 0;
-         bottom: 0;
-         width: 13.755em;
-         left: -13.755em;
-         height: 100%;
-         -webkit-transform: translate(0px, 0px);
-        -moz-transform: translate(0px, 0px);
-        -o-transform: translate(0px, 0px);
-        -ms-transform: translate(0px, 0px);
-        transform: translate(0px, 0px);
-        -webkit-transition: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: 0.15s ease;
-}
-#menu-left.active {
-        -webkit-transform: translate(13.755em, 0px);
-        -moz-transform: translate(13.755em, 0px);
-        -o-transform: translate(13.755em, 0px);
-        -ms-transform: translate(13.755em, 0px);
-        transform: translate(13.755em, 0px);
-}
-.menu-link-left {
-      position: absolute;
-      top: 15px;
-      right: -50px;
+	background-color: lightgray;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 17.755em;
+	left: -17.755em;
+	height: 100%;
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+	-webkit-transition: 0.15s ease;
+	-moz-transition: 0.15s ease;
+	-o-transition: 0.15s ease;
+	transition: 0.15s ease;
 }
 
-.container.active-left {
-       -webkit-transform: translate(13.725em, 0px);
-       -moz-transform: translate(13.725em, 0px);
-       -o-transform: translate(13.725em, 0px);
-       -ms-transform: translate(13.725em, 0px);
-       transform: translate(13.725em, 0px);
+#menu-left.active {
+	z-index : 11;
+	-webkit-transform: translate(17.755em, 0px);
+	-moz-transform: translate(17.755em, 0px);
+	-o-transform: translate(17.755em, 0px);
+	-ms-transform: translate(17.755em, 0px);
+	transform: translate(17.755em, 0px);
+}
+.fixed {
+	position: absolute;
+	top: 15px;
+	right: 50px;
+}
+.fixed-left {
+	position: absolute;
+	top: 15px;
+	left: 50px;
+}
+
+.main-container.active-left {
+	-webkit-transform: translate(17.725em, 0px);
+	-moz-transform: translate(17.725em, 0px);
+	-o-transform: translate(17.725em, 0px);
+	-ms-transform: translate(17.725em, 0px);
+	transform: translate(17.725em, 0px);
+}
+
+.header {
+	height: 80px;
+	position: relative;
+	padding: 0;
+	border-top: 1px solid black; -
+	-border-color: #666 transparent transparent #666;
+	border-bottom: 5px solid black;
+	margin: 0;
+	color: #fafaeb;
+	text-align: center;
+	background-color: #b30000;
+}
+
+.header p {
+	font-family: "Tahoma";
+	font-weight: bold;
+	font-size: 150%;
+}
+
+.content {
+	width: 100%;
+	height: 300px;
+	background-color: #dddddd;
+	margin: 0;
+}
+
+.footer {
+	z-index : 10;
+	width: 100%;
+	position:fixed;
+    bottom:0;
+	padding: 0;
+	height: 80px;
+	margin: 0;
+	color: #fafaeb;
+	background-color: #b30000;
+	border-top: 3px solid black;
 }

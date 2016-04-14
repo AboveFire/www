@@ -17,10 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('/sschat', 'ChatController@run');
-Route::get('/chat', function () {
+/*Route::get('/chat', function () {
     return view('chat.sschat');
-});
-Route::get('/sschat',['middleware' => 'auth.basic', function () {
+});*/
+Route::get('/chat',['middleware' => 'auth.basic', function () {
     return view('chat.sschat');
 }]);
 Route::auth();
