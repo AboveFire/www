@@ -8,7 +8,6 @@ class Utilisateur_uti extends Authenticatable
 {
 	const CREATED_AT = 'uti_created_at';
 	const UPDATED_AT = 'uti_updated_at';
-	const REMEMBER_TOKEN = 'uti_remember_token';
 	protected $primaryKey = 'uti_seqnc';
 	
 	protected $table = 'Utilisateur_uti';
@@ -29,6 +28,17 @@ class Utilisateur_uti extends Authenticatable
     protected $hidden = [
         'uti_paswd', 'uti_remember_token',
     ];
+    
+    public function getRememberTokenName()
+    {
+    	return 'uti_remember_token';
+    }
+	
+	public function getAuthPassword()
+	{
+		return $this->uti_paswd;
+	}
+    
 	public function isAdmin()
 	{
 		return ($this->UTI_PERMS == 'A'); // this looks for an admin column in your users table
