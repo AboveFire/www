@@ -2,10 +2,16 @@
 
 namespace App;
 
-//use Illuminate\Foundation\Auth\Utilisateur_uti as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Utilisateur_uti extends Authenticatable
 {
+	const CREATED_AT = 'uti_created_at';
+	const UPDATED_AT = 'uti_updated_at';
+	const REMEMBER_TOKEN = 'uti_remember_token';
+	protected $primaryKey = 'uti_seqnc';
+	
+	protected $table = 'Utilisateur_uti';
     /**
      * The attributes that are mass assignable.
      *

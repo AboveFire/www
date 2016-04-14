@@ -52,7 +52,7 @@ class AuthController extends Controller
             'nom' => 'required|max:80',
             'prenm' => 'required|max:80',
             'code' => 'required|max:255',
-            'courl' => 'required|email|max:255|unique:users',
+            'courl' => 'required|email|max:255|unique:utilisateur_uti,uti_courl',
             'paswd' => 'required|min:6|confirmed',
         ]);
     }
@@ -66,11 +66,11 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return Utilisateur_uti::create([
-            'nom' => $data['uti_nom'],
-            'prenm' => $data['uti_prenm'],
-            'code' => $data['uti_code'],
-            'courl' => $data['uti_courl'],
-            'paswd' => bcrypt($data['uti_paswd']),
+            'uti_nom' => $data['nom'],
+            'uti_prenm' => $data['prenm'],
+            'uti_code' => $data['code'],
+            'uti_courl' => $data['courl'],
+            'uti_paswd' => bcrypt($data['paswd']),
         ]);
     }
 }

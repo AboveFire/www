@@ -80,15 +80,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('paswd_confrm') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">#paswd_confrm#</label>
+                        <div class="form-group{{ $errors->has('paswd_confirmation') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">#paswd_confirmation#</label>
 
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="paswd_confrm">
+                                <input type="password" class="form-control" name="paswd_confirmation">
 
-                                @if ($errors->has('paswd_confrm'))
+                                @if ($errors->has('paswd_confirmation'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('paswd_confrm') }}</strong>
+                                        <strong>{{ $errors->first('paswd_confirmation') }}</strong>
                                     </span>
                                 @endif
                             </div>
