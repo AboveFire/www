@@ -1,0 +1,91 @@
+body {
+    font-family: 'Lato';
+}
+.fa-btn {
+    margin-right: 6px;
+}
+#menu {
+         position: fixed;
+         top: 0;
+         bottom: 0;
+         width: 13.755em;
+         right: -13.755em;
+         height: 100%;
+         -webkit-transform: translate(0px, 0px);
+        -moz-transform: translate(0px, 0px);
+        -o-transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+        -webkit-transition: 0.15s ease;
+        -moz-transition: 0.15s ease;
+        -o-transition: 0.15s ease;
+        transition: 0.15s ease;
+}
+#menu.active {
+        -webkit-transform: translate(-13.755em, 0px);
+        -moz-transform: translate(-13.755em, 0px);
+        -o-transform: translate(-13.755em, 0px);
+        -ms-transform: translate(-13.755em, 0px);
+        transform: translate(-13.755em, 0px);
+}
+.container {
+       -webkit-transform: translate(0px, 0px);
+       -moz-transform: translate(0px, 0px);
+       -o-transform: translate(0px, 0px);
+       -ms-transform: translate(0px, 0px);
+       transform: translate(0px, 0px);
+       -webkit-transition: 0.15s ease;
+       -moz-transition: 0.15s ease;
+       -o-transition: 0.15s ease;
+       transition: 0.15s ease;  
+}
+
+.container.active {
+       -webkit-transform: translate(-13.725em, 0px);
+       -moz-transform: translate(-13.725em, 0px);
+       -o-transform: translate(-13.725em, 0px);
+       -ms-transform: translate(-13.725em, 0px);
+       transform: translate(-13.725em, 0px);
+}
+.menu-link {
+      position: absolute;
+      top: 15px;
+      left: -50px;
+}
+#menu-left {
+         position: fixed;
+         top: 0;
+         bottom: 0;
+         width: 13.755em;
+         left: -13.755em;
+         height: 100%;
+         -webkit-transform: translate(0px, 0px);
+        -moz-transform: translate(0px, 0px);
+        -o-transform: translate(0px, 0px);
+        -ms-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+        -webkit-transition: 0.15s ease;
+        -moz-transition: 0.15s ease;
+        -o-transition: 0.15s ease;
+        transition: 0.15s ease;
+}
+#menu-left.active {
+        -webkit-transform: translate(13.755em, 0px);
+        -moz-transform: translate(13.755em, 0px);
+        -o-transform: translate(13.755em, 0px);
+        -ms-transform: translate(13.755em, 0px);
+        transform: translate(13.755em, 0px);
+}
+.menu-link-left {
+      position: absolute;
+      top: 15px;
+      right: -50px;
+}
+
+.container.active-left {
+       -webkit-transform: translate(13.725em, 0px);
+       -moz-transform: translate(13.725em, 0px);
+       -o-transform: translate(13.725em, 0px);
+       -ms-transform: translate(13.725em, 0px);
+       transform: translate(13.725em, 0px);
+}
