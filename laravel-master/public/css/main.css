@@ -20,8 +20,8 @@ body {
 }
 
 .side{
-	border-left: 3px solid black;
-	border-right: 3px solid black;
+	/*border-left: 3px solid black;
+	border-right: 3px solid black;*/
 }
 .side ul{
 	list-style-type: none;
@@ -124,9 +124,10 @@ body {
 	height: 80px;
 	position: relative;
 	padding: 0;
-	border-top: 1px solid black; -
+	border-top: none;
+	/*border-top: 1px solid black;
 	-border-color: #666 transparent transparent #666;
-	border-bottom: 5px solid black;
+	border-bottom: 5px solid black;*/
 	margin: 0;
 	color: #fafaeb;
 	text-align: center;
@@ -137,6 +138,11 @@ body {
 	font-family: "Tahoma";
 	font-weight: bold;
 	font-size: 150%;
+}
+
+.header h3 {
+	margin : 0;
+	padding : 20px;
 }
 
 .content {
@@ -156,5 +162,5 @@ body {
 	margin: 0;
 	color: #fafaeb;
 	background-color: #b30000;
-	border-top: 3px solid black;
+	/*border-top: 3px solid black;*/
 }

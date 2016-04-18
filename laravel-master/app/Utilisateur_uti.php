@@ -11,6 +11,7 @@ class Utilisateur_uti extends Authenticatable
 	protected $primaryKey = 'uti_seqnc';
 	
 	protected $table = 'Utilisateur_uti';
+	
     /**
      * The attributes that are mass assignable.
      *
@@ -33,11 +34,10 @@ class Utilisateur_uti extends Authenticatable
     {
     	return 'uti_remember_token';
     }
-	
-	public function getAuthPassword()
-	{
-		return $this->uti_paswd;
-	}
+
+    public function getAuthPassword() {
+    	return $this->UTI_PASWD;
+    }
     
 	public function isAdmin()
 	{

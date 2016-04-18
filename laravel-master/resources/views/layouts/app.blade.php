@@ -61,8 +61,8 @@
 				</ul>
 			@endif
 		</ul>
-		<div class="footer">
-  		</div>
+		<!--<div class="footer">
+  		</div>-->
 	</nav>
 	<nav id="menu-left" class="side">
 		<div class="header">
@@ -83,8 +83,8 @@
 			@endif
 			<li><a href="{{ url('/about') }}">About</a></li>
 		</ul>
-		<div class="footer">
-  		</div>
+		<!--  <div class="footer">
+  		</div>-->
 	</nav>
 	<div id="header" class="header">
 		<a href="#menu" class="menu-link fixed"><i class="fa fa-navicon"></i></a>

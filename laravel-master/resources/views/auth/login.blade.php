@@ -11,10 +11,10 @@
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">#code#</label>
+                            <label class="col-md-4 control-label">#courl#</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}">
+                                <input type="text" class="form-control" name="uti_code" value="{{ old('email') }}">
 
                                 @if ($errors->has('uti_code'))
                                     <span class="help-block">

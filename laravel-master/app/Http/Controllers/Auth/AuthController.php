@@ -7,7 +7,6 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -31,9 +30,8 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+	protected $username = 'uti_code';
 
-    protected $username = 'uti_code';
-    
     /**
      * Create a new authentication controller instance.
      *
@@ -77,5 +75,4 @@ class AuthController extends Controller
             'uti_paswd' => bcrypt($data['paswd']),
         ]);
     }
-    
 }
