@@ -1,0 +1,19 @@
+.option_home 
+{
+	width:15%;
+	margin: 25px;
+	float: left;
+	text-align: center;
+}
+
+.option_home i
+{
+	font-size:1250%;
+}
+
+.container-home
+{
+	height:100%;
+	width:100%;
+	background-color: aqua;
+}

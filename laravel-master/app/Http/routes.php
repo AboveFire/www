@@ -14,7 +14,14 @@
 //use Illuminate\Database\Migrations\Migration;
 
 Route::get('/', function () {
-    return view('welcome');
+	if(Auth::guest())
+	{
+		return view('/auth/login');		
+	}
+	else 
+	{
+    	return view('home');
+	}
 });
 Route::post('/sschat', 'ChatController@run');
 /*Route::get('/chat', function () {
@@ -35,7 +42,7 @@ Route::get('/about', function () {
 	return view('about');
 });
 Route::get('/inscription', function () {
-	return view('inscription');
+	return view('/auth/register');
 });
 Route::get('/profil',['middleware' => 'auth.basic', function () {
 	return view('profil');
