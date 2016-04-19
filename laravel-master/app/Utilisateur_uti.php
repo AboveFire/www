@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Log;
 
 class Utilisateur_uti extends Authenticatable
 {
@@ -47,4 +48,45 @@ class Utilisateur_uti extends Authenticatable
 	{
 		return ($this->UTI_PERMS == 'S'); // this looks for an superadmin column in your users table
 	}
+	
+	public function getEmailForPasswordReset()
+	{
+		return $this->UTI_COURL;
+	}
+	
+	/**
+	 * Get the attributes that have been changed since last sync.
+	 *
+	 * @return array
+	 */
+	public function getDirty()
+	{
+		$dirty = [];
+	
+		foreach ($this->attributes as $key => $value) {
+			if (! array_key_exists($key, $this->original)) {
+				if($key == 'password')
+				{
+					$dirty['uti_paswd'] = $value;
+				}
+				else 
+				{
+				$dirty[$key] = $value;
+				}
+			} elseif ($value !== $this->original[$key] &&
+					! $this->originalIsNumericallyEquivalent($key)) {
+						if($key == 'password')
+						{
+							$dirty['uti_paswd'] = $value;
+						}
+						else 
+						{
+						$dirty[$key] = $value;
+						}
+			}
+		}
+	
+		return $dirty;
+	}
+	
 }

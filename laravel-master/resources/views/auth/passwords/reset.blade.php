@@ -13,15 +13,15 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('uti_courl') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
+                                <input type="email" class="form-control" name="uti_courl" value="{{ $email or old('uti_courl') }}">
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('uti_courl'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('uti_courl') }}</strong>
                                     </span>
                                 @endif
                             </div>
