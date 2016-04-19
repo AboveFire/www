@@ -1,0 +1,22 @@
+.logo {
+	margin:12px;
+	width:304px;
+	height:228px;
+}
+.main {
+	text-align: center;
+}
+.main ul {
+	list-style-type: none;
+}
+.main ul li{
+	margin:12px;
+}
+.main p{
+	margin:50px;
+}
+.realise {
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 110%;
+}
