@@ -6,9 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Utilisateur_uti extends Authenticatable
 {
-	const CREATED_AT = 'uti_created_at';
-	const UPDATED_AT = 'uti_updated_at';
-	protected $primaryKey = 'uti_seqnc';
+	const CREATED_AT = 'UTI_CREATED_AT';
+	const UPDATED_AT = 'UTI_UPDATED_AT';
+	protected $primaryKey = 'UTI_SEQNC';
 	
 	protected $table = 'Utilisateur_uti';
 	
@@ -32,7 +32,7 @@ class Utilisateur_uti extends Authenticatable
     
     public function getRememberTokenName()
     {
-    	return 'uti_remember_token';
+    	return 'UTI_REMEMBER_TOKEN';
     }
 
     public function getAuthPassword() {
