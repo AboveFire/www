@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Laravel</title>
+<title>Live Pool</title>
 
 <!-- Fonts -->
 <link
@@ -75,15 +75,15 @@
 			@endif
 			<li><a href="{{ url('/about') }}"><i class="fa fa-btn fa-info-circle"></i>About</a></li>
 		</ul>
-		<!--  <div class="footer">
-  		</div>-->
+		<div class="footer">
+  		</div>
 	</nav>
 	<div id="header" class="header">
 	
 		@if (!Auth::guest())
 		<a href="#menu" class="menu-link fixed"><i class="fa fa-navicon"></i></a>
 		@endif
-    	<p>Live Pool</p>
+    	<p class="titre"><a href="{{ url('/') }}">Live Pool</a></p>
     	
 		@if (!Auth::guest())
     	<a href="#menu-left" class="menu-link-left fixed-left"><i class="fa fa-list-ul"></i></a>

@@ -20,7 +20,7 @@ Route::get('/', function () {
 	}
 	else 
 	{
-    	return view('welcome');
+    	return view('home');
 	}
 });
 Route::post('/sschat', 'ChatController@run');

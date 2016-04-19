@@ -1,7 +1,17 @@
 body {
 	font-family: 'Lato';
-	background: #fafaeb;
+	background: #d3d3d3;
 }
+a
+{
+	color: black;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+
 .header i{
 	font-size:30px;
 	color:#fafaeb;
@@ -27,7 +37,7 @@ body {
 	list-style-type: none;
 }
 #menu {
-	background-color: lightgray;
+	background-color: d3d3d3;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -64,7 +74,8 @@ body {
 	-moz-transition: 0.15s ease;
 	-o-transition: 0.15s ease;
 	transition: 0.15s ease;
-	margin: 0 auto;
+	margin: 0;
+	width: 100%;
 }
 
 .main-container.active {
@@ -163,4 +174,16 @@ body {
 	color: #fafaeb;
 	background-color: #b30000;
 	/*border-top: 3px solid black;*/
+}
+
+.titre a
+{
+	height: 100%;
+	color: white;
+	vertical-align: middle;
+}
+
+.titre:hover
+{
+	color: white;
 }
