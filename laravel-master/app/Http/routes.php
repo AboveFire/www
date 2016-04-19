@@ -10,8 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+//use Illuminate\Database\Schema\Blueprint;
+//use Illuminate\Database\Migrations\Migration;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +26,7 @@ Route::get('/chat',['middleware' => 'auth.basic', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/test', 'NFLController@test');
 //Normal route
 Route::get('/connection-refused',function () {
 	return view('refused');
