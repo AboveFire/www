@@ -25,7 +25,7 @@
 				<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#nom#</label>
 					<div class="col col-md-12">
-						<input type="text" class="form-control" name="nom" value="{{ old('nom') }}"> 
+						<input type="text" class="form-control" name="nom" value="{{ Auth::user()->UTI_NOM }}"> 
 						@if ($errors->has('nom')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('nom') }}</strong>
@@ -36,7 +36,7 @@
 				<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#code#</label>
 					<div class="col col-md-12">
-						<input type="text" class="form-control" name="code" value="{{ old('code') }}"> 
+						<input type="text" class="form-control" name="code" value="{{ Auth::user()->UTI_CODE }}"> 
 						@if ($errors->has('code')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('code') }}</strong>
@@ -47,7 +47,7 @@
 				<div class="form-group{{ $errors->has('telph') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#telph#</label>
 					<div class="col col-md-12">
-						<input type="text" class="form-control" name="telph" value="{{ old('telph') }}"> 
+						<input type="text" class="form-control" name="telph" value="{{ Auth::user()->UTI_TELPH }}"> 
 						@if ($errors->has('telph')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('telph') }}</strong>
@@ -60,7 +60,7 @@
 				<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#prenm#</label>
 					<div class="col col-md-12">
-						<input type="text" class="form-control" name="prenm" value="{{ old('prenm') }}"> 
+						<input type="text" class="form-control" name="prenm" value="{{ Auth::user()->UTI_PRENM }}"> 
 						@if ($errors->has('prenm')) 
 						<span class="help-block">
 							<strong>{{ $errors->first('prenm') }}</strong>
@@ -71,7 +71,7 @@
 				<div class="form-group{{ $errors->has('courl') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#courl#</label>
 					<div class="col col-md-12">
-						<input type="email" class="form-control" name="courl" value="{{ old('courl') }}"> 
+						<input type="email" class="form-control" name="courl" value="{{ Auth::user()->UTI_COURL }}"> 
 						@if ($errors->has('courl')) 
 						<span class="help-block">
 							<strong>{{ $errors->first('courl') }}</strong>

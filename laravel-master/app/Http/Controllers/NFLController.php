@@ -10,17 +10,16 @@ class NFLController extends BaseController
 {
 	public function test()
 	{
-		$aContext = array(
-				'http' => array(
-						'proxy' => 'tcp://108.59.10.129:55555',
-						'request_fulluri' => true,
-				),
-		);
-		$cxContext = stream_context_create($aContext);
-		$xml = file_get_contents('http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=nfl', false, $cxContext);
-		//$xml = file_get_contents('https://zendproxy.com/bb.php?u=O%2B6ltsaCPTEkOxpI9T0I5Hxl0Lxvy4pi5Hx7w7HEWXXoDQW73J4ScvrCjpsDlGybZDSaJIHG9A6CX2rEFJU59TrUxMUpHiIKYurWyVAUPw%3D%3D&b=29&f=norefer');
-		//$obj = $this->xmlstr_to_array($xml);
-		return $xml;
+		$this->getSpreadData();
+	}
+	public function fillTeam(){
+		
+	}
+	public function fillMatch(){
+	
+	}
+	public function fillCote(){
+	
 	}
 	public function getCurrentWeek()
 	{
@@ -55,6 +54,32 @@ class NFLController extends BaseController
 		$json = file_get_contents('http://www.nfl.com/liveupdate/game-center/' . $eid . '/' . $eid . '_gtd.json');
 		$obj = json_decode($json, true);
 		return array('home' => $obj[$eid]['home']['score']['T'], 'visitor' => $obj[$eid]['away']['score']['T']);
+	}
+	public function getSpreadData(){
+		$xml = file_get_contents('http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=nfl');
+		$obj = $this->xmlstr_to_array($xml);
+		$info = array();
+		foreach ($obj['events']['event'] as $value){
+			$temp['date'] = new DateTime($value['event_datetimeGMT'], new DateTimeZone('America/Toronto'));
+			foreach ($value['participants']['participant'] as $participant){
+				if($participant['visiting_home_draw'] == 'Home'){
+					$temp['home'] = $participant['participant_name'];
+				}else{
+					$temp['visitor'] = $participant['participant_name'];
+				}
+			}
+			if(is_array($value['periods']['period']['spread']['spread_home'])){
+				$value['periods']['period']['spread']['spread_home'] = '0';
+			}
+			if(is_array($value['periods']['period']['spread']['spread_visiting'])){
+				$value['periods']['period']['spread']['spread_visiting'] = '0';
+			}
+			$temp['homeSpread'] = $value['periods']['period']['spread']['spread_home'];
+			$temp['visitorSpread'] = $value['periods']['period']['spread']['spread_visiting'];
+			$info[] = $temp;
+		}
+		var_dump($info);
+		return $xml;
 	}
 	public function xmlstr_to_array($xmlstr) {
 		$doc = new \DOMDocument();
