@@ -23,6 +23,9 @@ Route::get('/', function () {
     	return view('home');
 	}
 });
+
+Route::post('/profil/save', 'ProfilController@update');
+
 Route::post('/sschat', 'ChatController@run');
 /*Route::get('/chat', function () {
     return view('chat.sschat');
@@ -47,6 +50,7 @@ Route::get('/inscription', function () {
 Route::get('/profil',['middleware' => 'auth.basic', function () {
 	return view('profil');
 }]);
+
 Route::get('/results', function () {
 	return view('results');
 });

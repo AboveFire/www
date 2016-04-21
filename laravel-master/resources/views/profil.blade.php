@@ -1,16 +1,28 @@
 @extends('layouts.app') @section('title', 'Profil utilisateur')
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/profil.css') }}"></link>
+<hr>
 <div class="container container-profil">
-	<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+	@if (session('status'))
+	<div class="alert alert-success">
+		{{ session('status') }}
+	</div>
+	@endif
+	<form class="form-horizontal" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<div class="colonne">
+						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
+						@if ($errors->has('seqnc')) 
+						<span class="help-block"> 
+							<strong>{{ $errors->first('seqnc') }}</strong>
+						</span> 
+						@endif
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#img#</label>
-					<img src="image.jpg" alt="image" class="image col-md-2" accept="image/*">
+					<img src="{{ Auth::user()->getImage() }}" alt="image" class="image col-md-2" ">
 					<div class="col col-md-12">
-						<input type="file" name="img" value="{{ old('img') }}"> 
+						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('img') }}</strong>
@@ -83,13 +95,13 @@
 		</div>
 		<div class="ligne">
 			<div class="colonne">
-				<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+				<div class="form-group{{ $errors->has('paswd') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#paswd#</label>
 					<div class="col col-md-12">
-						<input type="password" class="form-control" name="password">
-						@if($errors->has('password')) 
+						<input type="password" class="form-control" name="paswd">
+						@if($errors->has('paswd')) 
 						<span class="help-block"> 
-							<strong>{{$errors->first('password') }}</strong>
+							<strong>{{$errors->first('paswd') }}</strong>
 						</span> 
 						@endif
 					</div>

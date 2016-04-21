@@ -188,3 +188,8 @@ a:hover
 {
 	color: white;
 }
+
+hr
+{
+	border: 2px solid black;
+}

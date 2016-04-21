@@ -68,29 +68,25 @@ class PasswordController extends Controller
      */
     public function reset(Request $request)
     {
-    	Log::info("reset 1");
     	$this->validate($request, $this->getResetValidationRules());
 
-    	Log::info("reset 2");
     	$credentials = $request->only(
     			'uti_courl', 'password', 'password_confirmation', 'token'
     			);
-    	Log::info("reset 3");
+
     	$broker = $this->getBroker();
-    	Log::info("reset 4");
+
     	$response = Password::broker($broker)->reset($credentials, function ($user, $password) {
     		$this->resetPassword($user, $password);
     	});
 
-    		Log::info("reset 5");
-    		Log::info("response : " . Password::PASSWORD_RESET);
+
+
     		switch ($response) {
     			case Password::PASSWORD_RESET:
-    				Log::info("reset 6");
     				return $this->getResetSuccessResponse($response);
     
     			default:
-    				Log::info("reset 7");
     				return $this->getResetFailureResponse($request, $response);
     		}
     }

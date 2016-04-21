@@ -75,4 +75,4 @@ class AuthController extends Controller
             'uti_paswd' => bcrypt($data['paswd']),
         ]);
     }
-}
+ }

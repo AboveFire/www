@@ -9,6 +9,7 @@ class Utilisateur_uti extends Authenticatable
 {
 	const CREATED_AT = 'UTI_CREATED_AT';
 	const UPDATED_AT = 'UTI_UPDATED_AT';
+	
 	protected $primaryKey = 'UTI_SEQNC';
 	
 	protected $table = 'Utilisateur_uti';
@@ -19,7 +20,7 @@ class Utilisateur_uti extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uti_nom', 'uti_prenm', 'uti_code', 'uti_courl', 'uti_paswd',
+        'uti_nom', 'uti_prenm', 'uti_code', 'uti_courl', 'uti_paswd', 'uti_image', 'uti_image_type'
     ];
 
     /**
@@ -87,6 +88,16 @@ class Utilisateur_uti extends Authenticatable
 		}
 	
 		return $dirty;
+	}
+	
+	public function getImage()
+	{
+		//$contents = file_get_contents($file);
+		$base64   = base64_encode($this->UTI_IMAGE);
+		return ('data:' .'image/' . $this->UTI_TYPE_IMAGE . ';base64,' . $base64);
+		
+		Log::info($this->UTI_IMAGE);
+		return $this->UTI_IMAGE;
 	}
 	
 }
