@@ -35,30 +35,40 @@
 <body id="app-layout">
 	<nav id="menu" class="side">
 		<div class="header">
-			<span><a href="#menu-side" class="menu-link"><i class="fa fa-arrow-circle-right"></i></a><h3>Menu</h3></span>
+			<span><a href="#menu-side" class="menu-link"><i
+					class="fa fa-arrow-circle-right"></i></a>
+			<h3>Menu</h3></span>
 		</div>
 		<ul>
 			<li><a href="{{ url('/home') }}"><i class="fa fa-home"></i>Accueil</a></li>
 			<li><a href="{{ url('/results') }}"><i class="fa fa-star"></i>Résultats</a></li>
-			<li><a href="{{ url('/results-classic') }}"><i class="fa fa-gamepad"></i>Pool classique</a></li>
+			<li><a href="{{ url('/results-classic') }}"><i class="fa fa-gamepad"></i>Pool
+					classique</a></li>
 			<ul>
-				<li><a href="{{ url('/form-classic') }}"><i class="fa fa-file-o"></i>Formulaire classique</a></li>
+				<li><a href="{{ url('/form-classic') }}"><i class="fa fa-file-o"></i>Formulaire
+						classique</a></li>
 			</ul>
-			<li><a href="{{ url('/results-playoff') }}"><i class="fa fa-crosshairs"></i>Pool playoff</a></li>
+			<li><a href="{{ url('/results-playoff') }}"><i
+					class="fa fa-crosshairs"></i>Pool playoff</a></li>
 			<ul>
-				<li><a href="{{ url('/form-playoff') }}"><i class="fa fa-file-o"></i>Formulaire playoff</a></li>
+				<li><a href="{{ url('/form-playoff') }}"><i class="fa fa-file-o"></i>Formulaire
+						playoff</a></li>
 			</ul>
-			<li><a href="{{ url('/results-survivor') }}"><i class="fa fa-sitemap"></i>Pool survivor</a></li>
+			<li><a href="{{ url('/results-survivor') }}"><i class="fa fa-sitemap"></i>Pool
+					survivor</a></li>
 			<ul>
-				<li><a href="{{ url('/form-survivor') }}"><i class="fa fa-file-o"></i>Formulaire survivor</a></li>
+				<li><a href="{{ url('/form-survivor') }}"><i class="fa fa-file-o"></i>Formulaire
+						survivor</a></li>
 			</ul>
 			<li><a href="{{ url('/chat') }}"><i class="fa fa-comments"></i>Clavardage</a></li>
 			@if (true/*Auth::user()->isAdmin()*/)
-				<li><a href="{{ url('/admin-home') }}"><i class="fa fa-shield"></i>Administration</a></li>
-				<ul>
-					<li><a href="{{ url('/admin-pool') }}"><i class="fa fa-users"></i>Gestion des utilisateurs</a></li> 
-					<li><a href="{{ url('/admin-users') }}"><i class="fa fa-plus"></i>Création d'un pool</a></li>
-				</ul>
+			<li><a href="{{ url('/admin-home') }}"><i class="fa fa-shield"></i>Administration</a></li>
+			<ul>
+				<li><a href="{{ url('/admin-pool') }}"><i class="fa fa-users"></i>Gestion
+						des utilisateurs</a></li>
+				<li><a href="{{ url('/admin-users') }}"><i class="fa fa-plus"></i>Création
+						d'un pool</a></li>
+			</ul>
 			@endif
 		</ul>
 		<!--<div class="footer">
@@ -66,29 +76,32 @@
 	</nav>
 	<nav id="menu-left" class="side">
 		<div class="header">
-			<span><a href="#menu-left-side" class="menu-link-left"><i class="fa fa-arrow-circle-left"></i></a><h3>Options</h3></span>
+			<span><a href="#menu-left-side" class="menu-link-left"><i
+					class="fa fa-arrow-circle-left"></i></a>
+			<h3>Options</h3></span>
 		</div>
 		<ul>
 			@if (!Auth::guest())
-			<li><a href="{{ url('/') }}"><i class="fa fa-btn fa-user"></i> {{ Auth::user()->name }} Mon compte</a></li>
+			<li><a href="{{ url('/profil') }}"><i class="fa fa-btn fa-user"></i> {{
+					Auth::user()->name }} Mon compte</a></li>
 			<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-power-off"></i>Logout</a></li>
 			@endif
 			<li><a href="{{ url('/about') }}"><i class="fa fa-btn fa-info-circle"></i>About</a></li>
 		</ul>
-		<div class="footer">
-  		</div>
+		<div class="footer"></div>
 	</nav>
 	<div id="header" class="header">
-	
-		@if (!Auth::guest())
-		<a href="#menu" class="menu-link fixed"><i class="fa fa-navicon"></i></a>
+
+		@if (!Auth::guest()) <a href="#menu" class="menu-link fixed"><i
+			class="fa fa-navicon"></i></a> @endif
+		<p class="titre">
+			<a href="{{ url('/') }}">@yield('title')</a>
+		</p>
+
+		@if (!Auth::guest()) <a href="#menu-left"
+			class="menu-link-left fixed-left"><i class="fa fa-list-ul"></i></a>
 		@endif
-    	<p class="titre"><a href="{{ url('/') }}">Live Pool</a></p>
-    	
-		@if (!Auth::guest())
-    	<a href="#menu-left" class="menu-link-left fixed-left"><i class="fa fa-list-ul"></i></a>
-    	@endif
-  	</div>
+	</div>
 	<div class="main-container container">
 
 		@yield('content')
@@ -103,7 +116,6 @@
 		<script src="{{ elixir('js/app.js') }}"></script>
 		--}}
 	</div>
-	<div id="footer" class="footer">
-  	</div>
+	<div id="footer" class="footer"></div>
 </body>
 </html>
