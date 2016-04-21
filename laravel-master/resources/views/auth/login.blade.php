@@ -14,7 +14,7 @@
                             <label class="col-md-4 control-label">#courl#</label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="uti_code" value="{{ old('email') }}">
+                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}">
 
                                 @if ($errors->has('uti_code'))
                                     <span class="help-block">

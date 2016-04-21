@@ -97,7 +97,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i>S'inscrire
+                         <i class="fa fa-btn fa-user"></i>S'inscrire
                                 </button>
                                 <a class="btn btn-link" href="{{ url('/') }}"><i class="fa fa-sign-in"></i> &nbsp;Déjà Inscrit?</a>
                             </div>
