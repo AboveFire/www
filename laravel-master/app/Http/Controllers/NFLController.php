@@ -5,18 +5,94 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use DateTime;
 use DateTimeZone;
+use DB;
 
 class NFLController extends BaseController
 {
 	public function test()
 	{
-		$this->getSpreadData();
+		$this->fillMatch();
 	}
 	public function fillTeam(){
-		
+		$temp;
+		$counter = 1;
+		do {
+			$temp = $this->getWeekData(date('Y'),$counter);
+			foreach ($temp as $value){
+				if(empty(DB::table('equipe_eqp')->select('EQP_CODE')->where('EQP_CODE', '=', $value['home'])->get())){
+					$code = $value['home'];
+					if ($code == 'NYJ' || $code == 'NYG'){
+						$code = 'NY';
+					}
+					$code = DB::table('region_rgn')->select('RGN_SEQNC')->where('RGN_CODE', '=', $code)->get()[0]->RGN_SEQNC;
+					DB::table('equipe_eqp')->insert(['EQP_CODE' => $value['home'], 'EQP_NOM' => 'DEFAULT', 'EQP_LUGC_ID' => '0', 'EQP_RGN_SEQNC' => $code]);
+				}
+				if(empty(DB::table('equipe_eqp')->select('EQP_CODE')->where('EQP_CODE', '=', $value['visitor'])->get())){
+					$code = $value['visitor'];
+					if ($code == 'NYJ' || $code == 'NYG'){
+						$code = 'NY';
+					}
+					$code = DB::table('region_rgn')->select('RGN_SEQNC')->where('RGN_CODE', '=', $code)->get()[0]->RGN_SEQNC;
+					DB::table('equipe_eqp')->insert(['EQP_CODE' => $value['visitor'], 'EQP_NOM' => 'DEFAULT', 'EQP_LUGC_ID' => '0', 'EQP_RGN_SEQNC' => $code]);
+				}
+			}
+			$counter++;
+			}while(!empty($temp));
 	}
 	public function fillMatch(){
-	
+		$temp;
+		$counter = 1;
+		$dateFinSaison;
+		$seasonId = 0;
+		do {
+			$temp = $this->getWeekData(date('Y'),$counter);
+			$firstOfWeek = true;
+			$dateFinSemaine;
+			$weekId = 0;
+			foreach ($temp as $value){
+				if($counter == 1 && $firstOfWeek){
+					//insert saison
+					$seasonId = DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_DEBUT', '=', $value['date']->format('Y-m-d H:i:s'))->get();
+					if(empty($seasonId)){
+						DB::table('saison_sai')->insert(['SAI_DATE_DEBUT' => $value['date']->format('Y-m-d H:i:s'),'SAI_DATE_FIN' => $value['date']->format('Y-m-d H:i:s')]);
+						$seasonId = DB::getPdo()->lastInsertId();
+					}else{
+						$seasonId = $seasonId[0]->SAI_SEQNC;
+					}
+				}
+				$weekDone = false;
+				if($firstOfWeek){
+					//insert semaine
+					$weekId = DB::table('semaine_sem')->select('SEM_SEQNC')->where('SEM_DATE_DEBUT', '=', $value['date']->format('Y-m-d H:i:s'))->get();
+					if(empty($weekId)){
+						DB::table('semaine_sem')->insert(['SEM_NUMR' => $counter,'SEM_DATE_DEBUT' => $value['date']->format('Y-m-d H:i:s'),'SEM_DATE_FIN' => $value['date']->format('Y-m-d H:i:s'),'SEM_SAI_SEQNC' => $seasonId]);
+						$weekId = DB::getPdo()->lastInsertId();
+					}else{
+						$weekId = $weekId[0]->SEM_SEQNC;
+						$weekDone = true;
+					}
+				}
+				if(!$weekDone){
+					//insert partie
+					DB::table('partie_par')->insert(['PAR_DATE' => $value['date']->format('Y-m-d H:i:s'),'PAR_LUGC_ID' => $value['eid'],'PAR_SEM_SEQNC' => $weekId]);
+					$partieId = DB::getPdo()->lastInsertId();
+					$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get()[0]->EQP_SEQNC;
+					$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get()[0]->EQP_SEQNC;
+					//insert liens
+					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+				}
+				$dateFinSaison = $value['date'];
+				$dateFinSemaine = $value['date'];
+				$firstOfWeek = false;
+			}
+			//update semaine date fin
+			DB::table('semaine_sem')->where('SEM_SEQNC', $weekId)->update(['SEM_DATE_FIN' => $dateFinSemaine->format('Y-m-d H:i:s')]);
+			$counter++;
+		}while(!empty($temp));
+		//update saison date fin
+		DB::table('saison_sai')->where('SAI_SEQNC', $seasonId)->update(['SAI_DATE_FIN' => $dateFinSaison->format('Y-m-d H:i:s')]);
+		
 	}
 	public function fillCote(){
 	
@@ -37,15 +113,16 @@ class NFLController extends BaseController
 	{
 		$xml = file_get_contents('http://www.nfl.com/ajax/scorestrip?=' . $year . '&seasonType=' . $seasonType . '&week=' . $week);
 		$obj = $this->xmlstr_to_array($xml);
-		
 		$info = array();
-		foreach ($obj['gms']['g'] as $value){
-			$temp['eid'] = $value['@attributes']['eid'];
-			$s = substr($temp['eid'], 0, 4) . '-' . substr($temp['eid'], 4, 2) . '-' . substr($temp['eid'], 6, 2) . ' ' . $value['@attributes']['t'] . ':00';
-			$temp['date'] = new DateTime($s, new DateTimeZone('America/Toronto'));
-			$temp['home'] = $value['@attributes']['h'];
-			$temp['visitor'] = $value['@attributes']['v'];
-			$info[] = $temp;
+		if(!empty($obj)){
+			foreach ($obj['gms']['g'] as $value){
+				$temp['eid'] = $value['@attributes']['eid'];
+				$s = substr($temp['eid'], 0, 4) . '-' . substr($temp['eid'], 4, 2) . '-' . substr($temp['eid'], 6, 2) . ' ' . $value['@attributes']['t'] . ':00';
+				$temp['date'] = new DateTime($s, new DateTimeZone('America/Toronto'));
+				$temp['home'] = $value['@attributes']['h'];
+				$temp['visitor'] = $value['@attributes']['v'];
+				$info[] = $temp;
+			}
 		}
 		return $info;
 	}
