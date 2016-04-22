@@ -8,17 +8,16 @@ use Log;
 
 class ProfilController extends Controller
 {
-
     public function update(Request $request)
     {
-    	$path = $request->file('img');
-    	$img_data = $type = null;
-    	if ($path != '')
-    	{
-    		$img_data = file_get_contents($path);
-    		Log::info($img_data);
-    		$type = $path->getClientOriginalExtension();
-    	}
+    	$this->validate($request, [
+    		'telph' => 'Regex:/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/',
+            'nom' => 'required|max:80',
+            'prenm' => 'required|max:80',
+            'code' => 'required|max:255',
+            'courl' => 'required|email|max:255',
+    			
+    	]);
     	
     	Utilisateur_uti::where('UTI_SEQNC', '=',$request->seqnc)->update([
             'uti_nom' => $request['nom'],
@@ -26,9 +25,23 @@ class ProfilController extends Controller
             'uti_code' => $request['code'],
             'uti_courl' => $request['courl'],
             'uti_telph' => $request['telph'],
-            'uti_image' => $img_data,
-    		'uti_type_image' => $type,
         ]);
+    	
+    	$path = $request->file('img');
+    	$img_data = $type = null;
+    	if ($path != '')
+    	{
+    		$img_data = file_get_contents($path);
+    		
+    		$this->validate($request, ['img' => 'image',]);
+    		
+    		$type = $path->getClientOriginalExtension();
+    	
+    		Utilisateur_uti::where('UTI_SEQNC', '=',$request->seqnc)->update([
+    				'uti_image' => $img_data,
+    				'uti_type_image' => $type,
+    		]);
+    	}
     	
     	if ($request['paswd'] != '')
     	{

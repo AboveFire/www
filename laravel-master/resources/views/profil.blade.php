@@ -59,7 +59,7 @@
 				<div class="form-group{{ $errors->has('telph') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#telph#</label>
 					<div class="col col-md-12">
-						<input type="text" class="form-control" name="telph" value="{{ Auth::user()->UTI_TELPH }}"> 
+						<input type="tel" class="form-control" name="telph" value="{{ Auth::user()->UTI_TELPH }}"> 
 						@if ($errors->has('telph')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('telph') }}</strong>
