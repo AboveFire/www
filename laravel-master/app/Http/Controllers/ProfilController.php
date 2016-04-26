@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Utilisateur_uti;
 use Illuminate\Http\Request;
-use Log;
+use Illuminate\Http\Response;
+
+use JWTAuth;
 
 class ProfilController extends Controller
 {
@@ -65,5 +67,16 @@ class ProfilController extends Controller
     	return [
     			'password' => 'required|confirmed|min:6',
     	];
+    }
+    
+    public function logoutMobile(Request $request)
+    {
+    	JWTAuth::invalidate();
+    }
+    
+    public function getProfileMobile(Request $request)
+    {
+    	$user = JWTAuth::toUser($request['token']);
+    	return response()->json(array_only($user->toArray(),array('UTI_NOM', 'UTI_PRENM', 'UTI_COURL', 'UTI_TELPH', 'UTI_IMAGE', 'UTI_TYPE_IMAGE', 'UTI_CODE')));
     }
 }

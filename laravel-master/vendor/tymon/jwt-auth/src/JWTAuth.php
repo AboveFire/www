@@ -43,7 +43,7 @@ class JWTAuth
     /**
      * @var string
      */
-    protected $identifier = 'id';
+    protected $identifier = 'UTI_SEQNC';
 
     /**
      * @var \Tymon\JWTAuth\Token
@@ -124,7 +124,6 @@ class JWTAuth
     public function authenticate($token = false)
     {
         $id = $this->getPayload($token)->get('sub');
-        Log::info ('token: ' . print_r ($this->getPayload($token), true));
 
         if (! $this->auth->byId($id)) {
             return false;

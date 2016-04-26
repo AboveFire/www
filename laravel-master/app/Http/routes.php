@@ -90,5 +90,7 @@ Route::get('/admin-users',['middleware' => 'admin', function () {
 // APPLICATION MOBILE
 Route::get('/mobile/login', 'Auth\AuthController@authenticateMobile');
 
-Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'Auth\AuthController@logoutMobile']);
+Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilController@logoutMobile']);
+
+Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 

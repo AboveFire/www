@@ -14,8 +14,6 @@ use Illuminate\Contracts\Cookie\QueueingFactory as CookieJar;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-use Log;
-
 class SessionGuard implements StatefulGuard, SupportsBasicAuth
 {
     use GuardHelpers;
@@ -489,9 +487,7 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
      */
     public function onceUsingId($id)
     {
-        	Log::info ("user: " . print_r($this->provider->retrieveById($id), true));
         if (! is_null($user = $this->provider->retrieveById($id))) {
-        	Log::info ("user: " . print_r($user, true));
             $this->setUser($user);
 
             return true;
