@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
+use Log;
+
 class EloquentUserProvider implements UserProvider
 {
     /**
@@ -44,6 +46,7 @@ class EloquentUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
+    	Log::info ('identifier : ' . $identifier);
         return $this->createModel()->newQuery()->find($identifier);
     }
 

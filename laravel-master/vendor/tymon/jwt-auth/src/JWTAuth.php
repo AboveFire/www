@@ -16,6 +16,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Providers\User\UserInterface;
 
+use Log;
+
 class JWTAuth
 {
     /**
@@ -122,6 +124,7 @@ class JWTAuth
     public function authenticate($token = false)
     {
         $id = $this->getPayload($token)->get('sub');
+        Log::info ('token: ' . print_r ($this->getPayload($token), true));
 
         if (! $this->auth->byId($id)) {
             return false;
