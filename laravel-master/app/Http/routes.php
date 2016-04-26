@@ -13,6 +13,8 @@
 //use Illuminate\Database\Schema\Blueprint;
 //use Illuminate\Database\Migrations\Migration;
 
+// PLATEFORME WEB
+
 Route::get('/', function () {
 	if(Auth::guest())
 	{
@@ -25,6 +27,7 @@ Route::get('/', function () {
 });
 
 Route::post('/profil/save', 'ProfilController@update');
+
 
 Route::post('/sschat', 'ChatController@run');
 /*Route::get('/chat', function () {
@@ -83,3 +86,6 @@ Route::get('/admin-pool',['middleware' => 'admin', function () {
 Route::get('/admin-users',['middleware' => 'admin', function () {
 	return view('administration.users');
 }]);
+
+// APPLICATION MOBILE
+Route::get('/mobile/login', 'Auth/AuthController@authenticateMobile');
