@@ -11,7 +11,6 @@ class NFLController extends BaseController
 {
 	public function test()
 	{
-		$this->fillMatch();
 	}
 	public function fillTeam(){
 		$temp;
@@ -63,7 +62,7 @@ class NFLController extends BaseController
 				$weekDone = false;
 				if($firstOfWeek){
 					//insert semaine
-					$weekId = DB::table('semaine_sem')->select('SEM_SEQNC')->where('SEM_DATE_DEBUT', '=', $value['date']->format('Y-m-d H:i:s'))->get();
+					$weekId = DB::table('semaine_sem')->select('SEM_SEQNC')->where('SEM_NUMR', '=', $counter)->get();
 					if(empty($weekId)){
 						DB::table('semaine_sem')->insert(['SEM_NUMR' => $counter,'SEM_DATE_DEBUT' => $value['date']->format('Y-m-d H:i:s'),'SEM_DATE_FIN' => $value['date']->format('Y-m-d H:i:s'),'SEM_SAI_SEQNC' => $seasonId]);
 						$weekId = DB::getPdo()->lastInsertId();
@@ -74,13 +73,15 @@ class NFLController extends BaseController
 				}
 				if(!$weekDone){
 					//insert partie
-					DB::table('partie_par')->insert(['PAR_DATE' => $value['date']->format('Y-m-d H:i:s'),'PAR_LUGC_ID' => $value['eid'],'PAR_SEM_SEQNC' => $weekId]);
-					$partieId = DB::getPdo()->lastInsertId();
-					$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get()[0]->EQP_SEQNC;
-					$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get()[0]->EQP_SEQNC;
-					//insert liens
-					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
-					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+					if(empty(DB::table('partie_par')->select('PAR_LUGC_ID')->where('PAR_LUGC_ID', $value['eid'])->where('PAR_SEM_SEQNC', $weekId)->get())){
+						DB::table('partie_par')->insert(['PAR_DATE' => $value['date']->format('Y-m-d H:i:s'),'PAR_LUGC_ID' => $value['eid'],'PAR_SEM_SEQNC' => $weekId]);
+						$partieId = DB::getPdo()->lastInsertId();
+						$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get()[0]->EQP_SEQNC;
+						$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get()[0]->EQP_SEQNC;
+						//insert liens
+						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+					}
 				}
 				$dateFinSaison = $value['date'];
 				$dateFinSemaine = $value['date'];
@@ -95,7 +96,35 @@ class NFLController extends BaseController
 		
 	}
 	public function fillCote(){
-	
+		$obj = $this->getSpreadData();
+		foreach ($obj as $value){
+			//SELECT * FROM partie_par WHERE PAR_DATE = '2016-09-08 08:30:00' AND PAR_SEQNC IN (SELECT PEQ_PAR_SEQNC FROM partie_equipe_peq, equipe_eqp WHERE PEQ_EQP_SEQNC = EQP_SEQNC AND EQP_NOM = 'Broncos' AND PEQ_INDIC_HOME = 'O') AND PAR_SEQNC IN (SELECT PEQ_PAR_SEQNC FROM partie_equipe_peq, equipe_eqp WHERE PEQ_EQP_SEQNC = EQP_SEQNC AND EQP_NOM = 'Panthers' AND PEQ_INDIC_HOME = 'N')
+			$tempNameHome = explode(" ", $value['home']);
+			$tempNameVisitor = explode(" ", $value['visitor']);
+			$tempNameHome = $tempNameHome[count($tempNameHome)-1];
+			$tempNameVisitor = $tempNameVisitor[count($tempNameVisitor)-1];
+			$subquery1 = DB::table('partie_equipe_peq')
+			->join('equipe_eqp', 'PEQ_EQP_SEQNC', '=', 'EQP_SEQNC')
+			->select('PEQ_PAR_SEQNC')
+			->where('EQP_NOM', $tempNameHome)
+			->where('PEQ_INDIC_HOME', 'O');
+			
+			$subquery2 = DB::table('partie_equipe_peq')
+			->join('equipe_eqp', 'PEQ_EQP_SEQNC', '=', 'EQP_SEQNC')
+			->select('PEQ_PAR_SEQNC')
+			->where('EQP_NOM', $tempNameVisitor)
+			->where('PEQ_INDIC_HOME', 'N');
+			
+			$value['date']->setTimezone(new DateTimeZone('America/Toronto'));
+			$id = DB::table('partie_par')
+			->select('PAR_SEQNC')
+			->where('PAR_DATE', $value['date']->format('Y-m-d h:i:s'))
+			->whereIn('PAR_SEQNC', $subquery1)
+			->whereIn('PAR_SEQNC', $subquery2)->get();
+			if(!empty($id)){
+				DB::table('partie_par')->where('PAR_SEQNC', $id[0]->PAR_SEQNC)->update(['PAR_COTE' => $value['homeSpread']]);
+			}
+		}
 	}
 	public function getCurrentWeek()
 	{
@@ -137,7 +166,7 @@ class NFLController extends BaseController
 		$obj = $this->xmlstr_to_array($xml);
 		$info = array();
 		foreach ($obj['events']['event'] as $value){
-			$temp['date'] = new DateTime($value['event_datetimeGMT'], new DateTimeZone('America/Toronto'));
+			$temp['date'] = new DateTime($value['event_datetimeGMT'], new DateTimeZone('GMT'));
 			foreach ($value['participants']['participant'] as $participant){
 				if($participant['visiting_home_draw'] == 'Home'){
 					$temp['home'] = $participant['participant_name'];
@@ -145,18 +174,17 @@ class NFLController extends BaseController
 					$temp['visitor'] = $participant['participant_name'];
 				}
 			}
-			if(is_array($value['periods']['period']['spread']['spread_home'])){
+			if(empty($value['periods']) || is_array($value['periods']['period']['spread']['spread_home'])){
 				$value['periods']['period']['spread']['spread_home'] = '0';
 			}
-			if(is_array($value['periods']['period']['spread']['spread_visiting'])){
+			if(!isset($value['periods']['period']['spread']['spread_visiting']) || is_array($value['periods']['period']['spread']['spread_visiting'])){
 				$value['periods']['period']['spread']['spread_visiting'] = '0';
 			}
 			$temp['homeSpread'] = $value['periods']['period']['spread']['spread_home'];
 			$temp['visitorSpread'] = $value['periods']['period']['spread']['spread_visiting'];
 			$info[] = $temp;
 		}
-		var_dump($info);
-		return $xml;
+		return $info;
 	}
 	public function xmlstr_to_array($xmlstr) {
 		$doc = new \DOMDocument();

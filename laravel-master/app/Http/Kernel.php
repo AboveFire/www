@@ -50,4 +50,14 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 		'admin' => \App\Http\Middleware\Admin::class,
     ];
+    
+    protected function schedule(Schedule $schedule)
+    {
+    	$schedule->call(function () {
+    		app('App\Http\Controllers\NFLController')->fillCote();
+    	})->daily()->at('02:00');
+    	$schedule->call(function () {
+    		app('App\Http\Controllers\NFLController')->fillMatch();
+    	})->weekly()->mondays()->at('02:00');
+    }
 }
