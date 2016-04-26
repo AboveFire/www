@@ -16,6 +16,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Providers\Auth\AuthInterface;
 use Tymon\JWTAuth\Providers\User\UserInterface;
 
+use Log;
+
 class JWTAuth
 {
     /**
@@ -41,7 +43,7 @@ class JWTAuth
     /**
      * @var string
      */
-    protected $identifier = 'id';
+    protected $identifier = 'UTI_SEQNC';
 
     /**
      * @var \Tymon\JWTAuth\Token

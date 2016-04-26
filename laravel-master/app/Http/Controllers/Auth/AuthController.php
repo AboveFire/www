@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
+use Log;
 use JWTAuth;
 
 class AuthController extends Controller
@@ -81,7 +82,7 @@ class AuthController extends Controller
     public function authenticateMobile(Request $request)
     {
     	// grab credentials from the request
-    	$credentials = $request->only('uti_code', 'uti_paswd');
+    	$credentials = $request->only('uti_code', 'password');
     
     	try {
     		// attempt to verify the credentials and create a token for the user
@@ -96,4 +97,5 @@ class AuthController extends Controller
     	// all good so return the token
     	return response()->json(compact('token'));
     }
+    
  }
