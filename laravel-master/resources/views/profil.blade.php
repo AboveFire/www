@@ -1,6 +1,7 @@
 @extends('layouts.app') @section('title', 'Profil utilisateur')
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/profil.css') }}"></link>
+<br />
 <hr>
 <div class="container container-profil">
 	@if (session('status'))
@@ -11,7 +12,7 @@
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
-			<div class="colonne">
+			<div class="colonne gauche">
 						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
 						<span class="help-block"> 
@@ -33,7 +34,7 @@
 			</div>
 		</div>
 		<div class="ligne">
-			<div class="colonne">
+			<div class="colonne gauche">
 				<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#nom#</label>
 					<div class="col col-md-12">
@@ -68,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="colonne">
+			<div class="colonne droite">
 				<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#prenm#</label>
 					<div class="col col-md-12">
@@ -94,7 +95,7 @@
 			</div>
 		</div>
 		<div class="ligne">
-			<div class="colonne">
+			<div class="colonne gauche">
 				<div class="form-group{{ $errors->has('paswd') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#paswd#</label>
 					<div class="col col-md-12">
@@ -107,7 +108,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="colonne">
+			<div class="colonne droite">
 				<div class="form-group{{ $errors->has('paswd_confirmation') ? ' has-error' : '' }}">
 		        	<label class="col-md-2 control-label">#paswd_confirmation#</label>
 					<div class="col col-md-12">
@@ -120,11 +121,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="col-md-6 col-md-offset-4">
-					<button onclick="location.href='{{ url('/profil') }}'" type="button" class="btn btn-primary">
-						<i class="fa fa-btn fa-times"></i>Annuler
-					</button>
+		</div>	
+		<hr>
+		<div class="ligne">
+			<div class="colonne gauche">
+				<div class="form-group">
+					<div class="col-md-2 butn gauche">
+						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="btn btn-primary">
+							<i class="fa fa-btn fa-times"></i>Annuler
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="colonne droite">
+				<div class="butn droite">
 					<button type="submit" class="btn btn-primary">
 						<i class="fa fa-btn fa-save"></i>Enregistrer
 					</button>
@@ -134,4 +144,5 @@
 	</form>
 	<span class="image"></span>
 </div>
+
 @endsection

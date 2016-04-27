@@ -5,13 +5,12 @@
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/about.css') }}"></link>
 <div class="main">
 	<img src="{{ URL::asset('images/logo.png') }}" alt="Logo" class="logo">
-	<h1 class="realise">Réalisé par :</h1>
-	<ul>
-		<li>Olivier Parent</li>
-		<li>Simon Côté</li>
-		<li>Samuel Foisy</li>
-		<li>Samuel Dansereau</li>
-	</ul>
+	<h1 class="realise">	Réalisé par	</h1>
+	<span>Olivier Parent<br />
+		Simon Côté<br />
+		Samuel Foisy<br />
+		Samuel Dansereau<br />
+	</span>
 	<p>
 		Tous les logos des équipes et leurs nom sont une propriété de la NFL.<br />
 		Toutes les informations proviennent du site officiel de la NFL.

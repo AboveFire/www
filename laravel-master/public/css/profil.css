@@ -2,13 +2,12 @@
 {
 	width:100%;
 	margin: 0;
-	padding: 2.5% 20%;
+	padding: 0;
 }
 
 .colonne
 {
 	width: 40%;
-	float: left;
 	margin: 0 2.5%;
 }
 
@@ -25,8 +24,9 @@
 
 .ligne
 {
-	/*float: left;*/	
-	/*display: inline-block;*/
+	width: 100%;
+	padding: 0 20%;
+	display: inline-block;
 }
 
 .image {

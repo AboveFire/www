@@ -5,6 +5,7 @@
 }
 .main {
 	text-align: center;
+	font-size: 125%;
 }
 .main ul {
 	list-style-type: none;
@@ -14,9 +15,11 @@
 }
 .main p{
 	margin:50px;
+	font-size: 90%;
 }
 .realise {
 	text-decoration: underline;
 	font-weight: bold;
-	font-size: 110%;
+	font-size: 125%;
+	white-space: pre;
 }
