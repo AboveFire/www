@@ -2,6 +2,7 @@
 @section('title', 'Live Pool')
 
 @section('content')
+<script src="{{ URL::asset('js/forms.js') }}"></script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

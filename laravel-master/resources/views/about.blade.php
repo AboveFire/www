@@ -4,7 +4,7 @@
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/about.css') }}"></link>
 <div class="main">
-	<img src="logo.jpg" alt="Logo" class="logo">
+	<img src="{{ URL::asset('images/logo.png') }}" alt="Logo" class="logo">
 	<h1 class="realise">Réalisé par :</h1>
 	<ul>
 		<li>Olivier Parent</li>
