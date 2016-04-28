@@ -7,58 +7,68 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading">#titreLogin#</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
-
-                        <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">#courl#</label>
-
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}">
-
-                                @if ($errors->has('uti_code'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('uti_code') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+						<div class="ligne">
+	                        <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
+	                            <!-- <label class="col-md-4 control-label">#courl#</label>-->
+	                            <div class="col-md-12">
+	                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}" placeholder="#champCourl#">
+	
+	                                @if ($errors->has('uti_code'))
+	                                    <span class="help-block">
+	                                        <strong>{{ $errors->first('uti_code') }}</strong>
+	                                    </span>
+	                                @endif
+	                            </div>
+	                        </div>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">#paswd#</label>
-
-                            <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}"><i class="fa fa-external-link"></i> &nbsp;Mot de passe oublié?</a>
-                                <a class="btn btn-link" href="{{ url('inscription') }}"><i class="fa fa-plus-square-o"></i> &nbsp;S'inscrire</a>
-                            </div>
+                        <div class="ligne">
+	                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+	                            <!--  <label class="col-md-4 control-label">#paswd#</label>-->
+	
+	                            <div class="col-md-12">
+	                                <input type="password" class="form-control" name="password" placeholder="#champMDP#">
+	
+	                                @if ($errors->has('password'))
+	                                    <span class="help-block">
+	                                        <strong>{{ $errors->first('password') }}</strong>
+	                                    </span>
+	                                @endif
+	                            </div>
+	                        </div>
+						</div>
+						<!-- <div class="ligne">
+	                        <div class="form-group">
+	                            <div class="col-md-12 col-md-offset-4">
+	                                <div class="checkbox">
+	                                    <label>
+	                                        <input type="checkbox" name="remember"> #txtSeSouvenir#
+	                                    </label>
+	                                </div>
+	                            </div>
+	                        </div>
+						</div> -->
+						<div class="ligne">
+	                        <div class="form-group">
+	                            <div class="col-md-12 col-md-offset-4">
+		                            <div class="zoneBtnLogin">
+		                                <button type="submit" class="butn">
+		                                    <i class="fa fa-btn fa-sign-in"></i>#btnLogin#
+		                                </button>
+									</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="ligne">
+	                        <div class="form-group">
+	                            <div class="col-md-12 col-md-offset-4">
+	                                <a class="btn btn-link colonne gauche" href="{{ url('/password/reset') }}"><i class="fa fa-external-link"></i> &nbsp;#txtMDPOublie#</a>
+	                                <a class="btn btn-link colonne droite" href="{{ url('inscription') }}"><i class="fa fa-plus-square-o"></i> &nbsp;#txtSinscrire#</a>
+	                            </div>
+	                        </div>
                         </div>
                     </form>
                 </div>

@@ -126,16 +126,16 @@
 		<div class="ligne">
 			<div class="colonne gauche">
 				<div class="form-group">
-					<div class="col-md-2 butn gauche">
-						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="btn btn-primary">
+					<div class="col-md-2 gauche">
+						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="butn">
 							<i class="fa fa-btn fa-times"></i>Annuler
 						</button>
 					</div>
 				</div>
 			</div>
 			<div class="colonne droite">
-				<div class="butn droite">
-					<button type="submit" class="btn btn-primary">
+				<div class="droite">
+					<button type="submit" class="butn">
 						<i class="fa fa-btn fa-save"></i>Enregistrer
 					</button>
 				</div>
