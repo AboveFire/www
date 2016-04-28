@@ -2,8 +2,8 @@
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/profil.css') }}"></link>
 <br />
-<hr>
 <div class="container container-profil">
+<hr>
 	@if (session('status'))
 	<div class="alert alert-success">
 		{{ session('status') }}

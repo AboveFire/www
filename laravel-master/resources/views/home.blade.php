@@ -3,7 +3,7 @@
 @section('content')
 <link type="text/css" rel="stylesheet"
 	href="{{ URL::asset('css/home.css') }}"></link>
-<div class="container-home">
+<div class="container">
 	<div class="option_home">
 		<a href="{{ url('/results') }}"> <i class="fa fa-star"></i>
 			<h1>Résultats</h1>

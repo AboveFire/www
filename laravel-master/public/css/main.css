@@ -1,6 +1,9 @@
 body {
 	font-family: 'Lato';
 	background: #d3d3d3;
+	min-height: 500px;
+	min-width: 750px;
+	height: 100%;
 }
 
 a
@@ -17,6 +20,12 @@ a:hover
 .titre
 {
 	width: 100%;
+}
+.sous-titre
+{
+	width: 100%;
+	font-size: 200%;
+	padding: 1% 0;
 }
 
 .titre a:hover, .titre a, .titre a:active
@@ -50,13 +59,17 @@ a:hover
 
 /*Font awesome*************************************************************************************/
 .fa-arrow-circle-left{
-	top:20px;
-	right:10px
+	font-size: 200%;
+	float: right;
+    padding-top: 7px;
 }
+
 .fa-arrow-circle-right{
-	top:20px;
-	left:10px
+	font-size: 200%;
+	float: left;
+    padding-top: 7px;
 }
+
 .fa-btn {
 	margin-right: 6px;
 }
@@ -79,13 +92,15 @@ a:hover
 
 /*Menu*************************************************************************************/
 #menu-left {
-	background-color: #b30000;
+	background-color: #D3D3D3;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	width: 17.755em;
 	left: -17.755em;
 	height: 100%;
+	
+	border-right: 1px solid #FFFFFF;
 	
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
@@ -123,6 +138,9 @@ a:hover
 	width: 17.755em;
 	right: -17.755em;
 	height: 100%;
+	
+	border-left: 1px solid #FFFFFF;
+		
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
 	-o-transform: translate(0px, 0px);
@@ -141,29 +159,6 @@ a:hover
 	-o-transform: translate(-17.755em, 0px);
 	-ms-transform: translate(-17.755em, 0px);
 	transform: translate(-17.755em, 0px);
-}
-
-.main-container {
-	-webkit-transform: translate(0px, 0px);
-	-moz-transform: translate(0px, 0px);
-	-o-transform: translate(0px, 0px);
-	-ms-transform: translate(0px, 0px);
-	transform: translate(0px, 0px);
-	-webkit-transition: 0.15s ease;
-	-moz-transition: 0.15s ease;
-	-o-transition: 0.15s ease;
-	transition: 0.15s ease;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
-
-.main-container.active {
-	-webkit-transform: translate(-17.725em, 0px);
-	-moz-transform: translate(-17.725em, 0px);
-	-o-transform: translate(-17.725em, 0px);
-	-ms-transform: translate(-17.725em, 0px);
-	transform: translate(-17.725em, 0px);
 }
 
 .side ul{
@@ -198,6 +193,36 @@ hr
 {
 	float: right;
 }
+
+.main-container {
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+	-webkit-transition: 0.15s ease;
+	-moz-transition: 0.15s ease;
+	-o-transition: 0.15s ease;
+	transition: 0.15s ease;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%
+}
+
+.main-container.active {
+	-webkit-transform: translate(-17.725em, 0px);
+	-moz-transform: translate(-17.725em, 0px);
+	-o-transform: translate(-17.725em, 0px);
+	-ms-transform: translate(-17.725em, 0px);
+	transform: translate(-17.725em, 0px);
+}
+
+.container
+{
+	padding: 0;
+} 
+
 /*Form*************************************************************************************/
 colonne
 {
@@ -315,6 +340,21 @@ button.butn.focus{
 	background-color: #670000;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
+}
+
+btn-width-25
+{
+	min-width: 25%;
+}
+
+btn-width-50
+{
+	min-width: 50%;
+}
+
+btn-width-100
+{
+	min-width: 100%;
 }
 
 /*Footer*************************************************************************************/

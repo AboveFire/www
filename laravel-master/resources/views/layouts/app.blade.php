@@ -25,12 +25,12 @@
 	<body id="app-layout">
 		<nav id="menu" class="side">
 			<div class="header">
-				<span>
+				<div>
 					<a href="#menu-side" class="menu-link">
 						<i class="fa fa-arrow-circle-right"></i>
 					</a>
-					<h3>Menu</h3>
-				</span>
+					<div class="sous-titre">Menu</div>
+				</div>
 			</div>
 			<ul>
 				<li><a href="{{ url('/home') }}">
@@ -85,12 +85,12 @@
 		</nav>
 		<nav id="menu-left" class="side">
 			<div class="header">
-				<span>
+				<div>
 					<a href="#menu-left-side" class="menu-link-left">
 						<i class="fa fa-arrow-circle-left"></i>
 					</a>
-					<h3>Options</h3>
-				</span>
+					<div class="sous-titre">Options</div>
+				</div>
 			</div>
 			<ul>
 				@if (!Auth::guest())
@@ -133,6 +133,6 @@
 			<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 			{{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 		</div>
-		<div id="footer" class="footer"></div>
+		<div id="footer" class="footer"></div>	
 	</body>
 </html>
