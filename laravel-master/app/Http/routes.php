@@ -33,7 +33,7 @@ Route::post('/sschat', 'ChatController@run');
 /*Route::get('/chat', function () {
     return view('chat.sschat');
 });*/
-Route::get('/chat',['middleware' => 'auth.basic', function () {
+Route::get('/chat',['middleware' => 'auth', function () {
     return view('chat.sschat');
 }]);
 Route::auth();
@@ -50,7 +50,7 @@ Route::get('/about', function () {
 Route::get('/inscription', function () {
 	return view('/auth/register');
 });
-Route::get('/profil',['middleware' => 'auth.basic', function () {
+Route::get('/profil',['middleware' => 'auth', function () {
 	return view('profil');
 }]);
 
@@ -58,13 +58,13 @@ Route::get('/results', function () {
 	return view('results');
 });
 //Pool route
-Route::get('/form-classic',['middleware' => 'auth.basic', function () {
+Route::get('/form-classic',['middleware' => 'auth', function () {
 	return view('pool.forms.classic');
 }]);
-Route::get('/form-playoff',['middleware' => 'auth.basic', function () {
+Route::get('/form-playoff',['middleware' => 'auth', function () {
 	return view('pool.forms.playoff');
 }]);
-Route::get('/form-survivor',['middleware' => 'auth.basic', function () {
+Route::get('/form-survivor',['middleware' => 'auth', function () {
 	return view('pool.forms.survivor');
 }]);
 Route::get('/results-classic', function () {
