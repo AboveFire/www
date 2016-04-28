@@ -77,6 +77,6 @@ class ProfilController extends Controller
     public function getProfileMobile(Request $request)
     {
     	$user = JWTAuth::toUser($request['token']);
-    	return response()->json(array_only($user->toArray(),array('UTI_NOM', 'UTI_PRENM', 'UTI_COURL', 'UTI_TELPH', 'UTI_IMAGE', 'UTI_TYPE_IMAGE', 'UTI_CODE')));
+    	return response()->json(array_only($user->toArray(),array('UTI_NOM', 'UTI_PRENM', 'UTI_COURL', 'UTI_TELPH', 'UTI_CODE')));
     }
 }
