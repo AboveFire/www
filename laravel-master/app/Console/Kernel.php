@@ -26,5 +26,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+    	$schedule->call(function () {
+    		app('App\Http\Controllers\NFLController')->fillCote();
+    	})->daily()->at('02:00');
+    	$schedule->call(function () {
+    		ini_set('max_execution_time', 0);
+    		app('App\Http\Controllers\NFLController')->fillMatch();
+    		ini_set('max_execution_time', 3000);
+    	})->weekly()->mondays()->at('02:00');
     }
 }

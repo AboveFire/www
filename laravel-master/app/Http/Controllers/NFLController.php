@@ -11,6 +11,9 @@ class NFLController extends BaseController
 {
 	public function test()
 	{
+		ini_set('max_execution_time', 0);
+		$this->fillMatch();
+		ini_set('max_execution_time', 3000);
 	}
 	public function fillTeam(){
 		$temp;
@@ -73,14 +76,20 @@ class NFLController extends BaseController
 				}
 				if(!$weekDone){
 					//insert partie
-					if(empty(DB::table('partie_par')->select('PAR_LUGC_ID')->where('PAR_LUGC_ID', $value['eid'])->where('PAR_SEM_SEQNC', $weekId)->get())){
+					$eid = DB::table('partie_par')->select('PAR_LUGC_ID', 'PAR_SEQNC')->where('PAR_LUGC_ID', $value['eid'])->where('PAR_SEM_SEQNC', $weekId)->get();
+					if(empty($eid)){
 						DB::table('partie_par')->insert(['PAR_DATE' => $value['date']->format('Y-m-d H:i:s'),'PAR_LUGC_ID' => $value['eid'],'PAR_SEM_SEQNC' => $weekId]);
 						$partieId = DB::getPdo()->lastInsertId();
-						$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get()[0]->EQP_SEQNC;
-						$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get()[0]->EQP_SEQNC;
+						$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get();
+						$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get();
 						//insert liens
-						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
-						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+						$score = $this->getMatchData($value['eid']);
+						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH[0]->EQP_SEQNC, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => $score['home']]);
+						DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV[0]->EQP_SEQNC, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => $score['visitor']]);
+					}else{
+						$score = $this->getMatchData($eid[0]->PAR_LUGC_ID);
+						DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $eid[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'O')->update(['PEQ_SCORE' => $score['home']]);
+						DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $eid[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'N')->update(['PEQ_SCORE' => $score['visitor']]);
 					}
 				}
 				$dateFinSaison = $value['date'];
@@ -117,12 +126,16 @@ class NFLController extends BaseController
 			
 			$value['date']->setTimezone(new DateTimeZone('America/Toronto'));
 			$id = DB::table('partie_par')
-			->select('PAR_SEQNC')
+			->select('PAR_SEQNC', 'PAR_LUGC_ID')
 			->where('PAR_DATE', $value['date']->format('Y-m-d h:i:s'))
 			->whereIn('PAR_SEQNC', $subquery1)
 			->whereIn('PAR_SEQNC', $subquery2)->get();
 			if(!empty($id)){
 				DB::table('partie_par')->where('PAR_SEQNC', $id[0]->PAR_SEQNC)->update(['PAR_COTE' => $value['homeSpread']]);
+				/*$temp = $this->getMatchData($id[0]->PAR_LUGC_ID);
+				var_dump($temp);
+				DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $id[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'O')->update(['PEQ_SCORE' => $temp['home']]);
+				DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $id[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'N')->update(['PEQ_SCORE' => $temp['visitor']]);*/
 			}
 		}
 	}
@@ -157,9 +170,13 @@ class NFLController extends BaseController
 	}
 	public function getMatchData($eid)
 	{
-		$json = file_get_contents('http://www.nfl.com/liveupdate/game-center/' . $eid . '/' . $eid . '_gtd.json');
-		$obj = json_decode($json, true);
-		return array('home' => $obj[$eid]['home']['score']['T'], 'visitor' => $obj[$eid]['away']['score']['T']);
+		try {
+			$json = file_get_contents('http://www.nfl.com/liveupdate/game-center/' . $eid . '/' . $eid . '_gtd.json');
+			$obj = json_decode($json, true);
+			return array('home' => $obj[$eid]['home']['score']['T'], 'visitor' => $obj[$eid]['away']['score']['T']);
+		}catch(\Exception $e) {
+			return array('home' => 0, 'visitor' => 0);
+		}
 	}
 	public function getSpreadData(){
 		$xml = file_get_contents('http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=nfl');

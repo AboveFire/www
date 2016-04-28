@@ -51,14 +51,4 @@ class Kernel extends HttpKernel
 		'admin' => \App\Http\Middleware\Admin::class,
     	'mobile' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
     ];
-    
-    protected function schedule(Schedule $schedule)
-    {
-    	$schedule->call(function () {
-    		app('App\Http\Controllers\NFLController')->fillCote();
-    	})->daily()->at('02:00');
-    	$schedule->call(function () {
-    		app('App\Http\Controllers\NFLController')->fillMatch();
-    	})->weekly()->mondays()->at('02:00');
-    }
 }
