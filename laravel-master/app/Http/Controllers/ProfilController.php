@@ -33,14 +33,18 @@ class ProfilController extends Controller
     	$img_data = $type = null;
     	if ($path != '')
     	{
-    		$img_data = file_get_contents($path);
+    		ob_start();
+    		$png = imagepng(imagecreatefromstring(file_get_contents($path)));
+    		$png = ob_get_contents();
+    		ob_end_clean();
     		
     		$this->validate($request, ['img' => 'image',]);
     		
     		$type = $path->getClientOriginalExtension();
+    		$type = 'PNG';
     	
     		Utilisateur_uti::where('UTI_SEQNC', '=',$request->seqnc)->update([
-    				'uti_image' => $img_data,
+    				'uti_image' => $png,
     				'uti_type_image' => $type,
     		]);
     	}

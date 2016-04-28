@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Log;
 
 class Utilisateur_uti extends Authenticatable
 {
@@ -94,8 +93,7 @@ class Utilisateur_uti extends Authenticatable
 	{
 		$base64   = base64_encode($this->UTI_IMAGE);
 		return ('data:' .'image/' . $this->UTI_TYPE_IMAGE . ';base64,' . $base64);
-		
-		Log::info($this->UTI_IMAGE);
+
 		return $this->UTI_IMAGE;
 	}
 	
