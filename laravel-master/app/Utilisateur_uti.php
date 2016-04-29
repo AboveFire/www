@@ -99,7 +99,7 @@ class Utilisateur_uti extends Authenticatable
 	
 	public function getNomPrenm()
 	{
-		return $this->UTI_PRENM . ', ' . $this->UTI_NOM;
+		return $this->UTI_PRENM . ' ' . $this->UTI_NOM;
 	}
 	
 	

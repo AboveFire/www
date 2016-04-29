@@ -15,7 +15,7 @@
 	                        <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
 	                            <!-- <label class="col-md-4 control-label">#courl#</label>-->
 	                            <div class="col-md-12">
-	                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}" placeholder="#champCourl#">
+	                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}" placeholder="#champCode#">
 	
 	                                @if ($errors->has('uti_code'))
 	                                    <span class="help-block">
