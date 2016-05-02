@@ -29,7 +29,7 @@
 					<a href="#menu-side" class="menu-link">
 						<i class="fa fa-arrow-circle-right"></i>
 					</a>
-					<div class="sous-titre">Menu</div>
+					<div class="sous-titre titreMenuD">Menu</div>
 				</div>
 			</div>
 			<ul class="ulGlobal">
@@ -89,7 +89,7 @@
 					<a href="#menu-left-side" class="menu-link-left">
 						<i class="fa fa-arrow-circle-left"></i>
 					</a>
-					<div class="sous-titre">Options</div>
+					<div class="sous-titre titreMenuG">Options</div>
 				</div>
 			</div>
 			<ul class="ulGlobal">
