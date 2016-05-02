@@ -29,7 +29,13 @@
 	display: inline-block;
 }
 
+.form-horizontal .control-label
+{
+	width: 100%;
+	text-align: left;
+}
 
+/*Image de profil*************************************************************************************/
 .zoneImage
 {
 	margin: 0 2.5%;
@@ -51,10 +57,4 @@ input[type="file" i]
 .btnUpload
 {
 	height: 150px;
-}
-
-.form-horizontal .control-label
-{
-	width: 100%;
-	text-align: left;
 }

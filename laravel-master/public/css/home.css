@@ -7,8 +7,8 @@
 
 .option_home 
 {
-	width: 15%;
-	margin: 2.5%;
+	width: 17%;
+	margin: 1.5%;
 	float: left;
 	vertical-align: middle;
 	text-align: center;
@@ -28,9 +28,12 @@
 
 .titreMenu
 {
+	height: 85px;
+	margin: auto;
 	font-size: 2.5vmin;
 	font-size: 2.5vmax;
 	font-weight: bold;
+	padding: 0px;
 }
 
 /*Footer*************************************************************************************/

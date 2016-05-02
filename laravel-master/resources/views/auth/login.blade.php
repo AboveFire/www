@@ -5,6 +5,7 @@
 <script src="{{ URL::asset('js/forms.js') }}"></script>
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/login.css') }}"></link>
 <div class="container container-login">
+	<hr>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -76,5 +77,6 @@
             </div>
         </div>
     </div>
+    <hr>
 </div>
 @endsection

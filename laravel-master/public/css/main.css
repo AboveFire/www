@@ -6,27 +6,11 @@ body {
 	height: 100%;
 }
 
-a
-{
-	color: #000000;
-	font-weight: bold;
-}
+/*Base*************************************************************************************/
 
-a:hover
-{
-	text-decoration: none;
-}
-
-/*Header*************************************************************************************/
 .titre
 {
 	width: 100%;
-}
-.sous-titre
-{
-	width: 100%;
-	font-size: 200%;
-	padding: 1% 0;
 }
 
 .titre a:hover, .titre a, .titre a:active
@@ -34,6 +18,36 @@ a:hover
 	color: white;
 	text-decoration: none;
 }
+
+.sous-titre
+{
+	width: 100%;
+	font-size: 200%;
+	padding: 1% 0;
+}
+
+a
+{
+	color: #000000;
+	font-weight: bold;
+}
+
+a:hover, a:active, a.hover, a.active
+{
+	color: #B30000;
+	border-color: #B30000;
+	text-decoration: underline;
+}
+a.focus, a:focus
+{
+	color: #B30000;
+}
+hr
+{
+	border: 1px solid #000000;
+}
+
+/*Header*************************************************************************************/
 
 .header i{
 	color: white;
@@ -116,13 +130,6 @@ a:hover
 .ulGlobal 
 {
 	color: #000000;
-}
-
-a:hover, a:active, a.hover, a.active
-{
-	color: #B30000;
-	border-color: #B30000;
-	text-decoration: underline;
 }
 
 .ulGlobal i:hover
@@ -223,11 +230,6 @@ a:hover, a:active, a.hover, a.active
 	list-style-type: none;
 }
 
-hr
-{
-	border: 1px solid #000000;
-}
-
 .imageMenu {
 	margin:0 0 2%;
 	width:100px;
@@ -285,10 +287,6 @@ hr
 	padding: 0;
 } 
 
-a.focus, a:focus
-{
-	color: #B30000;
-}
 
 /*Form*************************************************************************************/
 colonne
