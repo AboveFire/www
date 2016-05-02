@@ -3,7 +3,8 @@
 
 @section('content')
 <script src="{{ URL::asset('js/forms.js') }}"></script>
-<div class="container">
+<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/login.css') }}"></link>
+<div class="container container-login">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -55,7 +56,7 @@
 	                        <div class="form-group">
 	                            <div class="col-md-12 col-md-offset-4">
 		                            <div class="zoneBtnLogin">
-		                                <button type="submit" class="butn">
+		                                <button type="submit" class="butn btn-width-100">
 		                                    <i class="fa fa-btn fa-sign-in"></i>#btnLogin#
 		                                </button>
 									</div>
@@ -65,8 +66,8 @@
 	                    <div class="ligne">
 	                        <div class="form-group">
 	                            <div class="col-md-12 col-md-offset-4">
-	                                <a class="btn btn-link colonne gauche" href="{{ url('/password/reset') }}"><i class="fa fa-external-link"></i> &nbsp;#txtMDPOublie#</a>
-	                                <a class="btn btn-link colonne droite" href="{{ url('inscription') }}"><i class="fa fa-plus-square-o"></i> &nbsp;#txtSinscrire#</a>
+	                                <a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/password/reset') }}"><i class="fa fa-external-link"></i> &nbsp;#txtMDPOublie#</a>
+	                                <a class="btn btn-link colonne droite btn-width-50" href="{{ url('inscription') }}"><i class="fa fa-plus-square-o"></i> &nbsp;#txtSinscrire#</a>
 	                            </div>
 	                        </div>
                         </div>

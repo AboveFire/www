@@ -31,9 +31,11 @@
 
 .image {
 	margin:0 0 2%;
-	width:150px;
+	width:165px;
 	height:150px;
+	padding: 0 0 0 15px;
 }
+
 
 .form-horizontal .control-label
 {

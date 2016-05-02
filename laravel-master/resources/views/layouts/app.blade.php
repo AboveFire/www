@@ -32,50 +32,50 @@
 					<div class="sous-titre">Menu</div>
 				</div>
 			</div>
-			<ul>
+			<ul class="ulGlobal">
 				<li><a href="{{ url('/home') }}">
-					<i class="fa fa-home"></i>Accueil
+					<i class="fa fa-btn fa-home"></i>Accueil
 				</a></li>
 				<li><a href="{{ url('/results') }}">
-					<i class="fa fa-star"></i>Résultats
+					<i class="fa fa-btn fa-star"></i>Résultats
 				</a></li>
 				<li><a href="{{ url('/results-classic') }}">
-					<i class="fa fa-gamepad"></i>Pool classique
+					<i class="fa fa-btn fa-gamepad"></i>Pool classique
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-classic') }}">
-						<i class="fa fa-file-o"></i>Formulaire classique
+						<i class="fa fa-btn fa-file-o"></i>Formulaire classique
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/results-playoff') }}">
-					<i class="fa fa-crosshairs"></i>Pool playoff
+					<i class="fa fa-btn fa-crosshairs"></i>Pool playoff
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-playoff') }}">
-						<i class="fa fa-file-o"></i>Formulaire playoff
+						<i class="fa fa-btn fa-file-o"></i>Formulaire playoff
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/results-survivor') }}">
-					<i class="fa fa-sitemap"></i>Pool survivor
+					<i class="fa fa-btn fa-sitemap"></i>Pool survivor
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-survivor') }}">
-						<i class="fa fa-file-o"></i>Formulaire survivor
+						<i class="fa fa-btn fa-file-o"></i>Formulaire survivor
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/chat') }}">
-					<i class="fa fa-comments"></i>Clavardage
+					<i class="fa fa-btn fa-comments"></i>Clavardage
 				</a></li>
 				@if (true/*Auth::user()->isAdmin()*/)
 				<li><a href="{{ url('/admin-home') }}">
-					<i class="fa fa-shield"></i>Administration
+					<i class="fa fa-btn fa-shield"></i>Administration
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/admin-pool') }}">
-						<i class="fa fa-users"></i>Gestion des utilisateurs
+						<i class="fa fa-btn fa-users"></i>Gestion des utilisateurs
 					</a></li>
 					<li><a href="{{ url('/admin-users') }}">
-						<i class="fa fa-plus"></i>Création d'un pool
+						<i class="fa fa-btn fa-plus"></i>Création d'un pool
 					</a></li>
 				</ul>
 				@endif
@@ -92,7 +92,7 @@
 					<div class="sous-titre">Options</div>
 				</div>
 			</div>
-			<ul>
+			<ul class="ulGlobal">
 				@if (!Auth::guest())
 				<li><a href="{{ url('/profil') }}">
 					<img src="{{ Auth::user()->getImage() }}" alt="imageMenu" class="imageMenu">

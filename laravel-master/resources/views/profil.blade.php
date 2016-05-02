@@ -3,12 +3,12 @@
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/profil.css') }}"></link>
 <br />
 <div class="container container-profil">
-<hr>
 	@if (session('status'))
 	<div class="alert alert-success">
 		{{ session('status') }}
 	</div>
 	@endif
+	<hr>
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
@@ -22,8 +22,8 @@
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#img#</label>
 					<img src="{{ Auth::user()->getImage() }}" alt="image" class="image col-md-2" ">
-					<div class="col col-md-12">
-						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
+					<div class="col col-md-12 btn-width-50">
+						<input type="file" name="img" class="btnUpload" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('img') }}</strong>
@@ -127,7 +127,7 @@
 			<div class="colonne gauche">
 				<div class="form-group">
 					<div class="col-md-2 gauche">
-						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="butn">
+						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="butn btn-width-100">
 							<i class="fa fa-btn fa-times"></i>Annuler
 						</button>
 					</div>
@@ -135,7 +135,7 @@
 			</div>
 			<div class="colonne droite">
 				<div class="droite">
-					<button type="submit" class="butn">
+					<button type="submit" class="butn btn-width-100">
 						<i class="fa fa-btn fa-save"></i>Enregistrer
 					</button>
 				</div>

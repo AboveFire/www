@@ -4,6 +4,7 @@
 	margin: 25px;
 	float: left;
 	text-align: center;
+	align: center;
 }
 
 .option_home i
@@ -17,5 +18,9 @@
 	width:100%;
 	background-color: aqua;
 	margin: auto;
-	
+}
+
+/*Footer*************************************************************************************/
+.footer {
+	/*bottom:0;*/
 }
