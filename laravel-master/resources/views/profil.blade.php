@@ -12,7 +12,7 @@
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
-			<div class="colonne gauche">
+			<div class="zoneImage">
 						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
 						<span class="help-block"> 
@@ -22,8 +22,8 @@
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#img#</label>
 					<img src="{{ Auth::user()->getImage() }}" alt="image" class="image col-md-2" ">
-					<div class="col col-md-12 btn-width-50">
-						<input type="file" name="img" class="btnUpload" value="{{ Auth::user()->UTI_IMAGE}}"> 
+					<div class="col col-md-12 btn-width-50 btnUpload">
+						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('img') }}</strong>

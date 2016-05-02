@@ -29,6 +29,12 @@
 	display: inline-block;
 }
 
+
+.zoneImage
+{
+	margin: 0 2.5%;
+}
+
 .image {
 	margin:0 0 2%;
 	width:165px;
@@ -36,6 +42,16 @@
 	padding: 0 0 0 15px;
 }
 
+input[type="file" i]
+{
+	width: 100%;
+	margin-top: 116px;
+}
+
+.btnUpload
+{
+	height: 150px;
+}
 
 .form-horizontal .control-label
 {

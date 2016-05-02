@@ -6,14 +6,10 @@ body {
 	height: 100%;
 }
 
-#header
-{
-
-}
-
 a
 {
-	color: black;
+	color: #000000;
+	font-weight: bold;
 }
 
 a:hover
@@ -94,11 +90,15 @@ a:hover
 }
 
 .btn-menu-left i {
+	padding-left: 15px;
 	float: left;
+	
 }
 
 .btn-menu-right i {
+	padding-right: 30px;
 	float: right;
+	
 }
 
 /*Menu*************************************************************************************/
@@ -124,7 +124,6 @@ a:hover, a:active, a.hover, a.active
 	border-color: #B30000;
 	text-decoration: underline;
 }
-
 
 .ulGlobal i:hover
 {
@@ -286,6 +285,11 @@ hr
 	padding: 0;
 } 
 
+a.focus, a:focus
+{
+	color: #B30000;
+}
+
 /*Form*************************************************************************************/
 colonne
 {
@@ -329,7 +333,6 @@ colonne
 {
 	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
     box-shadow: 0 0px 0px rgba(0,0,0,.05);
-    
 }
 .panel-default
 {
@@ -366,12 +369,11 @@ input.form-control.focus
 	margin-left:0;
 }
 
-.butn
+.butn, input[type="file" i]::-webkit-file-upload-button
 {
 	background-color: #B30000;
 	color: #FFFFFF;
 	border: 1px solid black;
-	
 	outline:none;
 	display: inline-block;
     padding: 6px 12px;
@@ -393,13 +395,15 @@ input.form-control.focus
     border-radius: 4px;
 }
 
-.butn:hover
+.butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
 {
 	background-color: #950000;
+
 }
 
 button.butn:focus,
-button.butn.focus{
+button.butn.focus
+{
 	background-color: #670000;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
@@ -418,6 +422,17 @@ button.butn.focus{
 .btn-width-100
 {
 	width: 100%;
+}
+
+input[type="file" i]:focus,
+input[type="file" i].focus,
+input[type="file" i]:active,
+input[type="file" i].active
+{
+	border: 1px solid #000000;
+  	box-shadow: 0 1px 1px #000000 inset, 0 0 1px #000000;
+  	border-radius: 4px;
+  	outline:none;
 }
 
 /*Footer*************************************************************************************/

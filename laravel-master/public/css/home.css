@@ -1,26 +1,40 @@
+.option
+{
+	width:100%;
+	align: center;
+	margin: auto 0;
+}
+
 .option_home 
 {
-	width:15%;
-	margin: 25px;
+	width: 15%;
+	margin: 2.5%;
 	float: left;
+	vertical-align: middle;
 	text-align: center;
-	align: center;
 }
 
 .option_home i
 {
-	font-size:1250%;
+	font-size: 12.5vmin;
+	font-size: 12.5vmax;
 }
 
-.container-home
+.txtMenu
 {
-	height:100%;
-	width:100%;
-	background-color: aqua;
-	margin: auto;
+	text-align: justify;
+	vertical-align: middle;
+}
+
+.titreMenu
+{
+	font-size: 2.5vmin;
+	font-size: 2.5vmax;
+	font-weight: bold;
 }
 
 /*Footer*************************************************************************************/
 .footer {
-	/*bottom:0;*/
+	min-width: 750px;
+	bottom:0;
 }
