@@ -7,3 +7,10 @@
 .footer {
 	/*bottom:0;*/
 }
+
+.main-container 
+{
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
