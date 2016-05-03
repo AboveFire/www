@@ -94,7 +94,17 @@ class Utilisateur_uti extends Authenticatable
 		$base64   = base64_encode($this->UTI_IMAGE);
 		return ('data:' .'image/' . $this->UTI_TYPE_IMAGE . ';base64,' . $base64);
 
-		return $this->UTI_IMAGE;
+		//return $this->UTI_IMAGE;
+	}
+	
+	public function getImageMobile()
+	{
+		$base64   = base64_encode($this->UTI_IMAGE);
+		if ($base64 == '')
+		{
+			return '{"error":"image_not_found"}';
+		}
+		return ($base64);
 	}
 	
 	public function getNomPrenm()

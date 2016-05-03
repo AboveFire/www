@@ -104,5 +104,5 @@ Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilControll
 Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
-	return Auth::user()->getImage();
+	return Auth::user()->getImageMobile();
 }]);
