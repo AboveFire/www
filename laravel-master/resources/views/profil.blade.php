@@ -21,7 +21,7 @@
 						@endif
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
 					<label class="col-md-2 control-label">#img#</label>
-					<img src="{{ Auth::user()->getImage() }}" alt="image" class="image col-md-2" ">
+					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="image col-md-2" ">
 					<div class="col col-md-12 btn-width-50 btnUpload">
 						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
