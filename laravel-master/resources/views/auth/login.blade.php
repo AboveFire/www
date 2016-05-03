@@ -4,8 +4,13 @@
 @section('content')
 <script src="{{ URL::asset('js/forms.js') }}"></script>
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/login.css') }}"></link>
+<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/form.css') }}"></link>
 <div class="container container-login">
-
+	@if (session('status'))
+	<div class="alert alert-success">
+		{{ session('status') }}
+	</div>
+	@endif
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -15,7 +20,6 @@
                         {!! csrf_field() !!}
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
-	                            <!-- <label class="col-md-4 control-label">#courl#</label>-->
 	                            <div class="col-md-12">
 	                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}" placeholder="#champCode#">
 	
@@ -29,8 +33,6 @@
                         </div>
                         <div class="ligne">
 	                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-	                            <!--  <label class="col-md-4 control-label">#paswd#</label>-->
-	
 	                            <div class="col-md-12">
 	                                <input type="password" class="form-control" name="password" placeholder="#champMDP#">
 	

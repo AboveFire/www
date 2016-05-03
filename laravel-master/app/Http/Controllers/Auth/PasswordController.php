@@ -105,6 +105,17 @@ class PasswordController extends Controller
     }
     
     /**
+     * Get the response for after the reset link has been successfully sent.
+     *
+     * @param  string  $response
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function getSendResetLinkEmailSuccessResponse($response)
+    {
+    	return redirect('/login')->with('status', trans($response));
+    }
+    
+    /**
      * Get the response for after a failing password reset.
      *
      * @param  Request  $request

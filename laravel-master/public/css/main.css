@@ -4,9 +4,9 @@ body {
 	min-height: 500px;
 	min-width: 750px;
 	height: 100%;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 /*Base*************************************************************************************/
@@ -19,7 +19,6 @@ body {
 .titre a:hover, .titre a, .titre a:active
 {
 	color: white;
-	text-decoration: none;
 }
 
 .sous-titre
@@ -40,7 +39,8 @@ a:hover, a:active, a.hover, a.active
 {
 	color: #B30000;
 	border-color: #B30000;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
+	text-decoration: none;
 }
 a.focus, a:focus
 {
@@ -121,6 +121,11 @@ hr
 	padding-right: 30px;
 	float: right;
 	
+}
+
+.btn-link:hover, .btn-link:focus, .btn-link:active 
+{
+	text-decoration: none;
 }
 
 /*Menu*************************************************************************************/
@@ -441,7 +446,7 @@ button.butn.focus
 
 .btn-width-50
 {
-	width: 50%;
+	width: 49.6%;
 }
 
 .btn-width-100

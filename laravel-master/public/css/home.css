@@ -1,34 +1,40 @@
-.option
+.tableau
 {
-	width:100%;
-	align: center;
-	margin: auto 0;
+    display: table;
+    width: 100%;
 }
 
-.option_home 
+.ligne_option 
 {
 	width: 17%;
 	margin: 1.5%;
 	float: left;
 	vertical-align: middle;
 	text-align: center;
+    display: table-cell;
 }
 
-.option_home i
+.ligne_option i
 {
 	font-size: 12.5vmin;
 	font-size: 1000%;
 }
 
-.txtMenu
+.ligne_descr
 {
+	width: 17%;
+	margin: 1.5%;
+	float: left;
+	vertical-align: middle;
+	text-align: center;
 	text-align: justify;
 	vertical-align: middle;
+    display: table-cell;
 }
 
 .titreMenu
 {
-	height: 85px;
+	/*height: 85px;*/
 	margin: auto;
 	font-size: 2.5vmin;
 	font-size: 2.5vmax;
@@ -36,8 +42,3 @@
 	padding: 0px;
 }
 
-/*Footer*************************************************************************************/
-.footer {
-	min-width: 750px;
-	bottom:0;
-}

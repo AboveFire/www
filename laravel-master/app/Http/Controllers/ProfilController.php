@@ -36,7 +36,9 @@ class ProfilController extends Controller
 
     		$this->validate($request, ['img' => 'image',]);
     		ob_start();
-    		$png = imagepng(imagecreatefromstring(file_get_contents($path)));
+    		$content = file_get_contents($path);
+    		$size = getimagesize($path);
+    		$png = imagepng(imagecreatefromstring($content));
     		$png = ob_get_contents();
     		ob_end_clean();
     		

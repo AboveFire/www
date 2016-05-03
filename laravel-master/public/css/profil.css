@@ -11,30 +11,6 @@
 	margin: 0 2.5%;
 }
 
-.control-label
-{
-	float: left;
-}
-
-.col
-{
-	display: block;
-	float: left;
-}
-
-.ligne
-{
-	width: 100%;
-	padding: 0 20%;
-	display: inline-block;
-}
-
-.form-horizontal .control-label
-{
-	width: 100%;
-	text-align: left;
-}
-
 /*Image de profil*************************************************************************************/
 .zoneImage
 {
