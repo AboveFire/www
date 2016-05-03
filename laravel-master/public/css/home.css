@@ -17,7 +17,7 @@
 .option_home i
 {
 	font-size: 12.5vmin;
-	font-size: 12.5vmax;
+	font-size: 1000%;
 }
 
 .txtMenu
