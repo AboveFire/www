@@ -287,6 +287,7 @@ hr
 	transition: 0.15s ease;
 	margin: 0;
 	padding-top: 7% !important;
+	/*padding-bottom: 7% !important;*/
 	width: 100%;
 	height: 100%;
 }
@@ -457,5 +458,6 @@ input[type="file" i].active
     margin-bottom: 0;
 	height: 7vh;
 	background-color: #b30000;
-	position:absolute;
+	position: absolute;
+
 }
