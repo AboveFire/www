@@ -76,6 +76,15 @@ Route::get('/results-playoff', function () {
 Route::get('/results-survivor', function () {
 	return view('pool.results.survivor');
 });
+Route::get('/inscription-classic', function () {
+	return view('pool.results.classic');
+});
+Route::get('/inscription-playoff', function () {
+	return view('pool.results.playoff');
+});
+Route::get('/inscription-survivor', function () {
+	return view('pool.inscriptions.survivor');
+});
 //Administration route
 Route::get('/admin-home',['middleware' => 'admin', function () {
 	return view('administration.home');
