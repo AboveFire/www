@@ -42,10 +42,10 @@
 }
 
 .image {
-	margin:0 0 2%;
+	margin:0 0 2% 15px;
 	width:165px;
 	height:150px;
-	padding: 0 0 0 15px;
+	padding: 0;
 }
 
 input[type="file" i]

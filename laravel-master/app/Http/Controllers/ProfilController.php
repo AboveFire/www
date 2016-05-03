@@ -33,12 +33,13 @@ class ProfilController extends Controller
     	$img_data = $type = null;
     	if ($path != '')
     	{
+
+    		$this->validate($request, ['img' => 'image',]);
     		ob_start();
     		$png = imagepng(imagecreatefromstring(file_get_contents($path)));
     		$png = ob_get_contents();
     		ob_end_clean();
     		
-    		$this->validate($request, ['img' => 'image',]);
     		
     		$type = $path->getClientOriginalExtension();
     		$type = 'PNG';
