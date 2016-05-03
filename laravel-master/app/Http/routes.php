@@ -14,7 +14,7 @@
 //use Illuminate\Database\Migrations\Migration;
 
 // PLATEFORME WEB
-
+ini_set('xdebug.max_nesting_level', 500);
 Route::get('/', function () {
 	if(Auth::guest())
 	{
@@ -104,5 +104,5 @@ Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilControll
 Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
-	return Auth::user()->getImageMobile();
+	return Auth::user()->getImage();
 }]);
