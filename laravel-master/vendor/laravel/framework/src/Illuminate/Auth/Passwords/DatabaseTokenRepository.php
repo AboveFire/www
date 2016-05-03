@@ -84,7 +84,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      */
     protected function deleteExisting(CanResetPasswordContract $user)
     {
-        return $this->getTable()->where('email', $user->getEmailForPasswordReset())->delete();
+        return $this->getTable()->where('PWR_EMAIL', $user->getEmailForPasswordReset())->delete();
     }
 
     /**
@@ -96,7 +96,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      */
     protected function getPayload($email, $token)
     {
-        return ['email' => $email, 'token' => $token, 'created_at' => new Carbon];
+        return ['PWR_EMAIL' => $email, 'PWR_TOKEN' => $token, 'PWR_CREATED_AT' => new Carbon];
     }
 
     /**
@@ -110,7 +110,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     {
         $email = $user->getEmailForPasswordReset();
 
-        $token = (array) $this->getTable()->where('email', $email)->where('token', $token)->first();
+        $token = (array) $this->getTable()->where('PWR_EMAIL', $email)->where('PWR_TOKEN', $token)->first();
 
         return $token && ! $this->tokenExpired($token);
     }
@@ -123,7 +123,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      */
     protected function tokenExpired($token)
     {
-        $expirationTime = strtotime($token['created_at']) + $this->expires;
+        $expirationTime = strtotime($token['PWR_CREATED_AT']) + $this->expires;
 
         return $expirationTime < $this->getCurrentTime();
     }
@@ -146,7 +146,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
      */
     public function delete($token)
     {
-        $this->getTable()->where('token', $token)->delete();
+        $this->getTable()->where('PWR_TOKEN', $token)->delete();
     }
 
     /**

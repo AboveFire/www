@@ -249,15 +249,15 @@ trait ResetsPasswords
      * @param  string  $password
      * @return void
      */
-    protected function resetPassword($user, $password)
-    {
-        $user->forceFill([
-            'password' => bcrypt($password),
-            'remember_token' => Str::random(60),
-        ])->save();
-
-        Auth::guard($this->getGuard())->login($user);
-    }
+	protected function resetPassword($user, $password)
+	{
+		$user->forceFill([
+				'UTI_PASWD' => bcrypt($password),
+				'UTI_REMEMBER_TOKEN' => Str::random(60),
+		])->save();
+	
+		Auth::guard($this->getGuard())->login($user);
+	}
 
     /**
      * Get the response for after a successful password reset.

@@ -101,6 +101,4 @@ class Utilisateur_uti extends Authenticatable
 	{
 		return $this->UTI_PRENM . ' ' . $this->UTI_NOM;
 	}
-	
-	
 }
