@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Pool Classique')
 @section('content')
 <div class="container">
     <div class="row">

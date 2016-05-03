@@ -67,6 +67,7 @@
 					<i class="fa fa-btn fa-comments"></i>Clavardage
 				</a></li>
 				@if (true/*Auth::user()->isAdmin()*/)
+				<li><hr class="hrMenu"></li>
 				<li><a href="{{ url('/admin-home') }}">
 					<i class="fa fa-btn fa-shield"></i>Administration
 				</a></li>
