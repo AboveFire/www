@@ -13,7 +13,8 @@
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<div class="zoneImage">
-						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
+						<input type="hidden" id="approvedFiles" name="approvedFiles">
+						<input id="aFile_upload" type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('seqnc') }}</strong>

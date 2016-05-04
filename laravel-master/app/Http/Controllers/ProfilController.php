@@ -33,8 +33,7 @@ class ProfilController extends Controller
     	$img_data = $type = null;
     	if ($path != '')
     	{
-
-    		$this->validate($request, ['img' => 'image',]);
+    		$this->validate($request, ['img' => 'image|max:1000',]);
     		ob_start();
     		$content = file_get_contents($path);
     		$size = getimagesize($path);
