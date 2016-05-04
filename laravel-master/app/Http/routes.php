@@ -54,6 +54,10 @@ Route::get('/profil',['middleware' => 'auth', function () {
 	return view('profil');
 }]);
 
+Route::get('/param',['middleware' => 'auth', function () {
+	return view('param');
+}]);
+
 Route::get('/results', function () {
 	return view('results');
 });

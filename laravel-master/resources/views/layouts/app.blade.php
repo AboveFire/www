@@ -99,13 +99,16 @@
 					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="imageMenu" class="imageMenu">
 					{{ Auth::user()->getNomPrenm() }}
 				</a></li>
+				<li><a href="{{ url('/param') }}">
+					<i class="fa fa-btn fa-cog"></i>#titreParam#
+				</a></li>
 				@endif
 				<li><a href="{{ url('/about') }}">
-					<i class="fa fa-btn fa-info-circle"></i>About
+					<i class="fa fa-btn fa-info-circle"></i>#titreAbout#
 				</a></li>
 				@if (!Auth::guest())
 				<li><a href="{{ url('/logout') }}">
-					<i class="fa fa-btn fa-power-off"></i>Logout
+					<i class="fa fa-btn fa-power-off"></i>#titreLogout#
 				</a></li>
 				@endif
 			</ul>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 
-class ChatController extends BaseController
+class ChatController extends Controller
 {
 	public function run(){
 		$smileys = Array(
