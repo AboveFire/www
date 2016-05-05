@@ -31,6 +31,7 @@ return [
 		'chat' => 'Clavardage',
 		'admin' => 'Administration',
 		'user' => 'Gestion des utilisateurs',
-		'createPool' => 'Création d\'un pool' 
+		'createPool' => 'Création d\'un pool' ,
+		'form' => 'Formulaire' ,
 ]
 ;

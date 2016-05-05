@@ -12,27 +12,27 @@
 	<div class="tableau">
 		<div class="ligne_option">
 			<a class="txtEtImage" href="{{ url('/results') }}"> <i class="fa fa-star"></i>
-				<h1 class="titreMenu">Résultats</h1>
+				<h1 class="titreMenu">{{ trans('pagination.results') }}</h1>
 			</a>
 		</div>
 		<div class="ligne_option">
 			<a class="txtEtImage" href="{{ url('/results-classic') }}"> <i class="fa fa-gamepad"></i>
-				<h1 class="titreMenu">Pool classique</h1>
+				<h1 class="titreMenu">{{ trans('pagination.poolClassic') }}</h1>
 			</a>
 		</div>
 		<div class="ligne_option">
 			<a class="txtEtImage" href="{{ url('/results-playoff') }}"> <i class="fa fa-crosshairs"></i>
-				<h1 class="titreMenu">Pool playoff</h1>
+				<h1 class="titreMenu">{{ trans('pagination.poolPlayoff') }}</h1>
 			</a>
 		</div>
 		<div class="ligne_option">
 			<a class="txtEtImage" href="{{ url('/results-survivor') }}"> <i class="fa fa-sitemap"></i>
-				<h1 class="titreMenu">Pool survivor</h1>
+				<h1 class="titreMenu">{{ trans('pagination.poolSurvivor') }}</h1>
 			</a>
 		</div>
 		<div class="ligne_option">
 			<a class="txtEtImage" href="{{ url('/chat') }}"> <i class="fa fa-comments"></i>
-				<h1 class="titreMenu">Clavardage</h1>
+				<h1 class="titreMenu">{{ trans('pagination.chat') }}</h1>
 			</a>
 		</div>
 	</div>

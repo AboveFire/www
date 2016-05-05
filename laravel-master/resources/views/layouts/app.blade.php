@@ -34,49 +34,49 @@
 			</div>
 			<ul class="ulGlobal">
 				<li><a href="{{ url('/home') }}">
-					<i class="fa fa-btn fa-home"></i>Accueil
+					<i class="fa fa-btn fa-home"></i>{{ trans('pagination.home') }}
 				</a></li>
 				<li><a href="{{ url('/results') }}">
-					<i class="fa fa-btn fa-star"></i>Résultats
+					<i class="fa fa-btn fa-star"></i>{{ trans('pagination.results') }}
 				</a></li>
 				<li><a href="{{ url('/results-classic') }}">
-					<i class="fa fa-btn fa-gamepad"></i>Pool classique
+					<i class="fa fa-btn fa-gamepad"></i>{{ trans('pagination.poolClassic') }}
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-classic') }}">
-						<i class="fa fa-btn fa-file-o"></i>Formulaire classique
+						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/results-playoff') }}">
-					<i class="fa fa-btn fa-crosshairs"></i>Pool playoff
+					<i class="fa fa-btn fa-crosshairs"></i>{{ trans('pagination.poolPlayoff') }}
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-playoff') }}">
-						<i class="fa fa-btn fa-file-o"></i>Formulaire playoff
+						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/results-survivor') }}">
-					<i class="fa fa-btn fa-sitemap"></i>Pool survivor
+					<i class="fa fa-btn fa-sitemap"></i>{{ trans('pagination.poolSurvivor') }}
 				</a></li>
 				<ul>
 					<li><a href="{{ url('/form-survivor') }}">
-						<i class="fa fa-btn fa-file-o"></i>Formulaire survivor
+						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
 				<li><a href="{{ url('/chat') }}">
-					<i class="fa fa-btn fa-comments"></i>Clavardage
+					<i class="fa fa-btn fa-comments"></i>{{ trans('pagination.chat') }}
 				</a></li>
 				@if (true/*Auth::user()->isAdmin()*/)
 				<li><hr class="hrMenu"></li>
 				<li><a href="{{ url('/admin-home') }}">
-					<i class="fa fa-btn fa-shield"></i>Administration
+					<i class="fa fa-btn fa-shield"></i>{{ trans('pagination.admin') }}
 				</a></li>
 				<ul>
-					<li><a href="{{ url('/admin-pool') }}">
-						<i class="fa fa-btn fa-users"></i>Gestion des utilisateurs
-					</a></li>
 					<li><a href="{{ url('/admin-users') }}">
-						<i class="fa fa-btn fa-plus"></i>Création d'un pool
+						<i class="fa fa-btn fa-users"></i>{{ trans('pagination.user') }}
+					</a></li>
+					<li><a href="{{ url('/admin-pool') }}">
+						<i class="fa fa-btn fa-plus"></i>{{ trans('pagination.createPool') }}
 					</a></li>
 				</ul>
 				@endif
@@ -100,15 +100,15 @@
 					{{ Auth::user()->getNomPrenm() }}
 				</a></li>
 				<li><a href="{{ url('/param') }}">
-					<i class="fa fa-btn fa-cog"></i>#titreParam#
+					<i class="fa fa-btn fa-cog"></i>{{ trans('pagination.param') }}
 				</a></li>
 				@endif
 				<li><a href="{{ url('/about') }}">
-					<i class="fa fa-btn fa-info-circle"></i>#titreAbout#
+					<i class="fa fa-btn fa-info-circle"></i>{{ trans('pagination.about') }}
 				</a></li>
 				@if (!Auth::guest())
 				<li><a href="{{ url('/logout') }}">
-					<i class="fa fa-btn fa-power-off"></i>#titreLogout#
+					<i class="fa fa-btn fa-power-off"></i>{{ trans('pagination.logout') }}
 				</a></li>
 				@endif
 			</ul>

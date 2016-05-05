@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App;
-use Session;
 
 
 use JWTAuth;

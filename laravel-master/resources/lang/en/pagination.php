@@ -32,5 +32,6 @@ return [
 		'admin' => 'Administration',
 		'user' => 'Manage Users',
 		'createPool' => 'Create a Pool',
+		'form' => 'Form' ,
 ]
 ;
