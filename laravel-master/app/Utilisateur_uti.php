@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use DB;
 
 class Utilisateur_uti extends Authenticatable
 {
@@ -110,5 +111,15 @@ class Utilisateur_uti extends Authenticatable
 	public function getNomPrenm()
 	{
 		return $this->UTI_PRENM . ' ' . $this->UTI_NOM;
+	}
+	
+	public function getLangue()
+	{
+		$listLang = DB::table('langue_lan')->select('LAN_CODE')->where('LAN_SEQNC', '=', $this->UTI_LAN_SEQNC)->get();
+		$lang = "FRd";
+		foreach ($listLang as $value){
+			$lang = $value->LAN_CODE;
+		}
+		return $lang;
 	}
 }

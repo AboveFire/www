@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+use App;
+
 class Authenticate
 {
     /**
@@ -24,6 +26,7 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+        App::setLocale(strtolower(Auth::user()->getLangue()));
 
         return $next($request);
     }

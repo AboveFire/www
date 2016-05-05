@@ -28,6 +28,7 @@ Route::get('/', function () {
 
 Route::post('/profil/save', 'ProfilController@update');
 
+Route::post('/param/save', 'ParamController@update');
 
 Route::post('/sschat', 'ChatController@run');
 /*Route::get('/chat', function () {
