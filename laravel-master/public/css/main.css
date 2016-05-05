@@ -16,7 +16,7 @@ body {
 	width: 100%;
 }
 
-.titre a:hover, .titre a, .titre a:active
+.titre a:hover, .titre a, .titre a:active, .titre a:focus
 {
 	color: white;
 }
@@ -35,7 +35,7 @@ a
 	font-weight: bold;
 }
 
-a:hover, a:active, a.hover, a.active
+a:hover, a:active, a.hover, a.active, a:focus
 {
 	color: #B30000;
 	border-color: #B30000;
@@ -126,6 +126,11 @@ hr
 .btn-link:hover, .btn-link:focus, .btn-link:active 
 {
 	text-decoration: none;
+}
+
+.big-fa
+{
+	font-size: 2000%;
 }
 
 /*Menu*************************************************************************************/
@@ -304,6 +309,7 @@ img
 	width: 100%;
 	height: 100%;
 	flex: 1;
+	text-align: center;
 }
 
 .main-container.active {
@@ -377,13 +383,13 @@ colonne
 
 /*Champs textes*************************************************************************************/
 input.form-control,
-input.form-control 
+select.form-control 
 {
 	border: 1px solid #000000;
 }
 
 input.form-control:focus,
-input.form-control.focus 
+select.form-control:focus 
 {
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;

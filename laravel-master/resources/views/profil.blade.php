@@ -13,15 +13,14 @@
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<div class="zoneImage">
-						<input type="hidden" id="approvedFiles" name="approvedFiles">
-						<input id="aFile_upload" type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
+						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('seqnc') }}</strong>
 						</span> 
 						@endif
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#img#</label>
+					<label class="col-md-2 control-label">{{ trans('traduction.image') }}</label>
 					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="image col-md-2" ">
 					<div class="col col-md-12 btn-width-50 btnUpload">
 						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
