@@ -2,6 +2,15 @@
 //tu peux avoir des emotes dans ton nom
 var nickname = '';
 $(document).ready(function(){
+	listener();
+	nickname = $("#code").val().replace(/[^-a-z0-9]/ig,'');;
+	$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel}, function(data){
+		//LIST CONNECTED : DATA IS JSON OF USERS CONNECTED
+		$('#sschat_input').val('');
+		$('#sschat_input').removeAttr("disabled" );
+		$('#sschat_hint').html('Type a line of chat and press enter to speak:');
+		$('#sschat_input').focus();
+	});
 	$("#sschat_lines ul").ajaxError(function() {
   	$(this).html('<li>Sorry there was an error! Please reload the page and re-enter the chatroom.');
 	});
@@ -17,8 +26,9 @@ $(document).ready(function(){
 					$('#sschat_input').attr('disabled', 'disabled');
 					$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel}, function(data){
 						$('#sschat_input').val('');
-						$('#sschat_input').attr('disabled', '');
+						$('#sschat_input').removeAttr("disabled" );
 						$('#sschat_hint').html('Type a line of chat and press enter to speak:');
+						$('#sschat_input').focus();
 					});
 					/*$.ajax({
 					  type: 'POST',
@@ -51,14 +61,20 @@ $(document).ready(function(){
 });
 
 function serverSend(sendtext) {
-	$.post(sschat_serverurl, {action: 'send', text: sendtext, channel: sschat_channel}, function(data){
+	$.post(sschat_serverurl, {action: 'send', text: sendtext.replace(/(\r\n|\n|\r)/gm," "), channel: sschat_channel}, function(data){
 		$('#sschat_input').val('');
-		$('#sschat_input').attr('disabled', '');
+		$('#sschat_input').removeAttr("disabled" );
+		$('#sschat_input').focus();
 	});
 }
 
 function listener() {
 	$.post(sschat_serverurl, {action: 'listen', channel: sschat_channel}, function(data){
+		//LIST CONNECTED : IF USER CONNECTION, ADD TO LIST
+		//LIST CONNECTED : IF USER DISCONNECT, REMOVE TO LIST
+		if(data.indexOf('<span class="nick">'+nickname+':</span>') > -1){
+			data = data.replace('<span class="nick">', '<span class="me">');
+		}
 		$('#sschat_lines ul').append(linkify(data));
 		$('#sschat_lines').scrollTop($('#sschat_lines')[0].scrollHeight);
 		listener();

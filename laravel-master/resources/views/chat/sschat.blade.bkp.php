@@ -23,4 +23,3 @@ var sschat_channel = 'general';
 	
 	</body>
 </html>
-@endsection
