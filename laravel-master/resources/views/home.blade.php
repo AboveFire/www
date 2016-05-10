@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Live Pool')
+@section('title')
+{{ trans('pagination.nom') }}
+@endsection
 @section('content')
 <link type="text/css" rel="stylesheet"
 	href="{{ URL::asset('css/home.css') }}"></link>

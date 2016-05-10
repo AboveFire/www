@@ -15,5 +15,13 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'image' => 'Image',
+    'nom' => 'Last name',
+    'prenom' => 'First name',
+    'mdp' => 'Password',
+    'mdpc' => 'Password confirmation',
+    'code' => 'Username',
+    'telph' => 'Phone number',
+    'courl' => 'Email',
 
 ];

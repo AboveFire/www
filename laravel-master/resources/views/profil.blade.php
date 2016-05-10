@@ -1,4 +1,7 @@
-@extends('layouts.app') @section('title', 'Profil utilisateur')
+@extends('layouts.app')
+@section('title')
+{{ trans('pagination.profile') }}
+@endsection
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/profil.css') }}"></link>
 <br />
@@ -20,8 +23,8 @@
 						</span> 
 						@endif
 				<div class="form-group{{ $errors->has('img') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">{{ trans('traduction.image') }}</label>
-					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="image col-md-2" ">
+					<label class="col-md-2 control-label">{{ trans('auth.image') }}</label>
+					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="image col-md-2">
 					<div class="col col-md-12 btn-width-50 btnUpload">
 						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
@@ -36,7 +39,7 @@
 		<div class="ligne">
 			<div class="colonne gauche">
 				<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#nom#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.nom') }}</label>
 					<div class="col col-md-12">
 						<input type="text" class="form-control" name="nom" value="{{ Auth::user()->UTI_NOM }}"> 
 						@if ($errors->has('nom')) 
@@ -47,7 +50,7 @@
 					</div>
 				</div>
 				<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#code#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.code') }}</label>
 					<div class="col col-md-12">
 						<input type="text" class="form-control" name="code" value="{{ Auth::user()->UTI_CODE }}"> 
 						@if ($errors->has('code')) 
@@ -58,7 +61,7 @@
 					</div>
 				</div>
 				<div class="form-group{{ $errors->has('telph') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#telph#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.telph') }}</label>
 					<div class="col col-md-12">
 						<input type="tel" class="form-control" name="telph" value="{{ Auth::user()->UTI_TELPH }}"> 
 						@if ($errors->has('telph')) 
@@ -71,7 +74,7 @@
 			</div>
 			<div class="colonne droite">
 				<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#prenm#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.prenom') }}</label>
 					<div class="col col-md-12">
 						<input type="text" class="form-control" name="prenm" value="{{ Auth::user()->UTI_PRENM }}"> 
 						@if ($errors->has('prenm')) 
@@ -82,7 +85,7 @@
 					</div>
 				</div>
 				<div class="form-group{{ $errors->has('courl') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#courl#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.courl') }}</label>
 					<div class="col col-md-12">
 						<input type="email" class="form-control" name="courl" value="{{ Auth::user()->UTI_COURL }}"> 
 						@if ($errors->has('courl')) 
@@ -97,7 +100,7 @@
 		<div class="ligne">
 			<div class="colonne gauche">
 				<div class="form-group{{ $errors->has('paswd') ? ' has-error' : '' }}">
-					<label class="col-md-2 control-label">#paswd#</label>
+					<label class="col-md-2 control-label">{{ trans('auth.mdp') }}</label>
 					<div class="col col-md-12">
 						<input type="password" class="form-control" name="paswd">
 						@if($errors->has('paswd')) 
@@ -110,7 +113,7 @@
 			</div>
 			<div class="colonne droite">
 				<div class="form-group{{ $errors->has('paswd_confirmation') ? ' has-error' : '' }}">
-		        	<label class="col-md-2 control-label">#paswd_confirmation#</label>
+		        	<label class="col-md-2 control-label">{{ trans('auth.mdpc') }}</label>
 					<div class="col col-md-12">
 						<input type="password" class="form-control" name="paswd_confirmation">
 						@if ($errors->has('paswd_confirmation'))
@@ -128,7 +131,7 @@
 				<div class="form-group">
 					<div class="col-md-2 gauche">
 						<button onclick="location.href='{{ url('/profil') }}'" type="button" class="butn btn-width-100">
-							<i class="fa fa-btn fa-times"></i>Annuler
+							<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 						</button>
 					</div>
 				</div>
@@ -136,7 +139,7 @@
 			<div class="colonne droite">
 				<div class="droite">
 					<button type="submit" class="butn btn-width-100">
-						<i class="fa fa-btn fa-save"></i>Enregistrer
+						<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
 					</button>
 				</div>
 			</div>

@@ -15,7 +15,7 @@
 
 // PLATEFORME WEB
 ini_set('xdebug.max_nesting_level', 500);
-Route::get('/', function () {
+Route::get('/',['middleware' => 'auth', function () {
 	if(Auth::guest())
 	{
 		return view('/auth/login');		
@@ -24,7 +24,7 @@ Route::get('/', function () {
 	{
     	return view('home');
 	}
-});
+}]);
 
 Route::post('/profil/save', 'ProfilController@update');
 
@@ -45,9 +45,9 @@ Route::get('/test', 'NFLController@test');
 Route::get('/connection-refused',function () {
 	return view('refused');
 });
-Route::get('/about', function () {
+Route::get('/about',['middleware' => 'auth', function () {
 	return view('about');
-});
+}]);
 Route::get('/inscription', function () {
 	return view('/auth/register');
 });

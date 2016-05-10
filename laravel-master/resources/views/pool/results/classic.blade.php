@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Pool Classique')
+@section('title')
+{{ trans('pagination.poolClassic') }}
+@endsection
 @section('content')
 <div class="container">
     <div class="row">

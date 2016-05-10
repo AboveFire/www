@@ -1,4 +1,7 @@
-@extends('layouts.app') @section('title', 'Paramètres')
+@extends('layouts.app')
+@section('title')
+{{ trans('pagination.param') }}
+@endsection
 @section('content')
 <br />
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/form.css') }}"></link>
@@ -15,13 +18,18 @@
 		<div class="ligne">
 			<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 			<div class="form-group{{ $errors->has('coulr') ? ' has-error' : '' }}">
-				<label class="col-md-2 control-label">#coulr#</label>
+				<label class="col-md-2 control-label">{{ trans('param.couleur') }}</label>
 				<div class="col-md-12">
 					<select id="#selectCoulr" class="form-control" name="coulr">
-						<option id="red" value="red">#rouge#</option>
-						<option id="blue" value="blue">#bleu#</option>
-					  	<option id="yellow" value="yellow">#jaune#</option>
-					  	<option id="orange" value="orange">#orange#</option>
+						<option id="red" value="red">{{ trans('param.rouge') }}</option>
+						<option id="cyan" value="cyan">{{ trans('param.cyan') }}</option>
+					  	<option id="blue" value="blue">{{ trans('param.bleu') }}</option>
+					  	<option id="yellow" value="yellow">{{ trans('param.jaune') }}</option>
+					  	<option id="green" value="green">{{ trans('param.vert') }}</option>
+					  	<option id="orange" value="orange">{{ trans('param.orange') }}</option>
+					  	<option id="purple" value="purple">{{ trans('param.mauve') }}</option>
+					  	<option id="white" value="white">{{ trans('param.blanc') }}</option>
+					  	<option id="gray" value="gray">{{ trans('param.gris') }}</option>
 					</select>
 					@if($errors->has('coulr')) 
 					<span class="help-block"> 
@@ -33,11 +41,11 @@
 		</div>
 		<div class="ligne">
 			<div class="form-group{{ $errors->has('lang') ? ' has-error' : '' }}">
-	        	<label class="col-md-2 control-label">#lang#</label>
+	        	<label class="col-md-2 control-label">{{ trans('param.langue') }}</label>
 				<div class="col-md-12">
 					<select id="#selectLang" class="form-control" name="lang">
-						<option id="FR" value="FR">#fr#</option>
-						<option id="EN" value="EN">#en#</option>
+						<option id="FR" value="FR">Français</option>
+						<option id="EN" value="EN">English</option>
 					</select>
 					@if ($errors->has('lang'))
 					<span class="help-block">
@@ -51,10 +59,10 @@
 			<div class="form-group">
 				<div class="col-md-12 col-md-offset-4">
 					<button onclick="location.href='{{ url('/param') }}'" type="button" class="butn btn-width-50">
-						<i class="fa fa-btn fa-times"></i>Annuler
+						<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 					</button>
 					<button type="submit" class="butn btn-width-50">
-						<i class="fa fa-btn fa-save"></i>Enregistrer
+						<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
 					</button>
 				</div>
 			</div>

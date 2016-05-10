@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Administration')
+@section('title')
+{{ trans('pagination.admin') }}
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
