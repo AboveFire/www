@@ -15,6 +15,8 @@ return [
 		'previous' => '&laquo; Précédent',
 		'next' => 'Suivant &raquo;',
 		'register' => 'Inscription',
+		'resetMdp' => 'Réinitialiser le mot de passe',
+		'login' => 'Connexion',
 		'logout' => 'Déconnexion',
 		'param' => 'Paramètres',
 		'profile' => 'Profil utilisateur',

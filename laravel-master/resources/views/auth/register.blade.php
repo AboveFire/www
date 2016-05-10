@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">#titreInscription#</div>
+                <div class="panel-heading">{{ trans('pagination.register') }}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {!! csrf_field() !!}
@@ -22,7 +22,7 @@
 
 							<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="text" class="form-control" name="nom" value="{{ old('nom') }}" placeholder="#nom#">
+	                                <input type="text" class="form-control" name="nom" value="{{ old('nom') }}" placeholder="{{ trans('auth.nom') }}">
 	                                @if ($errors->has('nom'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('nom') }}</strong>
@@ -35,7 +35,7 @@
                         
 	                        <div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="text" class="form-control" name="prenm" value="{{ old('prenm') }}" placeholder="#prenm#">
+	                                <input type="text" class="form-control" name="prenm" value="{{ old('prenm') }}" placeholder="{{ trans('auth.prenom') }}">
 	                                @if ($errors->has('prenm'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('prenm') }}</strong>
@@ -48,7 +48,7 @@
 
                         <div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="code" value="{{ old('code') }}" placeholder="#code#">
+                                <input type="text" class="form-control" name="code" value="{{ old('code') }}" placeholder="{{ trans('auth.code') }}">
                                 @if ($errors->has('code'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('code') }}</strong>
@@ -61,7 +61,7 @@
 
                         <div class="form-group{{ $errors->has('courl') ? ' has-error' : '' }}">
                             <div class="col-md-12">
-                                <input type="email" class="form-control" name="courl" value="{{ old('courl') }}" placeholder="#courl#">
+                                <input type="email" class="form-control" name="courl" value="{{ old('courl') }}" placeholder="{{ trans('auth.courl') }}">
                                 @if ($errors->has('courl'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('courl') }}</strong>
@@ -74,7 +74,7 @@
 
                         <div class="form-group{{ $errors->has('paswd') ? ' has-error' : '' }}">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" name="paswd" placeholder="#paswd#">
+                                <input type="password" class="form-control" name="paswd" placeholder="{{ trans('auth.mdp') }}">
                                 @if ($errors->has('paswd'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('paswd') }}</strong>
@@ -87,7 +87,7 @@
 
                         <div class="form-group{{ $errors->has('paswd_confirmation') ? ' has-error' : '' }}">
                             <div class="col-md-12">
-                                <input type="password" class="form-control" name="paswd_confirmation" placeholder="#paswd_confirmation#">
+                                <input type="password" class="form-control" name="paswd_confirmation" placeholder="{{ trans('auth.mdpc') }}">
                                 @if ($errors->has('paswd_confirmation'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('paswd_confirmation') }}</strong>
@@ -100,9 +100,9 @@
 
                         <div class="form-group">
                             <div class="col-md-12 col-md-offset-4">
-                                <a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/') }}"><i class="fa fa-sign-in"></i> &nbsp;#butnDejaInscrit#</a>
+                                <a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/') }}"><i class="fa fa-sign-in"></i> &nbsp;{{ trans('auth.butn_dejaInscrit') }}</a>
                                 <button type="submit" class="butn colonne droite btn-width-50">
-                         <i class="fa fa-btn fa-user"></i>#butnInscrire#
+                         <i class="fa fa-btn fa-user"></i>{{ trans('auth.butn_inscrire') }}
                                 </button>
 
                             </div>

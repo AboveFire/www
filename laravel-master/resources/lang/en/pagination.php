@@ -15,6 +15,8 @@ return [
 		'previous' => '&laquo; Previous',
 		'next' => 'Next &raquo;',
 		'register' => 'Register',
+		'resetMdp' => 'Password Reset',
+		'login' => 'Login',
 		'logout' => 'Logout',
 		'param' => 'Settings',
 		'profile' => 'Profile',

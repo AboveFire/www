@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">#titrePaswdReset#</div>
+                <div class="panel-heading">{{ trans('pagination.resetMdp') }}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
                         {!! csrf_field() !!}
@@ -21,7 +21,7 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_courl') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-                                <input type="email" class="form-control" name="uti_courl" value="{{ $email or old('uti_courl') }}" placeholder="#champCourl#">
+                                <input readonly type="email" class="form-control" name="uti_courl" value="{{ $email or old('uti_courl') }}" placeholder="{{ trans('auth.courl') }}">
 
                                 @if ($errors->has('uti_courl'))
                                     <span class="help-block">
@@ -34,7 +34,7 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="password" class="form-control" name="password" placeholder="#champMDP#">
+	                                <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.mdp') }}">
 	
 	                                @if ($errors->has('password'))
 	                                    <span class="help-block">
@@ -47,7 +47,7 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="password" class="form-control" name="password_confirmation" placeholder="#champConfirm#">
+	                                <input type="password" class="form-control" name="password_confirmation" placeholder="{{ trans('auth.mdpc') }}">
 	
 	                                @if ($errors->has('password_confirmation'))
 	                                    <span class="help-block">
@@ -62,7 +62,7 @@
 	                            <div class="col-md-12 col-md-offset-4">
 		                            <div class="zoneBtn">
                                 <button type="submit" class="butn btn-width-100">
-                                    <i class="fa fa-btn fa-refresh"></i>Reset Password
+                                    <i class="fa fa-btn fa-refresh"></i>{{ trans('auth.butn_resetMdp') }}
                                 </button>
 									</div>
 	                            </div>

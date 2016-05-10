@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">#titrePaswdReset#</div>
+                <div class="panel-heading">{{ trans('pagination.resetMdp') }}</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -21,7 +21,7 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_courl') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="email" class="form-control" name="uti_courl" value="{{ old('uti_courl') }}" placeholder="#champEmail#">
+	                                <input type="email" class="form-control" name="uti_courl" value="{{ old('uti_courl') }}" placeholder="{{ trans('auth.courl') }}">
 	
 	                                @if ($errors->has('uti_courl'))
 	                                    <span class="help-block">
@@ -36,10 +36,10 @@
 	                            <div class="col-md-12 col-md-offset-4">
 		                            <div class="zoneBtn">
                                 <button type="submit" class="btn-width-50 butn">
-                                    <i class="fa fa-btn fa-envelope"></i>#butnEnvoy#
+                                    <i class="fa fa-btn fa-envelope"></i>{{ trans('general.butn_send') }}
                                 </button>
                                  <button onclick="location.href='{{ url('/') }}'" type="button" class="btn-width-50 butn">
-                                    <i class="fa fa-btn fa-times"></i>#butnAnulr#
+                                    <i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
                                 </button>
 									</div>
 	                            </div>

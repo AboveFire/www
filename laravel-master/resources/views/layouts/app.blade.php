@@ -117,7 +117,14 @@
 		</nav>
 		<div id="header" class="header">
 			<div class="content-header">
-				@if (!Auth::guest())
+				@if (Auth::guest())
+				<a href="{{ url('/switchLangue') }}" class="textOffline btn-menu btn-menu-right">
+					<i>{{ trans('general.language') }}</i>
+				</a>
+				<a href="{{ url('/about') }}" class="textOffline btn-menu btn-menu-left">
+					<i>{{ trans('pagination.about') }}</i>
+				</a>
+				@else
 				<a href="#menu-left" class="menu-link-left btn-menu btn-menu-left">
 					<i class="fa fa-list-ul"></i>
 				</a>

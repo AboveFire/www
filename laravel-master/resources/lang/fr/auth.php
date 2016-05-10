@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Il n\'y a pas de compte associé à ce code utilisateur.',
+    'failed' => 'Mauvaise combinaison utilisateur - mot de passe.',
     'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds seconde(s).',
     'image' => 'Image',
     'nom' => 'Nom',
@@ -23,5 +23,10 @@ return [
     'code' => 'Nom d\'utilisateur',
     'telph' => 'Numéro de téléphone',
     'courl' => 'Courriel',
+    'butn_dejaInscrit' => 'Déjà Inscrit?',
+    'butn_inscrire' => 'S\'inscrire',
+    'butn_login' => 'Se connecter',
+    'butn_mdpOublie' => 'Mot de passe oublié?',
+    'butn_resetMdp' => 'Réinitialiser',
 
 ];

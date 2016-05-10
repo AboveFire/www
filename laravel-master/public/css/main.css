@@ -16,6 +16,12 @@ body {
 	width: 100%;
 }
 
+.titre a
+{
+	
+	left: 100px;
+}
+
 .titre a:hover, .titre a, .titre a:active, .titre a:focus
 {
 	color: white;
@@ -77,6 +83,11 @@ hr
 .header h3 {
 	margin : 0;
 	padding: 1% 0 !important;
+}
+
+.header .textOffline i {
+	width: auto;
+	font-size: 50%;
 }
 
 /*Font awesome*************************************************************************************/

@@ -14,6 +14,7 @@
 //use Illuminate\Database\Migrations\Migration;
 
 // PLATEFORME WEB
+session_start();
 ini_set('xdebug.max_nesting_level', 500);
 Route::get('/',['middleware' => 'auth', function () {
 	if(Auth::guest())
@@ -26,6 +27,8 @@ Route::get('/',['middleware' => 'auth', function () {
 	}
 }]);
 
+Route::get('/switchLangue', 'LangueController@switchLangue');
+
 Route::post('/profil/save', 'ProfilController@update');
 
 Route::post('/param/save', 'ParamController@update');
@@ -37,6 +40,7 @@ Route::post('/sschat', 'ChatController@run');
 Route::get('/chat',['middleware' => 'auth', function () {
     return view('chat.sschat');
 }]);
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
@@ -48,9 +52,9 @@ Route::get('/connection-refused',function () {
 Route::get('/about',['middleware' => 'auth', function () {
 	return view('about');
 }]);
-Route::get('/inscription', function () {
+Route::get('/inscription', ['middleware' => 'auth', function () {
 	return view('/auth/register');
-});
+}]);
 Route::get('/profil',['middleware' => 'auth', function () {
 	return view('profil');
 }]);
