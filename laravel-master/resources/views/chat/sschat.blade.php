@@ -13,8 +13,10 @@
 	<div id="sschat">
 		<div id="sschat_lines">
 			<ul></ul>
-		</div>
-		<div id="sschat_entry">
+		</div
+		><div id="sschat_connected">
+		</div
+		><div id="sschat_entry">
 			<p id="sschat_hint">Type your nickname and press enter:</p>
 			<!-- <input type="text" id="sschat_input"> -->
 			<textarea id="sschat_input" rows=2></textarea>
