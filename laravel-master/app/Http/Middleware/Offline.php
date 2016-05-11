@@ -20,6 +20,7 @@ class Offline
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->guest()) {
+        	session_start();
         	if (!isset($_SESSION['lang']))
         	{
         		$_SESSION['lang'] = 'en';
