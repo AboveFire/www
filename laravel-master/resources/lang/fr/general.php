@@ -6,5 +6,6 @@ return [
     	'butn_create' => 'Créer',
     	'butn_edit' => 'Modifier',
     	'language' => 'English',
+    	'user' => 'Utilisateur',
 ]
 ;
