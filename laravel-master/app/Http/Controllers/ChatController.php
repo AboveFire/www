@@ -8,10 +8,20 @@ use Log;
 use Cache;
 use Auth;
 use DB;
+use JWTAuth;
 
 class ChatController extends Controller
 {
 	public function run(){
+		Log::info($_POST['token']);
+		if(isset($_POST['token']) && $_POST['token'] != ''){
+			Log::info($_POST['token']);
+			$user = JWTAuth::toUser($_POST['token']);
+			Log::info($user->UTI_CODE);
+		}else{
+			$user = Auth::user();
+		}
+		Log::info("asdasdasd");
 		$smileys = Array(
 		':)'=>'smile',
 		':-)'=>'smile',
@@ -82,27 +92,27 @@ class ChatController extends Controller
 		'E>'=>'heart',
 		':heart'=>'heart'
 		);
+		Log::info("1");
 		/* If magic quotes is enabled, remove slashes from POSTed data */
 		if (get_magic_quotes_gpc()):
 			foreach ($_POST as $key=>$val):
 				$_POST[$key] = stripslashes($val);
 			endforeach;
 		endif;
-
 		/* Make channel names safe, as they are used as filenames later */
 		if (isset($_POST['channel'])):
 			$_POST['channel'] = preg_replace("/[^a-z0-9]/i", '', $_POST['channel']);
 		endif;
-
+		Log::info("2");
 		if ($_POST['action'] == 'join'):
 			$temp = Cache::get("connected-once");
 			if(is_array($temp)){
-				if(!in_array(Auth::user()->UTI_CODE, $temp)){
-					array_push($temp, Auth::user()->UTI_CODE);
+				if(!in_array($user->UTI_CODE, $temp)){
+					array_push($temp, $user->UTI_CODE);
 					Cache::forever("connected-once",$temp);
 				}
 			}else{
-				Cache::forever("connected-once",array(Auth::user()->UTI_CODE));
+				Cache::forever("connected-once",array($user->UTI_CODE));
 			}
 			/* User has joined a channel */
 			//$expiresAt = Carbon::now()->addMinutes(5);
@@ -117,7 +127,7 @@ class ChatController extends Controller
 			echo json_encode($tempArray);*/
 			
 			$_POST['nickname'] = substr(strip_tags($_POST['nickname']), 0, 16);
-			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has entered the chatroom</span>');
+			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has entered the chatroom</span>', $user);
 		elseif ($_POST['action'] == 'send'):
 			/* User is saying something */
 			$pattern = '/^\<span class="nick"\>.*\<\/span\>/';
@@ -131,21 +141,21 @@ class ChatController extends Controller
 			endforeach;
 			//self::writeLine($_POST['channel'], $_POST['text']);
 			
-			self::writeLine($_POST['channel'], $nick . $message);
+			self::writeLine($_POST['channel'], $nick . $message, $user);
 		elseif ($_POST['action'] == 'listen'):
 			/* User is waiting for next line of chat */
 			if ($stat = @stat(storage_path() . '/channel/'.$_POST['channel'].'.txt')):
 				$lastsize = intval($stat['size']);
 			else:
 				/* Channel doesn't exist, so create it */
-				self::writeLine($_POST['channel'], '<span class="notice">Channel created</span>');
+				self::writeLine($_POST['channel'], '<span class="notice">Channel created</span>', $user);
 				$lastsize = 0;
 			endif;
 			set_time_limit(0);
 			//log::info("listen");
 			//$counter = 0;
 			while (1):
-				Cache::put('user-is-online-' . Auth::user()->UTI_CODE, true, 1);
+				Cache::put('user-is-online-' . $user->UTI_CODE, true, 1);
 				usleep(100000);
 				clearstatcache();
 				$stat = stat(storage_path() . '/channel/'.$_POST['channel'].'.txt');
@@ -161,7 +171,7 @@ class ChatController extends Controller
 			endwhile;
 		elseif ($_POST['action'] == 'part'):
 			/* User is leaving */
-			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has left the chatroom</span>');
+			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has left the chatroom</span>', $user);
 		elseif ($_POST['action'] == 'checkconnected'):
 			$temp = Cache::get("connected-once");
 			//Log::info(print_r($temp,true));
@@ -192,10 +202,10 @@ class ChatController extends Controller
 		endif;
 	}
 	/* Add line to channel history for other users to see */
-	public static function writeLine($room, $text)
+	public static function writeLine($room, $text, $user)
 	{
 		$fp = fopen(storage_path() . '/channel/'.$room.'.txt', 'a');
-		DB::table('message_msg')->insert(['MSG_CONTN' => $text, 'MSG_DATE' => date('Y-m-d h:i:s a', time()), 'MSG_UTI_SEQNC' => Auth::user()->UTI_SEQNC]);
+		DB::table('message_msg')->insert(['MSG_CONTN' => $text, 'MSG_DATE' => date('Y-m-d h:i:s a', time()), 'MSG_UTI_SEQNC' => $user->UTI_SEQNC]);
 		fwrite($fp, $text."\n");
 		fclose($fp);
 	}
