@@ -31,7 +31,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="ligne">
+		<div class="ligne"> 
 			<div class="form-group{{ $errors->has('droit') ? ' has-error' : '' }}">
 				<div class="col-md-12">
 					<select id="#selectLang" class="form-control" name="droit">
