@@ -96,13 +96,13 @@ Route::get('/admin',['middleware' => 'admin', function () {
 	return view('administration.home');
 }]);
 
-Route::get('/admin/users',['middleware' => 'admin', 'uses' => 'AdminController@users']);
-
-Route::get('/admin/pool',['middleware' => 'admin', function () {
-	return view('administration.pool');
-}]);
+Route::get('/admin/users',['middleware' => 'admin', 'uses' => 'AdminController@usersView']);
+	
+Route::get('/admin/pool',['middleware' => 'admin', 'uses' => 'AdminController@poolView']);
 
 Route::post('/admin/users/update',['middleware' => 'admin', 'uses' => 'AdminController@updateUsers']);
+
+Route::post('/admin/pool/create',['middleware' => 'admin', 'uses' => 'AdminController@createPool']);
 	
 // APPLICATION MOBILE
 Route::get('/mobile/login', 'Auth\AuthController@authenticateMobile');

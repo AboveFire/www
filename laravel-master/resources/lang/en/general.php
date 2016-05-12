@@ -7,5 +7,6 @@ return [
     	'butn_edit' => 'Edit',
     	'language' => 'Français',
     	'user' => 'User',
+		'success' => 'The requested changes have been successfully applied!',
 ]
 ;

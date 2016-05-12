@@ -28,7 +28,9 @@ class ParamController extends Controller
     			'uti_lan_seqnc' => $lang,
     	]);
     	
-		App::setLocale(strtolower(Auth::user()->getLangue()));
-    	return back()->with('status', 'Les modifications ont bel et bien été apportées');
+		App::setLocale(strtolower($lang));
+        $_SESSION['lang'] = strtolower($lang);
+        
+    	return back()->with('status', trans('general.success'));
     }
 }

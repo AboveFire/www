@@ -7,5 +7,6 @@ return [
     	'butn_edit' => 'Modifier',
     	'language' => 'English',
     	'user' => 'Utilisateur',
+		'success' => 'Les modifications ont bel et bien été apportées!',
 ]
 ;

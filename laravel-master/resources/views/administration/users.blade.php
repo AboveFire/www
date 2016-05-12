@@ -11,16 +11,24 @@
 		{{ session('status') }}
 	</div>
 	@endif
+	@if (session('error'))
+	<div class="alert alert-danger">
+		{{ session('error') }}
+	</div>
+	@endif
 	<div class="panel-heading"><i class="fa fa-users big-fa"></i></div>
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/users/update') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
 				<div class="col-md-12">
+					<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 					<select id="#selectUser" class="form-control" name="user">
-						<option selected value=null>{{ trans('admin.user') }}</option>
+						<option selected disabled>{{ trans('admin.user') }}</option>
 						@foreach($users as $user)
-					    <option value="{{$user->UTI_SEQNC}}">{{'[' . $user->UTI_CODE . '] - ' . $user->UTI_PRENM . ' ' . $user->UTI_NOM}}</option>
+							@if ($user->UTI_SEQNC != Auth::user()->UTI_SEQNC && $user->UTI_PERMS != 'S')
+						    <option value="{{$user->UTI_SEQNC}}">{{'[' . $user->UTI_CODE . '] - ' . $user->UTI_PRENM . ' ' . $user->UTI_NOM . ' (' . trans('admin.' . $user->UTI_PERMS) . ')'}}</option>
+						    @endif
 						@endforeach
 					</select>
 					@if($errors->has('user')) 
@@ -35,9 +43,9 @@
 			<div class="form-group{{ $errors->has('droit') ? ' has-error' : '' }}">
 				<div class="col-md-12">
 					<select id="#selectLang" class="form-control" name="droit">
-						<option selected value=null>{{ trans('admin.droit') }}</option>
-						<option id="B" value="B">{{ trans('admin.base') }}</option>
-						<option id="A" value="A">{{ trans('admin.admin') }}</option>
+						<option selected disabled>{{ trans('admin.droit') }}</option>
+						<option id="B" value="B">{{ trans('admin.B') }}</option>
+						<option id="A" value="A">{{ trans('admin.A') }}</option>
 					</select>
 					@if ($errors->has('droit'))
 					<span class="help-block">
