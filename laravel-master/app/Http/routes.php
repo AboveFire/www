@@ -33,6 +33,7 @@ Route::post('/profil/save',['middleware' => 'auth', 'uses' =>  'ProfilController
 Route::post('/param/save', ['middleware' => 'auth', 'uses' => 'ParamController@update']);
 
 Route::post('/sschat', ['middleware' => 'auth', 'uses' => 'ChatController@run']);
+
 /*Route::get('/chat', function () {
     return view('chat.sschat');
 });*/
@@ -111,9 +112,11 @@ Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilControll
 
 Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 
-Route::get('/mobile/sschat',['middleware' => 'mobile', function () {
+Route::get('/mobile/chat',['middleware' => 'mobile', function () {
 	return view('chat.sschatMobile');
 }]);
+	
+Route::post('/mobile/sschat', 'ChatController@run');
 
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
 	return Auth::user()->getImageMobile();

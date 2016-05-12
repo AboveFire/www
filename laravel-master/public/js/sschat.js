@@ -2,16 +2,24 @@
 //tu peux avoir des emotes dans ton nom
 var nickname = '';
 $number = 1;
+var $_GET = {};
 $(document).ready(function(){
+	document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+	    function decode(s) {
+	        return decodeURIComponent(s.split("+").join(" "));
+	    }
+
+	    $_GET[decode(arguments[1])] = decode(arguments[2]);
+	});
 	listener();
-	nickname = $("#code").val().replace(/[^-a-z0-9]/ig,'');;
-	$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel}, function(data){
+	nickname = $("#code").val().replace(/[^-a-z0-9]/ig,'');
+	$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 		//LIST CONNECTED : DATA IS JSON OF USERS CONNECTED
 		$('#sschat_input').val('');
 		$('#sschat_input').removeAttr("disabled" );
 		$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 		$('#sschat_input').focus();
-		$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number, getNumber:20}, function(data){
+		$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number, getNumber:20, _token:tokenMobile, token: $_GET['token']}, function(data){
 			//TEMP
 			$obj = JSON.parse(data);
 			$oldHeight = $('#sschat_lines')[0].scrollHeight;
@@ -42,7 +50,7 @@ $(document).ready(function(){
 					nickname = $('#sschat_input').val();
 					nickname = nickname.replace(/[^-a-z0-9]/ig,'');
 					$('#sschat_input').attr('disabled', 'disabled');
-					$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel}, function(data){
+					$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 						$('#sschat_input').val('');
 						$('#sschat_input').removeAttr("disabled" );
 						$('#sschat_hint').html('Type a line of chat and press enter to speak:');
@@ -62,7 +70,7 @@ $(document).ready(function(){
 	
 	$(window).bind("beforeunload", function(){
 		if (nickname != '') {
-			$.post(sschat_serverurl, {action: 'part', nickname: nickname, channel: sschat_channel});
+			$.post(sschat_serverurl, {action: 'part', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']});
 		}
 	});
 	window.setInterval(function(){ connected(); },30000);
@@ -80,7 +88,7 @@ function adjustScroll($offset){
 }
 
 function addten($adjust = true){
-	$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number}, function(data){
+	$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number, _token:tokenMobile, token: $_GET['token']}, function(data){
 		//TEMP
 		$obj = JSON.parse(data);
 		$oldHeight = $('#sschat_lines')[0].scrollHeight;
@@ -103,7 +111,7 @@ function addten($adjust = true){
 }
 
 function serverSend(sendtext) {
-	$.post(sschat_serverurl, {action: 'send', text: sendtext.replace(/(\r\n|\n|\r)/gm," "), channel: sschat_channel}, function(data){
+	$.post(sschat_serverurl, {action: 'send', text: sendtext.replace(/(\r\n|\n|\r)/gm," "), channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 		$('#sschat_input').val('');
 		$('#sschat_input').removeAttr("disabled" );
 		$('#sschat_input').focus();
@@ -111,7 +119,7 @@ function serverSend(sendtext) {
 }
 
 function listener() {
-	$.post(sschat_serverurl, {action: 'listen', channel: sschat_channel}, function(data){
+	$.post(sschat_serverurl, {action: 'listen', channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 		if(data.indexOf('<span class="nick">'+nickname+':</span>') > -1){
 			data = data.replace('<li><span class="nick">', '<li class="mymessage"><span class="bubble me"><span class="nick">');
 			data = data.replace('</li>', '</span></li>');
@@ -127,7 +135,7 @@ function listener() {
 }
 
 function connected(){
-	$.post(sschat_serverurl, {action: 'checkconnected', channel: sschat_channel}, function(data){
+	$.post(sschat_serverurl, {action: 'checkconnected', channel: sschat_channel, _token: tokenMobile, token: $_GET['token']}, function(data){
 		$obj = JSON.parse(data);
 		$('#sschat_connected').html("");
 		for($key in $obj){

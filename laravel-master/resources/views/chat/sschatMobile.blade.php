@@ -6,6 +6,7 @@
 <script type="text/javascript">
 	var sschat_serverurl = 'sschat';
 	var sschat_channel = 'general';
+	var tokenMobile = "{{ csrf_token() }}";
 </script>
 <div class="container">
 	<div id="sschat">
