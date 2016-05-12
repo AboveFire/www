@@ -111,6 +111,10 @@ Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilControll
 
 Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 
+Route::get('/mobile/sschat',['middleware' => 'mobile', function () {
+	return view('chat.sschatMobile');
+}]);
+
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
 	return Auth::user()->getImageMobile();
 }]);

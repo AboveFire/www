@@ -20,6 +20,9 @@
 		
 		<!-- <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/main.css') }}"></link> -->
 		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/main.css') }}"></link>
+		@if (!Auth::guest() && Auth::user()->UTI_COULR != null)
+			<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-' . Auth::user()->UTI_COULR . '.css') }}"></link>
+		@endif
 	</head>
 	
 	<body id="app-layout">
@@ -66,7 +69,7 @@
 				<li><a href="{{ url('/chat') }}">
 					<i class="fa fa-btn fa-comments"></i>{{ trans('pagination.chat') }}
 				</a></li>
-				@if (Auth::user()->isAdmin() || Auth::user()->isSuperAdmin())
+				@if (!Auth::guest() && (Auth::user()->isAdmin() || Auth::user()->isSuperAdmin()))
 				<li><hr class="hrMenu"></li>
 				<li><a href="{{ url('/admin') }}">
 					<i class="fa fa-btn fa-shield"></i>{{ trans('pagination.admin') }}

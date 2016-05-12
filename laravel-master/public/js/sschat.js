@@ -11,9 +11,23 @@ $(document).ready(function(){
 		$('#sschat_input').removeAttr("disabled" );
 		$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 		$('#sschat_input').focus();
-		addten(false);
-		addten(false);
-		addten();
+		$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number, getNumber:20}, function(data){
+			//TEMP
+			$obj = JSON.parse(data);
+			$oldHeight = $('#sschat_lines')[0].scrollHeight;
+			for ($key = $obj.length-1; $key >= 0; $key--) {
+				if($obj[$key].indexOf('<span class="nick">'+nickname+':</span>') > -1){
+					$obj[$key] = $obj[$key].replace('<li><span class="nick">', '<li class="mymessage"><span class="bubble me"><span class="nick">');
+					$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
+				}else{
+					$obj[$key] = $obj[$key].replace('<li><span class="nick">', '<li class="yourmessage"><span class="bubble you"><span class="nick">');
+					$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
+				}
+				$('#sschat_lines ul').prepend(linkify($obj[$key]));
+			}
+			adjustScroll($oldHeight);
+		});
+		$number+=30;
 	});
 	$("#sschat_lines ul").ajaxError(function() {
   	$(this).html('<li>Sorry there was an error! Please reload the page and re-enter the chatroom.');

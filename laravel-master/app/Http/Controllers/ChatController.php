@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Log;
 use Cache;
 use Auth;
+use DB;
 
 class ChatController extends Controller
 {
@@ -174,13 +175,18 @@ class ChatController extends Controller
 			}
 			echo json_encode($return);
 		elseif ($_POST['action'] == 'addten'):
+			if(isset($_POST['getNumber'])){
+				$getNumber = $_POST['getNumber'];
+			}else{
+				$getNumber = 0;
+			}
 			Log::info($_POST['number']);
-			$lines = file(storage_path() . '/channel/'.'general'.'.txt');
+			$BiggestValue = DB::table('message_msg')->select('MSG_SEQNC')->orderBy('MSG_SEQNC', 'desc')->first()->MSG_SEQNC;
+			$lines = DB::table("message_msg")->select('MSG_CONTN')->where('MSG_SEQNC', '<=', $BiggestValue - ($_POST['number']-1))->where('MSG_SEQNC', '>=', $BiggestValue - (9 + $_POST['number'] + $getNumber))->orderBy('MSG_SEQNC', 'asc')->get();//file(storage_path() . '/channel/'.'general'.'.txt');
+			Log::info(print_r($lines, true));
 			$tempArray = array();
-			for ($i = (11 + $_POST['number']); $i >= (($_POST['number'])); $i--) {
-				if($i < sizeof($lines)){
-					$tempArray[] = '<li>'.$lines[sizeof($lines)-$i].'</li>';
-				}
+			for ($i = 0; $i < sizeof($lines); $i++) {
+				$tempArray[] = '<li>'.$lines[$i]->MSG_CONTN.'</li>';
 			}
 			echo json_encode($tempArray);
 		endif;
@@ -189,6 +195,7 @@ class ChatController extends Controller
 	public static function writeLine($room, $text)
 	{
 		$fp = fopen(storage_path() . '/channel/'.$room.'.txt', 'a');
+		DB::table('message_msg')->insert(['MSG_CONTN' => $text, 'MSG_DATE' => date('Y-m-d h:i:s a', time()), 'MSG_UTI_SEQNC' => Auth::user()->UTI_SEQNC]);
 		fwrite($fp, $text."\n");
 		fclose($fp);
 	}
