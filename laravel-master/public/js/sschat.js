@@ -11,20 +11,9 @@ $(document).ready(function(){
 		$('#sschat_input').removeAttr("disabled" );
 		$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 		$('#sschat_input').focus();
+		addten(false);
+		addten(false);
 		addten();
-		//TEMP
-		/*$obj = JSON.parse(data);
-		for($key in $obj){
-			if($obj[$key].indexOf('<span class="nick">'+nickname+':</span>') > -1){
-				$obj[$key] = $obj[$key].replace('<li><span class="nick">', '<li class="mymessage"><span class="bubble me"><span class="nick">');
-				$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
-			}else{
-				$obj[$key] = $obj[$key].replace('<li><span class="nick">', '<li class="yourmessage"><span class="bubble you"><span class="nick">');
-				$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
-			}
-			$('#sschat_lines ul').append(linkify($obj[$key]));
-			$('#sschat_lines').scrollTop($('#sschat_lines')[0].scrollHeight);
-		}*/
 	});
 	$("#sschat_lines ul").ajaxError(function() {
   	$(this).html('<li>Sorry there was an error! Please reload the page and re-enter the chatroom.');
@@ -45,17 +34,6 @@ $(document).ready(function(){
 						$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 						$('#sschat_input').focus();
 					});
-					/*$.ajax({
-					  type: 'POST',
-					  url: sschat_serverurl,
-					  data: {action: 'join', nickname: nickname, channel: sschat_channel},
-					  beforeSend: function(xhr){xhr.setRequestHeader('X-CSRF-TOKEN', $("#token").attr('content'));},
-					  success: function(){
-						$('#sschat_input').val('');
-						$('#sschat_input').attr('disabled', '');
-						$('#sschat_hint').html('Type a line of chat and press enter to speak:');
-						}
-					});*/
 				}
 			} else {
 				var sendline = $('#sschat_input').val();
@@ -75,13 +53,24 @@ $(document).ready(function(){
 	});
 	window.setInterval(function(){ connected(); },30000);
 	connected();
+	$( "#sschat_lines" ).scroll(function() {
+		if($( "#sschat_lines" ).scrollTop() == 0)
+        {
+			addten();
+        }
+	});
 });
 
-function addten(){
+function adjustScroll($offset){
+	$( "#sschat_lines" ).scrollTop($('#sschat_lines')[0].scrollHeight - $offset);
+}
+
+function addten($adjust = true){
 	$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number}, function(data){
 		//TEMP
 		$obj = JSON.parse(data);
-		for($key in $obj){
+		$oldHeight = $('#sschat_lines')[0].scrollHeight;
+		for ($key = $obj.length-1; $key >= 0; $key--) {
 			if($obj[$key].indexOf('<span class="nick">'+nickname+':</span>') > -1){
 				$obj[$key] = $obj[$key].replace('<li><span class="nick">', '<li class="mymessage"><span class="bubble me"><span class="nick">');
 				$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
@@ -90,10 +79,13 @@ function addten(){
 				$obj[$key] = $obj[$key].replace('</li>', '</span></li>');
 			}
 			$('#sschat_lines ul').prepend(linkify($obj[$key]));
-			//$('#sschat_lines').scrollTop($('#sschat_lines')[0].scrollHeight);
 		}
+		if($adjust){
+			adjustScroll($oldHeight);
+		}
+		
 	});
-	$number++;
+	$number+=10;
 }
 
 function serverSend(sendtext) {
@@ -114,6 +106,7 @@ function listener() {
 			data = data.replace('</li>', '</span></li>');
 		}
 		$('#sschat_lines ul').append(linkify(data));
+		$number++;
 		$('#sschat_lines').scrollTop($('#sschat_lines')[0].scrollHeight);
 		listener();
 	});

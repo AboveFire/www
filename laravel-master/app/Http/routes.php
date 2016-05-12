@@ -14,7 +14,6 @@
 //use Illuminate\Database\Migrations\Migration;
 
 // PLATEFORME WEB
-session_start();
 ini_set('xdebug.max_nesting_level', 500);
 Route::get('/',['middleware' => 'auth', function () {
 	if(Auth::guest())

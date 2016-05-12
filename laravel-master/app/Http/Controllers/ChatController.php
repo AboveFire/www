@@ -141,6 +141,8 @@ class ChatController extends Controller
 				$lastsize = 0;
 			endif;
 			set_time_limit(0);
+			//log::info("listen");
+			//$counter = 0;
 			while (1):
 				Cache::put('user-is-online-' . Auth::user()->UTI_CODE, true, 1);
 				usleep(100000);
@@ -151,7 +153,10 @@ class ChatController extends Controller
 					echo '<li>'.$lines[sizeof($lines)-1].'</li>';
 					die();
 				endif;
-				//$counter++;
+				/*if($counter == 100){
+					die();
+				}
+				$counter++;*/
 			endwhile;
 		elseif ($_POST['action'] == 'part'):
 			/* User is leaving */
@@ -172,7 +177,7 @@ class ChatController extends Controller
 			Log::info($_POST['number']);
 			$lines = file(storage_path() . '/channel/'.'general'.'.txt');
 			$tempArray = array();
-			for ($i = (10 * $_POST['number']); $i >= 1+(10 * ($_POST['number'] - 1)); $i--) {
+			for ($i = (11 + $_POST['number']); $i >= (($_POST['number'])); $i--) {
 				if($i < sizeof($lines)){
 					$tempArray[] = '<li>'.$lines[sizeof($lines)-$i].'</li>';
 				}
