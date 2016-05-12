@@ -72,7 +72,7 @@
 	                        <div class="form-group">
 	                            <div class="col-md-12 col-md-offset-4">
 	                                <a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/password/reset') }}"><i class="fa fa-external-link"></i> &nbsp;{{ trans('auth.butn_mdpOublie') }}</a>
-	                                <a class="btn btn-link colonne droite btn-width-50" href="{{ url('inscription') }}"><i class="fa fa-plus-square-o"></i> &nbsp;{{ trans('auth.butn_inscrire') }}</a>
+	                                <a class="btn btn-link colonne droite btn-width-50" href="{{ url('/register') }}"><i class="fa fa-plus-square-o"></i> &nbsp;{{ trans('auth.butn_inscrire') }}</a>
 	                            </div>
 	                        </div>
                         </div>

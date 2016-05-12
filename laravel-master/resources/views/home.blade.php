@@ -40,29 +40,19 @@
 	</div>
 	<div class="tableau">
 		<div class="ligne_descr">
-			<p class="txtMenu">Bacon ipsum dolor amet pig corned beef jerky kevin salami porchetta
-				short ribs, andouille alcatra spare ribs. Biltong capicola ground
-				round, boudin tongue chuck cupim swine picanha</p>
+			<p class="txtMenu">{{ trans('descr.results') }}</p>
 		</div>
 		<div class="ligne_descr">
-			<p class="txtMenu">Bacon ipsum dolor amet pig corned beef jerky kevin salami porchetta
-				short ribs, andouille alcatra spare ribs. Biltong capicola ground
-				round, boudin tongue chuck cupim swine picanha</p>
+			<p class="txtMenu">{{ trans('descr.pool', ['pool' => trans('pagination.poolClassic')]) }}</p>
 		</div>
 		<div class="ligne_descr">
-			<p class="txtMenu">Bacon ipsum dolor amet pig corned beef jerky kevin salami porchetta
-				short ribs, andouille alcatra spare ribs. Biltong capicola ground
-				round, boudin tongue chuck cupim swine picanha</p>
+			<p class="txtMenu">{{ trans('descr.pool', ['pool' => trans('pagination.poolPlayoff')]) }}</p>
 		</div>
 		<div class="ligne_descr">
-			<p class="txtMenu">Bacon ipsum dolor amet pig corned beef jerky kevin salami porchetta
-				short ribs, andouille alcatra spare ribs. Biltong capicola ground
-				round, boudin tongue chuck cupim swine picanha</p>
+			<p class="txtMenu">{{ trans('descr.pool', ['pool' => trans('pagination.poolSurvivor')]) }}</p>
 		</div>
 		<div class="ligne_descr">
-			<p class="txtMenu">Bacon ipsum dolor amet pig corned beef jerky kevin salami porchetta
-				short ribs, andouille alcatra spare ribs. Biltong capicola ground
-				round, boudin tongue chuck cupim swine picanha</p>
+			<p class="txtMenu">{{ trans('descr.chat') }}</p>
 		</div>
 	</div>
 </div>

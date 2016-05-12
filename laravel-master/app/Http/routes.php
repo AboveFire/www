@@ -29,11 +29,11 @@ Route::get('/',['middleware' => 'auth', function () {
 
 Route::get('/switchLangue', 'LangueController@switchLangue');
 
-Route::post('/profil/save', 'ProfilController@update');
+Route::post('/profil/save',['middleware' => 'auth', 'uses' =>  'ProfilController@update']);
 
-Route::post('/param/save', 'ParamController@update');
+Route::post('/param/save', ['middleware' => 'auth', 'uses' => 'ParamController@update']);
 
-Route::post('/sschat', 'ChatController@run');
+Route::post('/sschat', ['middleware' => 'auth', 'uses' => 'ChatController@run']);
 /*Route::get('/chat', function () {
     return view('chat.sschat');
 });*/
@@ -49,12 +49,10 @@ Route::get('/test', 'NFLController@test');
 Route::get('/connection-refused',function () {
 	return view('refused');
 });
-Route::get('/about',['middleware' => 'auth', function () {
+Route::get('/about', function () {
 	return view('about');
-}]);
-Route::get('/inscription', ['middleware' => 'auth', function () {
-	return view('/auth/register');
-}]);
+});
+
 Route::get('/profil',['middleware' => 'auth', function () {
 	return view('profil');
 }]);
@@ -76,35 +74,37 @@ Route::get('/form-playoff',['middleware' => 'auth', function () {
 Route::get('/form-survivor',['middleware' => 'auth', function () {
 	return view('pool.forms.survivor');
 }]);
-Route::get('/results-classic', function () {
+Route::get('/results-classic',['middleware' => 'auth', function () {
 	return view('pool.results.classic');
-});
-Route::get('/results-playoff', function () {
+}]);
+Route::get('/results-playoff',['middleware' => 'auth', function () {
 	return view('pool.results.playoff');
-});
-Route::get('/results-survivor', function () {
+}]);
+Route::get('/results-survivor',['middleware' => 'auth', function () {
 	return view('pool.results.survivor');
-});
-Route::get('/inscription-classic', function () {
+}]);
+Route::get('/inscription-classic',['middleware' => 'auth', function () {
 	return view('pool.results.classic');
-});
-Route::get('/inscription-playoff', function () {
+}]);
+Route::get('/inscription-playoff',['middleware' => 'auth', function () {
 	return view('pool.results.playoff');
-});
-Route::get('/inscription-survivor', function () {
+}]);
+Route::get('/inscription-survivor',['middleware' => 'auth', function () {
 	return view('pool.inscriptions.survivor');
-});
+}]);
 //Administration route
-Route::get('/admin-home',['middleware' => 'admin', function () {
+Route::get('/admin',['middleware' => 'admin', function () {
 	return view('administration.home');
 }]);
-Route::get('/admin-pool',['middleware' => 'admin', function () {
+
+Route::get('/admin/users',['middleware' => 'admin', 'uses' => 'AdminController@users']);
+
+Route::get('/admin/pool',['middleware' => 'admin', function () {
 	return view('administration.pool');
 }]);
-Route::get('/admin-users',['middleware' => 'admin', function () {
-	return view('administration.users');
-}]);
 
+Route::post('/admin/users/update',['middleware' => 'admin', 'uses' => 'AdminController@updateUsers']);
+	
 // APPLICATION MOBILE
 Route::get('/mobile/login', 'Auth\AuthController@authenticateMobile');
 

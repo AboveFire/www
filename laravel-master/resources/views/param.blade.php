@@ -29,7 +29,7 @@
 					  	<option id="orange" value="orange">{{ trans('param.orange') }}</option>
 					  	<option id="purple" value="purple">{{ trans('param.mauve') }}</option>
 					  	<option id="white" value="white">{{ trans('param.blanc') }}</option>
-					  	<option id="gray" value="gray">{{ trans('param.gris') }}</option>
+					  	<option id="black" value="black">{{ trans('param.gris') }}</option>
 					</select>
 					@if($errors->has('coulr')) 
 					<span class="help-block"> 

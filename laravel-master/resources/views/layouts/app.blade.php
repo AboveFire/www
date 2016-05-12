@@ -66,16 +66,16 @@
 				<li><a href="{{ url('/chat') }}">
 					<i class="fa fa-btn fa-comments"></i>{{ trans('pagination.chat') }}
 				</a></li>
-				@if (true/*Auth::user()->isAdmin()*/)
+				@if (Auth::user()->isAdmin() || Auth::user()->isSuperAdmin())
 				<li><hr class="hrMenu"></li>
-				<li><a href="{{ url('/admin-home') }}">
+				<li><a href="{{ url('/admin') }}">
 					<i class="fa fa-btn fa-shield"></i>{{ trans('pagination.admin') }}
 				</a></li>
 				<ul>
-					<li><a href="{{ url('/admin-users') }}">
+					<li><a href="{{ url('/admin/users') }}">
 						<i class="fa fa-btn fa-users"></i>{{ trans('pagination.user') }}
 					</a></li>
-					<li><a href="{{ url('/admin-pool') }}">
+					<li><a href="{{ url('/admin/pool') }}">
 						<i class="fa fa-btn fa-plus"></i>{{ trans('pagination.createPool') }}
 					</a></li>
 				</ul>
