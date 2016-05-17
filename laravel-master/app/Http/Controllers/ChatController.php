@@ -91,6 +91,7 @@ class ChatController extends Controller
 		'E>'=>'heart',
 		':heart'=>'heart'
 		);
+		log::info($_POST['action']);
 		/* If magic quotes is enabled, remove slashes from POSTed data */
 		if (get_magic_quotes_gpc()):
 			foreach ($_POST as $key=>$val):
@@ -140,6 +141,7 @@ class ChatController extends Controller
 			
 			self::writeLine($_POST['channel'], $nick . $message, $user);
 		elseif ($_POST['action'] == 'listen'):
+			log::info("listenEnter");
 			/* User is waiting for next line of chat */
 			if ($stat = @stat(storage_path() . '/channel/'.$_POST['channel'].'.txt')):
 				$lastsize = intval($stat['size']);
@@ -149,8 +151,6 @@ class ChatController extends Controller
 				$lastsize = 0;
 			endif;
 			set_time_limit(0);
-			//log::info("listen");
-			//$counter = 0;
 			while (1):
 				Cache::put('user-is-online-' . $user->UTI_CODE, true, 1);
 				usleep(100000);
@@ -159,6 +159,7 @@ class ChatController extends Controller
 				if (intval($stat['size']) > $lastsize):
 					$lines = file(storage_path() . '/channel/'.$_POST['channel'].'.txt');
 					echo '<li>'.$lines[sizeof($lines)-1].'</li>';
+					die();
 				endif;
 			endwhile;
 		elseif ($_POST['action'] == 'part'):

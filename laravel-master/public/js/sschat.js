@@ -46,7 +46,7 @@ $(document).ready(function(){
 		if (e.keyCode == 13) {
 			if (nickname == '') {
 				if ($('#sschat_input').val() != '') {
-					listener();
+					//listener();
 					nickname = $('#sschat_input').val();
 					nickname = nickname.replace(/[^-a-z0-9]/ig,'');
 					$('#sschat_input').attr('disabled', 'disabled');
