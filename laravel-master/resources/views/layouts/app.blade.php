@@ -22,9 +22,10 @@
 		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/main.css') }}"></link>
 		@if (!Auth::guest() && Auth::user()->UTI_COULR != null)
 			<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-' . Auth::user()->UTI_COULR . '.css') }}"></link>
+		@else
+			<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-red.css') }}"></link>
 		@endif
 	</head>
-	
 	<body id="app-layout">
 		<nav id="menu" class="side">
 			<div class="header">

@@ -1,6 +1,5 @@
 body {
 	font-family: 'Lato';
-	background: #d3d3d3;
 	min-height: 500px;
 	min-width: 750px;
 	height: 100%;
@@ -22,11 +21,6 @@ body {
 	left: 100px;
 }
 
-.titre a:hover, .titre a, .titre a:active, .titre a:focus
-{
-	color: white;
-}
-
 .sous-titre
 {
 	width: 100%;
@@ -37,37 +31,18 @@ body {
 
 a
 {
-	color: #000000;
 	font-weight: bold;
 }
 
 a:hover, a:active, a.hover, a.active, a:focus
 {
-	color: #B30000;
-	border-color: #B30000;
-	/*text-decoration: underline;*/
 	text-decoration: none;
-}
-a.focus, a:focus
-{
-	color: #B30000;
-}
-
-hr
-{
-	border: 1px solid #000000;
 }
 
 /*Header*************************************************************************************/
-
-.header i{
-	color: white;
-}
-
 .header {
 	padding: 1% 0;
 	width: 100%;
-	background-color: #b30000;
 	text-align: center;
 	color: white;
 	position: fixed;
@@ -167,20 +142,8 @@ hr
 	padding-left: 7% !important;
 }
 
-.ulGlobal 
-{
-	color: #000000;
-}
-
-.ulGlobal i:hover
-{
-	color: #B30000;
-	border: 1px solid #B30000;
-}
-
 .ulGlobal i 
 {
-	border: 1px solid #000000;
 	border-radius: 4px;
 	min-height: 30px;
 	min-width: 30px;
@@ -198,15 +161,12 @@ hr
 }
 
 #menu-left {
-	background-color: #D3D3D3;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	width: 17.755em;
 	left: -17.755em;
 	height: 100%;
-	
-	border-right: 1px solid #FFFFFF;
 	
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
@@ -237,16 +197,13 @@ hr
 }
 
 #menu {
-	background-color: #d3d3d3;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	width: 17.755em;
 	right: -17.755em;
 	height: 100%;
-	
-	border-left: 1px solid #FFFFFF;
-		
+
 	-webkit-transform: translate(0px, 0px);
 	-moz-transform: translate(0px, 0px);
 	-o-transform: translate(0px, 0px);
@@ -273,11 +230,6 @@ hr
 	height:100px;
 }
 
-img
-{
-	border: 1px solid #000000;
-}
-
 .hrMenu
 {
 	width: 75%;
@@ -288,7 +240,6 @@ img
 .content {
 	width: 100%;
 	height:100%;
-	background-color: #d3d3d3;
 	margin: 0;
 }
 
@@ -370,7 +321,6 @@ colonne
 /*Panneau central*************************************************************************************/
 .panel-default>.panel-heading
 {
-	background-color: #D3D3D3;
 	border: 0;
 	text-align: center;
 	font-size:150%;
@@ -388,22 +338,7 @@ colonne
 
 .panel-body
 {
-	background-color: #D3D3D3;
 	border: 0;
-}
-
-/*Champs textes*************************************************************************************/
-input.form-control,
-select.form-control 
-{
-	border: 1px solid #000000;
-}
-
-input.form-control:focus,
-select.form-control:focus 
-{
-	border: 1px solid #000000;
-  	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
 
 /*Boutons*************************************************************************************/
@@ -418,9 +353,6 @@ select.form-control:focus
 
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
-	background-color: #B30000;
-	color: #FFFFFF;
-	border: 1px solid black;
 	outline:none;
 	display: inline-block;
     padding: 6px 12px;
@@ -440,20 +372,6 @@ select.form-control:focus
     user-select: none;
     background-image: none;
     border-radius: 4px;
-}
-
-.butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
-{
-	background-color: #950000;
-
-}
-
-button.butn:focus,
-button.butn.focus
-{
-	background-color: #670000;
-	border: 1px solid #000000;
-  	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
 
 .btn-width-25
@@ -476,8 +394,6 @@ input[type="file" i].focus,
 input[type="file" i]:active,
 input[type="file" i].active
 {
-	border: 1px solid #000000;
-  	box-shadow: 0 1px 1px #000000 inset, 0 0 1px #000000;
   	border-radius: 4px;
   	outline:none;
 }
@@ -488,7 +404,5 @@ input[type="file" i].active
 	min-height: 38.899px;
     margin-bottom: 0;
 	height: 7vh;
-	background-color: #b30000;
 	position: initial;
-
 }
