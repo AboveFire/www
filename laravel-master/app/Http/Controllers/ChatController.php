@@ -13,15 +13,14 @@ use JWTAuth;
 class ChatController extends Controller
 {
 	public function run(){
-		Log::info($_POST['token']);
+		if(session_status() == PHP_SESSION_ACTIVE){
+			session_write_close();
+		}
 		if(isset($_POST['token']) && $_POST['token'] != ''){
-			Log::info($_POST['token']);
 			$user = JWTAuth::toUser($_POST['token']);
-			Log::info($user->UTI_CODE);
 		}else{
 			$user = Auth::user();
 		}
-		Log::info("asdasdasd");
 		$smileys = Array(
 		':)'=>'smile',
 		':-)'=>'smile',
@@ -92,7 +91,6 @@ class ChatController extends Controller
 		'E>'=>'heart',
 		':heart'=>'heart'
 		);
-		Log::info("1");
 		/* If magic quotes is enabled, remove slashes from POSTed data */
 		if (get_magic_quotes_gpc()):
 			foreach ($_POST as $key=>$val):
@@ -103,7 +101,6 @@ class ChatController extends Controller
 		if (isset($_POST['channel'])):
 			$_POST['channel'] = preg_replace("/[^a-z0-9]/i", '', $_POST['channel']);
 		endif;
-		Log::info("2");
 		if ($_POST['action'] == 'join'):
 			$temp = Cache::get("connected-once");
 			if(is_array($temp)){
@@ -162,12 +159,7 @@ class ChatController extends Controller
 				if (intval($stat['size']) > $lastsize):
 					$lines = file(storage_path() . '/channel/'.$_POST['channel'].'.txt');
 					echo '<li>'.$lines[sizeof($lines)-1].'</li>';
-					die();
 				endif;
-				/*if($counter == 100){
-					die();
-				}
-				$counter++;*/
 			endwhile;
 		elseif ($_POST['action'] == 'part'):
 			/* User is leaving */
@@ -190,10 +182,8 @@ class ChatController extends Controller
 			}else{
 				$getNumber = 0;
 			}
-			Log::info($_POST['number']);
 			$BiggestValue = DB::table('message_msg')->select('MSG_SEQNC')->orderBy('MSG_SEQNC', 'desc')->first()->MSG_SEQNC;
 			$lines = DB::table("message_msg")->select('MSG_CONTN')->where('MSG_SEQNC', '<=', $BiggestValue - ($_POST['number']-1))->where('MSG_SEQNC', '>=', $BiggestValue - (9 + $_POST['number'] + $getNumber))->orderBy('MSG_SEQNC', 'asc')->get();//file(storage_path() . '/channel/'.'general'.'.txt');
-			Log::info(print_r($lines, true));
 			$tempArray = array();
 			for ($i = 0; $i < sizeof($lines); $i++) {
 				$tempArray[] = '<li>'.$lines[$i]->MSG_CONTN.'</li>';
