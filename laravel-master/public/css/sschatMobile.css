@@ -9,5 +9,8 @@
 	margin-top:-4px;
 	padding: 0;
 	resize: none;
-	height: 10vh;
+	height: 11vh;
+}
+body {
+	margin: 0px;
 }
