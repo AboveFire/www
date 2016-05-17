@@ -56,9 +56,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nom' => 'required|max:80',
-            'prenm' => 'required|max:80',
-            'code' => 'required|max:255|unique:utilisateur_uti,uti_code',
+            'nom' => 'required|max:80|alpha_dash',
+            'prenm' => 'required|max:80|alpha_dash',
+            'code' => 'required|max:255|alpha_dash|unique:utilisateur_uti,uti_code',
             'courl' => 'required|email|max:255|unique:utilisateur_uti,uti_courl',
             'paswd' => 'required|min:6|confirmed',
         ]);

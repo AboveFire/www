@@ -121,3 +121,8 @@ Route::post('/mobile/sschat', 'ChatController@run');
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
 	return Auth::user()->getImageMobile();
 }]);
+
+
+Route::get('/fml', function () {
+	return view('fml');
+});

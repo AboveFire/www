@@ -58,7 +58,7 @@
 		<div class="ligne">
 			<div class="form-group">
 				<div class="col-md-12 col-md-offset-4">
-					<button onclick="location.href='{{ url('/param') }}'" type="button" class="butn btn-width-50">
+					<button onclick="location.href='{{ url('/admin') }}'" type="button" class="butn btn-width-50">
 						<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 					</button>
 					<button type="submit" class="butn btn-width-50">
