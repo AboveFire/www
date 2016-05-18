@@ -58,6 +58,7 @@ $(document).ready(function(){
 					});
 				}
 			} else {
+				var sendline = $('#sschat_input').val();
 				trimmedline = sendline.replace(/\s/g, "");
 				if (trimmedline != '') {
 					$('#sschat_input').attr('disabled', 'disabled');
@@ -69,7 +70,17 @@ $(document).ready(function(){
 			}
 		}
 	});
-	
+	$("#paperplane").click(function(){
+		var sendline = $('#sschat_input').val();
+		trimmedline = sendline.replace(/\s/g, "");
+		if (trimmedline != '') {
+			$('#sschat_input').attr('disabled', 'disabled');
+			$('#sschat_input').val('sending...');
+			serverSend('<span class="nick">'+nickname+':</span> '+sendline);
+		}else{
+			$('#sschat_input').val('');
+		}
+	});
 	$(window).bind("beforeunload", function(){
 		if (nickname != '') {
 			$.post(sschat_serverurl, {action: 'part', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']});
