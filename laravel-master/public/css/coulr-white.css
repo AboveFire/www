@@ -7,12 +7,12 @@ a
 }
 a:hover, a:active, a.hover, a.active, a:focus
 {
-	color: #B30000;
-	border-color: #B30000;
+	color: #B3B3B3;
+	border-color: #B3B3B3;
 }
 a.focus, a:focus
 {
-	color: #B30000;
+	color: #B3B3B3;
 }
 hr
 {
@@ -20,7 +20,7 @@ hr
 }
 
 .header {
-	background-color: #B30000;
+	background-color: #B3B3B3;
 	color: #FFFFFF;
 }
 
@@ -40,8 +40,8 @@ hr
 
 .ulGlobal i:hover
 {
-	color: #B30000;
-	border: 1px solid #B30000;
+	color: #B3B3B3;
+	border: 1px solid #B3B3B3;
 }
 
 .ulGlobal i 
@@ -93,20 +93,20 @@ select.form-control:focus
 
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
-	background-color: #B30000;
+	background-color: #B3B3B3;
 	color: #FFFFFF;
 	border: 1px solid #000000;
 }
 
 .butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
 {
-	background-color: #950000;
+	background-color: #a9a9a9;
 }
 
 button.butn:focus,
 button.butn.focus
 {
-	background-color: #670000;
+	background-color: #969696;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
@@ -121,5 +121,5 @@ input[type="file" i].active
 }
 
 .footer {
-	background-color: #B30000;
-}}}
+	background-color: #B3B3B3;
+}
