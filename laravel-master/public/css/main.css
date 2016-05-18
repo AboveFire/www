@@ -1,10 +1,9 @@
 body {
 	font-family: 'Lato';
-	min-height: 500px;
-	min-width: 750px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	font-size: 2vmin;
 }
 
 /*Base*************************************************************************************/
@@ -53,7 +52,7 @@ hr
 /*Header*************************************************************************************/
 
 .header {
-	padding: 1% 0;
+	padding: 1vmin 0;
 	width: 100%;
 	text-align: center;
 	color: white;
@@ -63,6 +62,7 @@ hr
 }
 
 .content-header {
+	
 	font-size: 3.5vmin;
 	text-align: center;
 }
@@ -79,22 +79,6 @@ hr
 }
 
 /*Font awesome*************************************************************************************/
-.fa-arrow-circle-left{
-	font-size: 200%;
-	float: right;
-	margin-right: 7%;
-	padding-top: 8% !important;
-	padding-bottom: 8% !important;
-}
-
-.fa-arrow-circle-right{
-	font-size: 200%;
-	float: left;
-	margin-left: 7%;
-	padding-top: 8% !important;
-	padding-bottom: 8% !important;
-}
-
 .fa-btn {
 	margin-right: 7px;
 }
@@ -108,17 +92,17 @@ hr
 	vertical-align: middle;
     display: table-cell;
     position: relative;
-	top:7px;
+	top:1vmin;
 }
 
 .btn-menu-left i {
-	padding-left: 15px;
+	padding-left: 3vmin;
 	float: left;
 	font-size: 3.5vmin;
 }
 
 .btn-menu-right i {
-	padding-right: 30px;
+	padding-right: 3vmin;
 	float: right;
 	font-size: 3.5vmin;
 }
@@ -130,7 +114,7 @@ hr
 
 .big-fa
 {
-	font-size: 2000%;
+	font-size: 35vmin;
 }
 
 /*Menu*************************************************************************************/
@@ -159,12 +143,10 @@ hr
 .ulGlobal i 
 {
 	border-radius: 4px;
-	min-height: 30px;
-	min-width: 30px;
 	text-align: center;
 	margin: 2px;
 	margin-right: 6px;
-	padding: 2px 1px 1px 1px;
+	padding: 0.5vmin;
 }
 
 
@@ -200,36 +182,7 @@ ul ul, ol ul {
 	transition: 0.15s ease;
 }
 
-#header-menu-left {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: 17%;
-	min-width: 17.755em;
-	left: -17%;
-	height: 100%;
-	
-	-webkit-transform: translate(0px, 0px);
-	-moz-transform: translate(0px, 0px);
-	-o-transform: translate(0px, 0px);
-	-ms-transform: translate(0px, 0px);
-	transform: translate(0px, 0px);
-	-webkit-transition: 0.15s ease;
-	-moz-transition: 0.15s ease;
-	-o-transition: 0.15s ease;
-	transition: 0.15s ease;
-}
-
 #menu-left.active {
-	-webkit-transform: translate(17.755em, 0px);
-	-moz-transform: translate(17.755em, 0px);
-	-o-transform: translate(17.755em, 0px);
-	-ms-transform: translate(17.755em, 0px);
-	transform: translate(17.755em, 0px);
-}
-
-#header-menu-left.active {
-	z-index : 11;
 	-webkit-transform: translate(17.755em, 0px);
 	-moz-transform: translate(17.755em, 0px);
 	-o-transform: translate(17.755em, 0px);
@@ -264,35 +217,8 @@ ul ul, ol ul {
 	transition: 0.15s ease;
 }
 
-#header-menu {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: 17.755em;
-	right: -17.755em;
-	height: 100%;
-		
-	-webkit-transform: translate(0px, 0px);
-	-moz-transform: translate(0px, 0px);
-	-o-transform: translate(0px, 0px);
-	-ms-transform: translate(0px, 0px);
-	transform: translate(0px, 0px);
-	-webkit-transition: 0.15s ease;
-	-moz-transition: 0.15s ease;
-	-o-transition: 0.15s ease;
-	transition: 0.15s ease;
-}
-
 #menu.active {
 	z-index : 11;
-	-webkit-transform: translate(-17.755em, 0px);
-	-moz-transform: translate(-17.755em, 0px);
-	-o-transform: translate(-17.755em, 0px);
-	-ms-transform: translate(-17.755em, 0px);
-	transform: translate(-17.755em, 0px);
-}
-
-#header-menu.active {
 	-webkit-transform: translate(-17.755em, 0px);
 	-moz-transform: translate(-17.755em, 0px);
 	-o-transform: translate(-17.755em, 0px);
@@ -482,6 +408,38 @@ input[type="file" i].active
 }
 
 @media(max-height:700px) {
+	body
+	{
+		font-size: 3vmax;
+	}
+	
+	.header
+	{
+		height: 12vmin;
+	}
+	
+	.content-header
+	{
+		font-size: 7vmin;
+	}
+	
+	.btn-width-50
+	{
+		width: 100%;
+	}
+	
+	.btn-menu-left i {
+		padding-left: 4vmin;
+		float: left;
+		font-size: 7.5vmin;
+	}
+
+	.btn-menu-right i {
+		padding-right: 8vmin;
+		float: right;
+		font-size: 7.5vmin;
+	}
+	
 	#footer {
 		display: none;
 	}
@@ -492,4 +450,27 @@ input[type="file" i].active
 		padding-bottom: 0px;
 	}
 	
+}
+
+.col-lg-4
+{
+	width: 100%;
+	text-align: center;
+}
+
+
+@media (min-width: 675px)
+{
+	
+	.col-lg-4
+{
+	width: 100%;
+}
+
+@media (min-width: 1500px)
+{
+	
+	.col-lg-4
+{
+	width: 50%;
 }

@@ -92,6 +92,18 @@
     line-height: 40px;
 }
 
+.sidebar-nav ul li
+{
+    text-indent: 40px;
+}
+
+.sidebar-nav ul li
+{
+    text-indent: -7px;
+	padding-left:30px;
+	list-style-type: inside;
+}
+
 .sidebar-nav li a {
     display: block;
 }

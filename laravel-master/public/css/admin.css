@@ -51,26 +51,3 @@
 	font-size: 2vmin;
 	text-align: center;
 }
-
-.col-lg-4
-{
-	width: 100%;
-	text-align: center;
-}
-
-
-@media (min-width: 675px)
-{
-	
-	.col-lg-4
-{
-	width: 100%;
-}
-
-@media (min-width: 1500px)
-{
-	
-	.col-lg-4
-{
-	width: 50%;
-}
