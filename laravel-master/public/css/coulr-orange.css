@@ -1,26 +1,40 @@
 body {
 	background: #D3D3D3;
 }
+
 a
 {
 	color: #000000;
 }
-a:hover, a:active, a.hover, a.active, a:focus
+
+a:hover, a:active, a.hover, a.active
 {
-	color: #DA5007;
-	border-color: #DA5007;
+	color: #da5007;
+	border-color: #da5007;
 }
-a.focus, a:focus
+
+a.focus, a:focus 
 {
-	color: #DA5007;
+	/*couleur 2*/
+	color: #c14706;
 }
+
+.sidebar-brand a:hover, .sidebar-brand a:active, .sidebar-brand a.hover, .sidebar-brand a.active{
+	color: #000000;
+}
+
+.sidebar-brand a.focus, .sidebar-brand a:focus 
+{
+	color: #000000;
+}
+
 hr
 {
-	border: 1px solid #000000;
+	border: 1px solid #FFFFFF;
 }
 
 .header {
-	background-color: #DA5007;
+	background-color: #da5007;
 	color: #FFFFFF;
 }
 
@@ -32,7 +46,6 @@ hr
 	color: #FFFFFF;
 }
 
-
 .ulGlobal 
 {
 	color: #000000;
@@ -40,8 +53,8 @@ hr
 
 .ulGlobal i:hover
 {
-	color: #DA5007;
-	border: 1px solid #DA5007;
+	color: #da5007;
+	border: 1px solid #da5007;
 }
 
 .ulGlobal i 
@@ -59,9 +72,39 @@ hr
 	border-left: 1px solid #FFFFFF;
 }
 
+#header-menu-left {
+	border-right: 1px solid #FFFFFF;
+}
+
+#header-menu-left .titreMenuG{
+	background-color: #da5007;
+}
+
+
+#header-menu {
+	background-color: #da5007;
+	border-left: 1px solid #FFFFFF;
+}
+
+
+#header-menu .titreMenu{
+	background-color: #da5007;
+}
+
 img
 {
 	border: 1px solid #000000;
+}
+.imageMenu:hover, .imageMenu:active, .imageMenu.hover, .imageMenu.active
+{
+	color: #da5007;
+	border-color: #da5007;
+}
+
+.imageMenu.focus, .imageMenu:focus 
+{
+	/*couleur 2*/
+	color: #c14706;
 }
 
 .content {
@@ -78,6 +121,19 @@ img
 	background-color: #D3D3D3;
 }
 
+.panel-heading
+{
+	background-color: #D3D3D3;
+}
+
+.panel
+{
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 0px 0px rgba(0,0,0,.05);
+}
+
+
+/*Champs textes*************************************************************************************/
 input.form-control,
 select.form-control 
 {
@@ -93,20 +149,23 @@ select.form-control:focus
 
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
-	background-color: #DA5007;
+	background-color: #da5007;
 	color: #FFFFFF;
 	border: 1px solid #000000;
 }
 
+
 .butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
 {
-	background-color: #e68a00;
+	/*couleur 2*/
+	background-color: #c14706;
 }
 
 button.butn:focus,
 button.butn.focus
 {
-	background-color: #cc7a00;
+	/*couleur 3*/
+	background-color: #a93e05;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
@@ -121,5 +180,15 @@ input[type="file" i].active
 }
 
 .footer {
-	background-color: #DA5007;
+	background-color: #da5007;
+}
+
+#left-sidebar-wrapper {
+	background-color: #d3d3d3;
+	border-right: 2px solid #FFFFFF;
+}
+
+#right-sidebar-wrapper {
+	background-color: #d3d3d3;
+	border-left: 2px solid #FFFFFF;
 }

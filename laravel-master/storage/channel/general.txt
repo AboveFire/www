@@ -15,6 +15,37 @@
 <span class="nick">aaa:</span> hey 
 <span class="notice">aaa has left the chatroom</span>
 <span class="notice">aaa has entered the chatroom</span>
+<<<<<<< HEAD
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+<span class="notice">aaa has left the chatroom</span>
+<span class="notice">aaa has entered the chatroom</span>
+=======
 <span class="notice">aaa has left the chatroom</span>
 <span class="notice">aaa has entered the chatroom</span>
 <span class="notice">aaa has left the chatroom</span>
@@ -23,3 +54,4 @@
 <span class="nick">aaa:</span>   
 <span class="nick">aaa:</span>   
 <span class="nick">aaa:</span>   
+>>>>>>> refs/remotes/origin/master

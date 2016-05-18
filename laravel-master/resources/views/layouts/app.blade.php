@@ -20,6 +20,8 @@
 	<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/simple-sidebar.css') }}"></link>
 	@if (!Auth::guest() && Auth::user()->UTI_COULR != null)
 		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-' . Auth::user()->UTI_COULR . '.css') }}"></link>
+	@else
+		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-red.css') }}"></link>
 	@endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -90,7 +92,7 @@
         <div id="right-sidebar-wrapper">
 	        <ul class="ulGlobal sidebar-nav">
 				<li class="sidebar-brand">
-					<a href="#">Menu</a>
+					Menu
 				</li>
 				<li><a href="{{ url('/home') }}">
 					<i class="fa fa-btn fa-home"></i>{{ trans('pagination.home') }}

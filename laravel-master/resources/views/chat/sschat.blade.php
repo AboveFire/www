@@ -15,8 +15,8 @@
 		<div id="sschat_lines">
 			<ul></ul>
 		</div
-		><div id="sschat_connected">
-		</div
+		><ul id="sschat_connected" class="sidebar-nav">
+		</ul
 		><div id="sschat_entry">
 			<p id="sschat_hint">Type your nickname and press enter:</p>
 			<!-- <input type="text" id="sschat_input"> -->
