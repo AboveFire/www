@@ -40,9 +40,15 @@
 			<a href="{{ url('/switchLangue') }}" class="textOffline btn-menu btn-menu-right">
 				<i>{{ trans('general.language') }}</i>
 			</a>
+			@if (Route::getCurrentRoute()->getPath() === ('about'))
+			<a href="{{ url('/') }}" class="textOffline btn-menu btn-menu-left">
+				<i>{{ trans('pagination.home') }}</i>
+			</a>
+			@else
 			<a href="{{ url('/about') }}" class="textOffline btn-menu btn-menu-left">
 				<i>{{ trans('pagination.about') }}</i>
 			</a>
+			@endif
 			@else
 			<a href="#left-menu-toggle" class="btn-menu btn-menu-left" id="left-menu-toggle">
 				<i class="fa fa-list-ul"></i>
