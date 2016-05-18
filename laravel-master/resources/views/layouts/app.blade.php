@@ -92,7 +92,7 @@
         <div id="right-sidebar-wrapper">
 	        <ul class="ulGlobal sidebar-nav">
 				<li class="sidebar-brand">
-					<a href="#">Menu</a>
+					Menu
 				</li>
 				<li><a href="{{ url('/home') }}">
 					<i class="fa fa-btn fa-home"></i>{{ trans('pagination.home') }}

@@ -38,7 +38,7 @@ $(document).ready(function(){
 		$number+=30;
 	});
 	$("#sschat_lines ul").ajaxError(function() {
-  	$(this).html('<li>Sorry there was an error! Please reload the page and re-enter the chatroom.');
+  	$(this).html('<li>Désolé, une erreur est survenue. Veuillez rafraîchir votre page.\nSorry there was an error! Please reload the page.');
 	});
  
 	$('#sschat_input').focus();
@@ -58,11 +58,13 @@ $(document).ready(function(){
 					});
 				}
 			} else {
-				var sendline = $('#sschat_input').val();
-				if (sendline != '') {
+				trimmedline = sendline.replace(/\s/g, "");
+				if (trimmedline != '') {
 					$('#sschat_input').attr('disabled', 'disabled');
 					$('#sschat_input').val('sending...');
 					serverSend('<span class="nick">'+nickname+':</span> '+sendline);
+				}else{
+					$('#sschat_input').val('');
 				}
 			}
 		}
@@ -137,9 +139,9 @@ function listener() {
 function connected(){
 	$.post(sschat_serverurl, {action: 'checkconnected', channel: sschat_channel, _token: tokenMobile, token: $_GET['token']}, function(data){
 		$obj = JSON.parse(data);
-		$('#sschat_connected').html("");
+		$('#sschat_connected').html("<li class=\"sidebar-brand\">Users</li>");
 		for($key in $obj){
-			$('#sschat_connected').html($('#sschat_connected').html() + '<li>' + $obj[$key] + '</li>');
+			$('#sschat_connected').html($('#sschat_connected').html() + '<li class=\"users\">' + $obj[$key] + '</li>');
 		}
 	});
 }

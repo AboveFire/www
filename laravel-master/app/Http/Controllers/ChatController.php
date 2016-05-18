@@ -125,7 +125,7 @@ class ChatController extends Controller
 			echo json_encode($tempArray);*/
 			
 			$_POST['nickname'] = substr(strip_tags($_POST['nickname']), 0, 16);
-			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has entered the chatroom</span>', $user);
+			//self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has entered the chatroom</span>', $user);
 		elseif ($_POST['action'] == 'send'):
 			/* User is saying something */
 			$pattern = '/^\<span class="nick"\>.*\<\/span\>/';
@@ -164,7 +164,7 @@ class ChatController extends Controller
 			endwhile;
 		elseif ($_POST['action'] == 'part'):
 			/* User is leaving */
-			self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has left the chatroom</span>', $user);
+			//self::writeLine($_POST['channel'], '<span class="notice">'.$_POST['nickname'].' has left the chatroom</span>', $user);
 		elseif ($_POST['action'] == 'checkconnected'):
 			$temp = Cache::get("connected-once");
 			//Log::info(print_r($temp,true));
