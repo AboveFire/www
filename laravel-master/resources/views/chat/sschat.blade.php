@@ -31,6 +31,7 @@
 			<p id="sschat_hint">Type your nickname and press enter:</p>
 			<!-- <input type="text" id="sschat_input"> -->
 			<textarea id="sschat_input" placeholder="Saisissez votre texte" rows=2></textarea>
+			<i id="paperplane" class="fa fa-paper-plane-o"></i>
 		</div>
 	</div>
 </div>
