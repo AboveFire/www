@@ -38,7 +38,7 @@ $(document).ready(function(){
 		$number+=30;
 	});
 	$("#sschat_lines ul").ajaxError(function() {
-  	$(this).html('<li>Sorry there was an error! Please reload the page and re-enter the chatroom.');
+  	$(this).html('<li>Désolé, une erreur est survenue. Veuillez rafraîchir votre page.\nSorry there was an error! Please reload the page.');
 	});
  
 	$('#sschat_input').focus();
@@ -59,7 +59,7 @@ $(document).ready(function(){
 				}
 			} else {
 				var sendline = $('#sschat_input').val();
-				if (sendline != '') {
+				if (sendline != '' && sendline != '\n') {
 					$('#sschat_input').attr('disabled', 'disabled');
 					$('#sschat_input').val('sending...');
 					serverSend('<span class="nick">'+nickname+':</span> '+sendline);

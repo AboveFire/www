@@ -1,18 +1,18 @@
-.header{
-	position:relative;
-}
 .footer{
 	display:none;
 }
 .container {
 	width : 100%;
 }
-.main-container {
-	padding-top: 0px !important;
+#page-content-wrapper{
+	padding: 0px 0px 0px 0px;
+}
+.container-fluid{
+	padding: 0px 0px 0px 0px;
 }
 #sschat {
 	position:fixed;
-	padding-bottom:50px;
+	padding-bottom:130px;
 	border: #ccc 1px solid;
 	width: 100%;
 	height: 100%;
