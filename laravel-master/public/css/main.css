@@ -58,12 +58,12 @@ hr
 	text-align: center;
 	color: white;
 	position: fixed;
-	height: 75px;
+	height: 7vmin;
 	z-index: 10000;
 }
 
 .content-header {
-	font-size: 200%;
+	font-size: 3.5vmin;
 	text-align: center;
 }
 
@@ -100,7 +100,6 @@ hr
 }
 
 .fa {
-	font-size:25px;
 	text-indent: 0;
 }
 
@@ -115,12 +114,13 @@ hr
 .btn-menu-left i {
 	padding-left: 15px;
 	float: left;
+	font-size: 3.5vmin;
 }
 
 .btn-menu-right i {
 	padding-right: 30px;
 	float: right;
-	
+	font-size: 3.5vmin;
 }
 
 .btn-link:hover, .btn-link:focus, .btn-link:active 
@@ -362,7 +362,6 @@ ul ul, ol ul {
 	padding: 0;
 } 
 
-
 /*Form*************************************************************************************/
 colonne
 {
@@ -409,6 +408,11 @@ colonne
 .panel-body
 {
 	border: 0;
+}
+
+#wrapper #page-content-wrapper
+{
+	padding-bottom: 0px;
 }
 
 /*Boutons*************************************************************************************/
@@ -473,7 +477,7 @@ input[type="file" i].active
 	width: 100%;
     margin-bottom: 0;
     bottom: 0px;
-	height: 75px;
+	height: 7vmin;
 	position: fixed;
 }
 

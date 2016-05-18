@@ -8,8 +8,8 @@
 
 #wrapper {
     padding-left: 0;
-    padding-top: 75px;
-    padding-bottom: 75px;
+    padding-top: 7vmin;
+    padding-bottom: 7vmin;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -108,10 +108,12 @@
 .sidebar-nav > .sidebar-brand {
     height: 50px;
     font-size: 22px;
-    line-height: 60px;
-    border-bottom: 3px solid black;
+    line-height: 50px;
+    border-bottom: 2px solid #FFFFFF;
     margin-bottom: 15px;
     text-align: center;
+	font-weight: bold;
+	text-indent: 0px;
 }
 
 /* Sub-bar styles */

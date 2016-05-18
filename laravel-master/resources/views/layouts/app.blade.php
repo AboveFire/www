@@ -62,9 +62,7 @@
         <div id="left-sidebar-wrapper">
 	        <ul class="ulGlobal sidebar-nav">
 		        <li class="sidebar-brand">
-                    <a href="#">
                         Options
-                    </a>
                 </li>
 				@if (!Auth::guest())
 				<li><a href="{{ url('/profil') }}">
@@ -150,7 +148,6 @@
         <div id="page-content-wrapper" class="">
             <div class="container-fluid">
 				@yield('content')
-				<br /><br /><br />
 				<br /><br /><br />
             </div>
         </div>
