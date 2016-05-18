@@ -20,6 +20,8 @@
 	<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/simple-sidebar.css') }}"></link>
 	@if (!Auth::guest() && Auth::user()->UTI_COULR != null)
 		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-' . Auth::user()->UTI_COULR . '.css') }}"></link>
+	@else
+		<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/coulr-red.css') }}"></link>
 	@endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
