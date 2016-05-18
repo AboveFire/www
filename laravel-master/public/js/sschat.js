@@ -91,7 +91,7 @@ $(document).ready(function(){
 	$( "#sschat_lines" ).scroll(function() {
 		if($( "#sschat_lines" ).scrollTop() == 0)
         {
-			addten();
+			addten(true);
         }
 	});
 });
@@ -100,7 +100,7 @@ function adjustScroll($offset){
 	$( "#sschat_lines" ).scrollTop($('#sschat_lines')[0].scrollHeight - $offset);
 }
 
-function addten($adjust = true){
+function addten($adjust){
 	$.post(sschat_serverurl, {action: 'addten', nickname: nickname, channel: sschat_channel, number: $number, _token:tokenMobile, token: $_GET['token']}, function(data){
 		//TEMP
 		$obj = JSON.parse(data);
