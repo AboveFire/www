@@ -139,9 +139,9 @@ function listener() {
 function connected(){
 	$.post(sschat_serverurl, {action: 'checkconnected', channel: sschat_channel, _token: tokenMobile, token: $_GET['token']}, function(data){
 		$obj = JSON.parse(data);
-		$('#sschat_connected').html("<li class=\"sidebar-brand\">Users</li>");
+		$('#sschat_connected').html("<li class=\"sidebar-brand\">" + $('input#titleUsers').val() + "</li>");
 		for($key in $obj){
-			$('#sschat_connected').html($('#sschat_connected').html() + '<li class=\"users\">' + $obj[$key] + '</li>');
+			$('#sschat_connected').html($('#sschat_connected').html() + '<li class=\"user\">' + $obj[$key] + '</li>');
 		}
 	});
 }

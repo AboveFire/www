@@ -110,9 +110,12 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
+    height: 50px;
+    font-size: 22px;
     line-height: 60px;
+    border-bottom: 3px solid black;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 /* Sub-bar styles */

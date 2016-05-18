@@ -10,6 +10,16 @@
 	var sschat_channel = 'general';
 	var tokenMobile = "{{ csrf_token() }}";
 </script>
+	<style>
+		.user
+		{
+			list-style-image: url('{{{ asset('images/connected.png') }}}');
+			list-style-position: inside;
+			font-weight: bold;
+			font-size: 15px;
+		}
+	</style>
+<input id="titleUsers" type="hidden" value="{{ trans('general.user') }}s"/>
 <div class="container">
 	<div id="sschat">
 		<div id="sschat_lines">
