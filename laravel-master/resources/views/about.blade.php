@@ -8,9 +8,9 @@
 	<img src="{{ URL::asset('images/logo.png') }}" alt="Logo" class="logo">
 	<h1 class="realise sous-titre">	{{ trans('about.header') }}	</h1>
 	<span>Olivier Parent<br />
-		Simon Côté<br />
-		Samuel Foisy<br />
 		Samuel Dansereau<br />
+		Samuel Foisy<br />
+		Simon Côté<br />
 	</span>
 	<p>
 		{{ trans('about.disclaimer') }}<br />
