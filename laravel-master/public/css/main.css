@@ -359,6 +359,11 @@ img
 	margin-left: 7%;
 }
 
+.sidebar-brand
+{
+	font-weight: bold;
+}
+
 /*content*************************************************************************************/
 .content {
 	width: 100%;
