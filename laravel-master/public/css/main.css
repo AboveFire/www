@@ -115,12 +115,13 @@ hr
 .btn-menu-left i {
 	padding-left: 15px;
 	float: left;
+	width: 75px;
 }
 
 .btn-menu-right i {
-	padding-right: 30px;
+	padding-right: 15px;
 	float: right;
-	
+	width: 75px;
 }
 
 .btn-link:hover, .btn-link:focus, .btn-link:active 
