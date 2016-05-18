@@ -8,8 +8,7 @@
 
 #wrapper {
     padding-left: 0;
-    padding-top: 7vmin;
-    padding-bottom: 7vmin;
+    padding-top: 12vmin;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -53,6 +52,11 @@
     padding-bottom: 75px;
 }
 
+#right-sidebar-wrapper .sidebar-nav
+{
+	padding-right: 2vmin;	
+}
+
 #wrapper.left-toggled #left-sidebar-wrapper {
     width: 250px;
 }
@@ -64,7 +68,7 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 15px;
+    padding-top: 12vmin;
 }
 
 #wrapper.left-toggled #page-content-wrapper {
@@ -89,7 +93,7 @@
 
 .sidebar-nav li {
     text-indent: 20px;
-    line-height: 40px;
+    line-height: 10vmin;
 }
 
 .sidebar-nav ul li
@@ -153,6 +157,7 @@ li > .sub-bar {
     #wrapper {
         padding-left: 0;
         padding-right: 0;
+        padding-top: 7vmin;
     }
 
     #wrapper.left-toggled {
@@ -170,6 +175,10 @@ li > .sub-bar {
     #right-sidebar-wrapper {
         width: 0;
     }
+
+	.sidebar-nav li {
+	    line-height: 4vmin;
+	}
 
     #wrapper.left-toggled #left-sidebar-wrapper {
         width: 250px;
@@ -194,48 +203,4 @@ li > .sub-bar {
         margin-left: 0;
     }
 
-/* @media(min-width:768px) { */
-/*     #wrapper { */
-/*         padding-left: 250px; */
-/*         padding-right: 250px; */
-/*     } */
-
-/*     #wrapper.left-toggled { */
-/*         padding-left: 0; */
-/*     } */
-
-/*     #wrapper.right-toggled { */
-/*         padding-right: 0; */
-/*     } */
-
-/*     #left-sidebar-wrapper { */
-/*         width: 250px; */
-/*     } */
-
-/*     #right-sidebar-wrapper { */
-/*         width: 250px; */
-/*     } */
-
-/*     #wrapper.left-toggled #left-sidebar-wrapper { */
-/*         width: 0; */
-/*     } */
-
-/*     #wrapper.right-toggled #right-sidebar-wrapper { */
-/*         width: 0; */
-/*     } */
-
-/*     #page-content-wrapper { */
-/*         padding: 20px; */
-/*         position: relative; */
-/*     } */
-
-/*     #wrapper.left-toggled #page-content-wrapper { */
-/*         position: relative; */
-/*         margin-right: 0; */
-/*     } */
-
-/*     #wrapper.right-toggled #page-content-wrapper { */
-/*         position: relative; */
-/*         margin-left: 0; */
-/*     } */
 }

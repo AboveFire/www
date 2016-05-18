@@ -29,8 +29,8 @@
 
 #sschat_lines {
 	display: inline-block;
-	height: 100%;
-	width: 80%;
+	height: 97%;
+	width: 100%;
 	overflow-y: scroll;
 	background-color: white;
 	font-size:2.5vmin;
@@ -81,9 +81,10 @@
 	font-size:2.5vmin;
 	height:50px;
 }
+
 #sschat_connected {
 	vertical-align:top;
-	display: inline-block;
+	display: none;
 	height:100%;
 	width: 20%;
 }
@@ -154,4 +155,19 @@
 .me::before {
     box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
     right: -9px;    
+}
+
+@media (min-width: 768px)
+{
+	#sschat_connected
+	{
+		display: inline-block;
+	}
+	
+	#sschat_lines
+	{
+		width: 80%;
+		height: 100%;
+	}
+	
 }

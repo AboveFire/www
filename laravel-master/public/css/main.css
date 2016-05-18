@@ -268,7 +268,6 @@ ul ul, ol ul {
 	-o-transition: 0.15s ease;
 	transition: 0.15s ease;
 	margin: 0;
-	/*padding-bottom: 7% !important;*/
 	width: 100%;
 	height: 100%;
 	flex: 1;
@@ -407,7 +406,7 @@ input[type="file" i].active
 	position: fixed;
 }
 
-@media(max-height:700px) {
+@media(max-width:768px) {
 	body
 	{
 		font-size: 3vmax;
@@ -423,9 +422,16 @@ input[type="file" i].active
 		font-size: 7vmin;
 	}
 	
+	.btn
+	{
+		font-size: 3.25vmin;
+		white-space: normal;
+	}
+	
 	.btn-width-50
 	{
 		width: 100%;
+		margin-bottom: 4vmin;
 	}
 	
 	.btn-menu-left i {
@@ -435,7 +441,7 @@ input[type="file" i].active
 	}
 
 	.btn-menu-right i {
-		padding-right: 8vmin;
+		padding-right: 10vmin;
 		float: right;
 		font-size: 7.5vmin;
 	}

@@ -5,3 +5,8 @@
 	display: flex;
 	margin-top: -10vh !important;
 }
+
+.btn-width-50
+{
+	width: 49%;
+}

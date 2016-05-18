@@ -21,7 +21,7 @@
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
-				<div class="col col-md-12">
+				<div class="col-md-12">
 					<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 					<input type="text" class="form-control" name="nom" placeholder="{{ trans('admin.nomPool') }}"> 
 					@if ($errors->has('nom')) 
