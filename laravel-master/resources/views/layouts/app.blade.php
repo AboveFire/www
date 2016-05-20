@@ -41,8 +41,8 @@
 				<i>{{ trans('general.language') }}</i>
 			</a>
 			@if (Route::getCurrentRoute()->getPath() === ('about'))
-			<a href="{{ url('/') }}" class="textOffline btn-menu btn-menu-left">
-				<i>{{ trans('pagination.home') }}</i>
+			<a href="{{ url('/login') }}" class="textOffline btn-menu btn-menu-left">
+				<i>{{ trans('pagination.login') }}</i>
 			</a>
 			@else
 			<a href="{{ url('/about') }}" class="textOffline btn-menu btn-menu-left">
