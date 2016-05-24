@@ -5,10 +5,59 @@
 
 .form-butn
 {
-	margin-left: 45%;
+	margin-left: 22.5%;
 }
 
-.container
+.milieu
 {
-	margin: 0 5%;
+	margin-top: 2%;
+}
+
+.milieu div
+{
+	width: 50%;
+}
+
+.milieu .precedente
+{
+	width: 100%;
+}
+
+.milieu .images
+{
+	width: 305px;
+}
+
+.parties div
+{
+	float: right;
+}
+
+.image
+{
+	width: 150px;
+	padding: 0px;
+	margin-left: 0 1px;
+}
+.image img
+{
+	border: 5px solid;
+	width: 150px;
+}
+
+.image .imgG
+{
+	border-color: green;
+}
+
+.image .imgD
+{
+	border-color: red;
+}
+
+.parties h2
+{
+	width: 305px;
+	text-align: center;
+	float: right;
 }
