@@ -3,6 +3,7 @@
 var nickname = '';
 $number = 1;
 var $_GET = {};
+var sending = false;
 $(document).ready(function(){
 	document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
 	    function decode(s) {
@@ -16,6 +17,7 @@ $(document).ready(function(){
 	$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 		//LIST CONNECTED : DATA IS JSON OF USERS CONNECTED
 		$('#sschat_input').val('');
+		sending = false;
 		$('#sschat_input').removeAttr("disabled" );
 		$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 		$('#sschat_input').focus();
@@ -49,36 +51,44 @@ $(document).ready(function(){
 					//listener();
 					nickname = $('#sschat_input').val();
 					nickname = nickname.replace(/[^-a-z0-9]/ig,'');
+					sending = true;
 					$('#sschat_input').attr('disabled', 'disabled');
 					$.post(sschat_serverurl, {action: 'join', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 						$('#sschat_input').val('');
+						sending = false;
 						$('#sschat_input').removeAttr("disabled" );
 						$('#sschat_hint').html('Type a line of chat and press enter to speak:');
 						$('#sschat_input').focus();
 					});
 				}
 			} else {
-				var sendline = $('#sschat_input').val();
-				trimmedline = sendline.replace(/\s/g, "");
-				if (trimmedline != '') {
-					$('#sschat_input').attr('disabled', 'disabled');
-					$('#sschat_input').val('sending...');
-					serverSend('<span class="nick">'+nickname+':</span> '+sendline);
-				}else{
-					$('#sschat_input').val('');
+				if(!sending){
+					var sendline = $('#sschat_input').val();
+					trimmedline = sendline.replace(/\s/g, "");
+					if (trimmedline != '') {
+						$('#sschat_input').attr('disabled', 'disabled');
+						sending = true;
+						$('#sschat_input').val('sending...');
+						serverSend('<span class="nick">'+nickname+':</span> '+sendline);
+					}else{
+						$('#sschat_input').val('');
+					}
 				}
 			}
 		}
 	});
 	$("#paperplane").click(function(){
-		var sendline = $('#sschat_input').val();
-		trimmedline = sendline.replace(/\s/g, "");
-		if (trimmedline != '') {
-			$('#sschat_input').attr('disabled', 'disabled');
-			$('#sschat_input').val('sending...');
-			serverSend('<span class="nick">'+nickname+':</span> '+sendline);
-		}else{
-			$('#sschat_input').val('');
+		if(!sending){
+			var sendline = $('#sschat_input').val();
+			trimmedline = sendline.replace(/\s/g, "");
+			if (trimmedline != '') {
+				$('#sschat_input').attr('disabled', 'disabled');
+				sending = true;
+				$('#sschat_input').val('sending...');
+				serverSend('<span class="nick">'+nickname+':</span> '+sendline);
+			}else{
+				$('#sschat_input').val('');
+			}
 		}
 	});
 	$(window).bind("beforeunload", function(){
@@ -127,6 +137,7 @@ function serverSend(sendtext) {
 	$.post(sschat_serverurl, {action: 'send', text: sendtext.replace(/(\r\n|\n|\r)/gm," "), channel: sschat_channel, _token:tokenMobile, token: $_GET['token']}, function(data){
 		$('#sschat_input').val('');
 		$('#sschat_input').removeAttr("disabled" );
+		sending = false;
 		$('#sschat_input').focus();
 	});
 }

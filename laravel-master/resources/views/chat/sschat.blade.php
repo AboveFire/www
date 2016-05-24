@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Clavardage')
+@section('title')
+{{ trans('pagination.chat') }}
+@endsection
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/sschat.js') }}"></script>
@@ -28,9 +30,9 @@
 		><ul id="sschat_connected" class="sidebar-nav">
 		</ul
 		><div id="sschat_entry">
-			<p id="sschat_hint">Type your nickname and press enter:</p>
+			<p id="sschat_hint"></p>
 			<!-- <input type="text" id="sschat_input"> -->
-			<textarea id="sschat_input" placeholder="Saisissez votre texte" rows=2></textarea>
+			<textarea id="sschat_input" placeholder="{{ trans('chat.typeText') }}" rows=2></textarea>
 			<i id="paperplane" class="fa fa-paper-plane-o"></i>
 		</div>
 	</div>

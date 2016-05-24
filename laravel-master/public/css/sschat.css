@@ -2,7 +2,7 @@
 	position:absolute;
 	width:100px;
 	height:100px;
-	bottom:15px;
+	bottom:0px;
 	right:-50px;
 }
 .footer{
@@ -65,7 +65,7 @@
 	display: none;
 }
 #sschat_lines .me {
-	color: blue;
+	color: #0000DC;
 	text-align:left;
 }
 
