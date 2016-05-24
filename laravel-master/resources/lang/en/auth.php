@@ -25,7 +25,7 @@ return [
     'courl' => 'Email',
     'butn_dejaInscrit' => 'Existing account?',
     'butn_inscrire' => 'Register',
-    'butn_login' => 'Go!',
+    'butn_login' => 'Log In',
     'butn_mdpOublie' => 'Forgot your password?',
     'butn_resetMdp' => 'Reset',
 

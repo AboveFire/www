@@ -2,7 +2,6 @@
 {
 	width:100%;
 	margin: 0;
-	padding: 0;
 }
 
 .colonne
@@ -18,19 +17,55 @@
 }
 
 .image {
-	margin:0 0 2% 15px;
 	width:165px;
 	height:150px;
-	padding: 0;
+	padding: 0px;
+	margin: 0 0 15px 0;
+}
+
+.imgContent
+{
+	padding-left: 0px;
+}
+
+.control-label
+{
+	width:100%;
 }
 
 input[type="file" i]
 {
 	width: 100%;
-	margin-top: 116px;
 }
 
 .btnUpload
 {
-	height: 150px;
+	padding:0px;
+}
+
+.form-control
+{
+	width: 100%;
+}
+
+.col-butn
+{
+	margin-bottom: 15px;
+}
+
+@media (min-width: 768px)
+{
+	.container-profil
+	{
+		padding: 0 15vmin;
+	}
+	.form-inline .form-control 
+	{
+	    width: 100%;
+	}
+	
+	.form-inline .form-group 
+	{
+	    display: block;
+	}
 }

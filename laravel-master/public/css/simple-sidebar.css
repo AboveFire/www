@@ -52,9 +52,14 @@
     padding-bottom: 75px;
 }
 
-#right-sidebar-wrapper .sidebar-nav
+#right-sidebar-wrapper .sidebar-nav li
 {
 	padding-right: 2vmin;	
+}
+
+#right-sidebar-wrapper .sidebar-nav .sidebar-brand
+{
+	padding-right: 0px;
 }
 
 #wrapper.left-toggled #left-sidebar-wrapper {

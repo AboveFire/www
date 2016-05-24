@@ -9,7 +9,7 @@
 <div class="container">
 	@if (session('status'))
 	<div class="alert alert-success">
-		{{ session('status') }}
+		{{ trans(session('status')) }}
 	</div>
 	@endif
 	<div class="panel-heading"><i class="fa fa-cog big-fa"></i></div>

@@ -29,7 +29,7 @@
 {
 	.titreMenu
 	{
-		font-size: 2.5vmax;
+		font-size: 2vmax;
 	}
 	.col-lg-4
 	{
@@ -37,7 +37,7 @@
 	}
 }
 
-@media (min-width: 1050px)
+@media (min-width: 1300px)
 {
 	
 	.col-lg-4

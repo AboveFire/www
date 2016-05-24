@@ -31,6 +31,6 @@ class ParamController extends Controller
 		App::setLocale(strtolower($lang));
         $_SESSION['lang'] = strtolower($lang);
         
-    	return back()->with('status', trans('general.success'));
+    	return back()->with('status', 'general.success');
     }
 }
