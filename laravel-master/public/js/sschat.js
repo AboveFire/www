@@ -96,7 +96,7 @@ $(document).ready(function(){
 			$.post(sschat_serverurl, {action: 'part', nickname: nickname, channel: sschat_channel, _token:tokenMobile, token: $_GET['token']});
 		}
 	});
-	window.setInterval(function(){ connected(); },30000);
+	window.setInterval(function(){ connected(); },5000);
 	connected();
 	$( "#sschat_lines" ).scroll(function() {
 		if($( "#sschat_lines" ).scrollTop() == 0)

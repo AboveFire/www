@@ -4,8 +4,6 @@
 @endsection
 
 @section('content')
-<script src="{{ URL::asset('js/forms.js') }}"></script>
-<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/login.css') }}"></link>
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/form.css') }}"></link>
 <div class="container container-login">
 	@if (session('status'))
