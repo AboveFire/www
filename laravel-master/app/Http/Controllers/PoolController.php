@@ -13,9 +13,9 @@ use View;
 
 class PoolController extends Controller
 {
-    public function inscrireUtilisateurPool (Request $request)
+    public function sinscrire (Request $request)
     {
-    	
+    	DB::table('utilisateur_pool_utp')->insert(['UTP_UTI_SEQNC' => Auth::user()->UTI_SEQNC,'UTP_POO_SEQNC' => $request['poolCourant']]);
     }
     
     public function getPool (Request $request)
