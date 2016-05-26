@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Log;
 use DB;
 
-class ChatController extends Controller
+class ResultController extends Controller
 {
 	public function getPoolListByType($type){
 		var_dump(DB::table("pool_poo")->select("POO_SEQNC", "POO_NOM")->where("POO_TYP_SEQNC",$type)->get());
@@ -11,5 +11,10 @@ class ChatController extends Controller
 	
 	public function getResultsByPoolId(){
 		
+	}
+	
+	public function getPointsPoolClassique ($user)
+	{
+		//DB::table
 	}
 }

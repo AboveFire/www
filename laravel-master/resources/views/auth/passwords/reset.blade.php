@@ -21,8 +21,10 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_courl') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
                                 <input readonly type="email" class="form-control" name="uti_courl" value="{{ $email or old('uti_courl') }}" placeholder="{{ trans('auth.courl') }}">
-
+								</div>
                                 @if ($errors->has('uti_courl'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('uti_courl') }}</strong>
@@ -34,8 +36,10 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
 	                                <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.mdp') }}">
-	
+								</div>
 	                                @if ($errors->has('password'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('password') }}</strong>
@@ -47,8 +51,10 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
 	                                <input type="password" class="form-control" name="password_confirmation" placeholder="{{ trans('auth.mdpc') }}">
-	
+								</div>
 	                                @if ($errors->has('password_confirmation'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('password_confirmation') }}</strong>

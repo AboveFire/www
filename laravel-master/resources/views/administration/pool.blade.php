@@ -22,8 +22,11 @@
 		<div class="ligne">
 			<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></span>
 					<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 					<input type="text" class="form-control" name="nom" placeholder="{{ trans('admin.nomPool') }}"> 
+				</div>
 					@if ($errors->has('nom')) 
 					<span class="help-block"> 
 						<strong>{{ $errors->first('nom') }}</strong>
@@ -35,12 +38,15 @@
 		<div class="ligne"> 
 			<div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-plus fa-fw" aria-hidden="true"></i></span>
 					<select id="#selectLang" class="form-control" name="type">
 						<option selected disabled>{{ trans('admin.typePool') }}</option>
 						@foreach($types as $type)
 					    <option value="{{$type->TYP_SEQNC}}">{{ trans('pagination.' . $type->TYP_NOM)}}</option>
 						@endforeach
 					</select>
+				</div>
 					@if ($errors->has('type'))
 					<span class="help-block">
 						<strong>{{ $errors->first('type') }}</strong>

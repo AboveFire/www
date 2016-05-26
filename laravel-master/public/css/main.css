@@ -325,6 +325,16 @@ colonne
 	text-align: left;
 }
 
+.input-group-addon
+{
+	border: 1px solid black;
+}
+
+.input-group .form-control
+{
+	border-left: 0px;
+}
+
 /*Panneau central*************************************************************************************/
 .panel-heading
 {

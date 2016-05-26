@@ -11,5 +11,6 @@ return [
 		'mauve' => 'Mauve &amp; rose',
 		'blanc' => 'Blanc',
 		'gris' => 'Gris fantôme',
+		'sarc' => 'Vert sarcelle d\'épinette des bois de l\'Ouest Canadien',
 ]
 ;

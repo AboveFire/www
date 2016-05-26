@@ -22,6 +22,8 @@
 		<div class="ligne">
 			<div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
 					<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 					<select id="#selectUser" class="form-control" name="user">
 						<option selected disabled>{{ trans('admin.user') }}</option>
@@ -31,6 +33,7 @@
 						    @endif
 						@endforeach
 					</select>
+				</div>
 					@if($errors->has('user')) 
 					<span class="help-block"> 
 						<strong>{{$errors->first('user') }}</strong>
@@ -42,11 +45,14 @@
 		<div class="ligne"> 
 			<div class="form-group{{ $errors->has('droit') ? ' has-error' : '' }}">
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-shield fa-fw" aria-hidden="true"></i></span>
 					<select id="#selectLang" class="form-control" name="droit">
 						<option selected disabled>{{ trans('admin.droit') }}</option>
 						<option id="B" value="B">{{ trans('admin.B') }}</option>
 						<option id="A" value="A">{{ trans('admin.A') }}</option>
 					</select>
+				</div>
 					@if ($errors->has('droit'))
 					<span class="help-block">
 						<strong>{{ $errors->first('droit') }}</strong>

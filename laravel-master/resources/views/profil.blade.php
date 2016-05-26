@@ -36,7 +36,10 @@
 			<div class="clearfix"></div>
   			<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.nom') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-male fa-fw" aria-hidden="true"></i></span>
 					<input type="text" class="form-control" name="nom" value="{{ Auth::user()->UTI_NOM }}"> 
+				</div>
 					@if ($errors->has('nom')) 
 					<span class="help-block"> 
 						<strong>{{ $errors->first('nom') }}</strong>
@@ -45,7 +48,10 @@
 			</div>
 			<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.prenom') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-fw fa-male" aria-hidden="true"></i></span>
 					<input type="text" class="form-control" name="prenm" value="{{ Auth::user()->UTI_PRENM }}"> 
+				</div>
 					@if ($errors->has('prenm')) 
 					<span class="help-block">
 						<strong>{{ $errors->first('prenm') }}</strong>
@@ -54,7 +60,10 @@
 			</div>
 			<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.code') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
 					<input type="text" class="form-control" name="code" value="{{ Auth::user()->UTI_CODE }}"> 
+				</div>
 					@if ($errors->has('code')) 
 					<span class="help-block"> 
 						<strong>{{ $errors->first('code') }}</strong>
@@ -64,7 +73,10 @@
 			<div class="clearfix"></div>
 			<div class="form-group{{ $errors->has('courl') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.courl') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></span>
 					<input type="email" class="form-control" name="courl" value="{{ Auth::user()->UTI_COURL }}"> 
+				</div>
 					@if ($errors->has('courl')) 
 					<span class="help-block">
 						<strong>{{ $errors->first('courl') }}</strong>
@@ -73,7 +85,10 @@
 			</div>
 			<div class="form-group{{ $errors->has('telph') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.telph') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-phone fa-fw" aria-hidden="true"></i></span>
 					<input type="tel" class="form-control" name="telph" value="{{ Auth::user()->UTI_TELPH }}"> 
+				</div>
 					@if ($errors->has('telph')) 
 					<span class="help-block"> 
 						<strong>{{ $errors->first('telph') }}</strong>
@@ -82,7 +97,10 @@
 			</div>
 			<div class="form-group{{ $errors->has('paswd') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.mdp') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
 					<input type="password" class="form-control" name="paswd">
+				</div>
 					@if($errors->has('paswd')) 
 					<span class="help-block"> 
 						<strong>{{$errors->first('paswd') }}</strong>
@@ -91,7 +109,10 @@
 			</div>
 			<div class="form-group{{ $errors->has('paswd_confirmation') ? ' has-error' : '' }} col-md-6">
 	        	<label class="control-label">{{ trans('auth.mdpc') }}</label>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
 					<input type="password" class="form-control" name="paswd_confirmation">
+				</div>
 					@if ($errors->has('paswd_confirmation'))
 					<span class="help-block">
 						<strong>{{ $errors->first('paswd_confirmation') }}</strong>

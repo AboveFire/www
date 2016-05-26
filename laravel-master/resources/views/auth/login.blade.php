@@ -21,8 +21,10 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_code') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
 	                                <input type="text" class="form-control" name="uti_code" value="{{ old('uti_code') }}" placeholder="{{ trans('auth.code') }}">
-	
+								</div>
 	                                @if ($errors->has('uti_code'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('uti_code') }}</strong>
@@ -34,8 +36,10 @@
                         <div class="ligne">
 	                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
 	                                <input type="password" class="form-control" name="password" placeholder="{{ trans('auth.mdp') }}">
-	
+								</div>
 	                                @if ($errors->has('password'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('password') }}</strong>

@@ -191,3 +191,9 @@ input[type="file" i].active
 	background-color: #d3d3d3;
 	border-left: 2px solid #FFFFFF;
 }
+
+.input-group-addon
+{
+	background-color: #F6C113;
+	color: #FFFFFF;
+}

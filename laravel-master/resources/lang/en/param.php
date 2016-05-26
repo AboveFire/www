@@ -11,5 +11,6 @@ return [
 		'mauve' => 'Purple &amp; pink',
 		'blanc' => 'White',
 		'gris' => 'Phantom gray',
+		'sarc' => 'Canadian West\'s spinet woods\' teal green',
 ]
 ;

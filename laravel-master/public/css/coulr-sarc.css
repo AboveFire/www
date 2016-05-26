@@ -9,14 +9,14 @@ a
 
 a:hover, a:active, a.hover, a.active
 {
-	color: #B3B3B3;
-	border-color: #B3B3B3;
+	color: #a2d7cd;
+	border-color: #a2d7cd;
 }
 
 a.focus, a:focus 
 {
 	/*couleur 2*/
-	color: #a9a9a9;
+	color: #7ec8ba;
 }
 
 .sidebar-brand a:hover, .sidebar-brand a:active, .sidebar-brand a.hover, .sidebar-brand a.active{
@@ -34,7 +34,7 @@ hr
 }
 
 .header {
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 	color: #FFFFFF;
 }
 
@@ -53,8 +53,8 @@ hr
 
 .ulGlobal i:hover
 {
-	color: #B3B3B3;
-	border: 1px solid #B3B3B3;
+	color: #a2d7cd;
+	border: 1px solid #a2d7cd;
 }
 
 .ulGlobal i 
@@ -77,18 +77,18 @@ hr
 }
 
 #header-menu-left .titreMenuG{
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 }
 
 
 #header-menu {
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 	border-left: 1px solid #FFFFFF;
 }
 
 
 #header-menu .titreMenu{
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 }
 
 img
@@ -97,14 +97,14 @@ img
 }
 .imageMenu:hover, .imageMenu:active, .imageMenu.hover, .imageMenu.active
 {
-	color: #B3B3B3;
-	border-color: #B3B3B3;
+	color: #a2d7cd;
+	border-color: #a2d7cd;
 }
 
 .imageMenu.focus, .imageMenu:focus 
 {
 	/*couleur 2*/
-	color: #a9a9a9;
+	color: #7ec8ba;
 }
 
 .content {
@@ -149,7 +149,7 @@ select.form-control:focus
 
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 	color: #FFFFFF;
 	border: 1px solid #000000;
 }
@@ -158,14 +158,14 @@ select.form-control:focus
 .butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
 {
 	/*couleur 2*/
-	background-color: #a9a9a9;
+	background-color: #7ec8ba;
 }
 
 button.butn:focus,
 button.butn.focus
 {
 	/*couleur 3*/
-	background-color: #969696;
+	background-color: #6dc0b0;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
@@ -180,7 +180,7 @@ input[type="file" i].active
 }
 
 .footer {
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 }
 
 #left-sidebar-wrapper {
@@ -195,6 +195,6 @@ input[type="file" i].active
 
 .input-group-addon
 {
-	background-color: #B3B3B3;
+	background-color: #a2d7cd;
 	color: #FFFFFF;
 }

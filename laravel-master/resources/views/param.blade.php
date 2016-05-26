@@ -20,6 +20,8 @@
 			<div class="form-group{{ $errors->has('coulr') ? ' has-error' : '' }}">
 				<label class="col-md-2 control-label">{{ trans('param.couleur') }}</label>
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-paint-brush fa-fw" aria-hidden="true"></i></span>
 					<select id="#selectCoulr" class="form-control" name="coulr">
 						<option id="red" value="red">{{ trans('param.rouge') }}</option>
 						<option id="cyan" value="cyan">{{ trans('param.cyan') }}</option>
@@ -30,7 +32,9 @@
 					  	<option id="purple" value="purple">{{ trans('param.mauve') }}</option>
 					  	<option id="white" value="white">{{ trans('param.blanc') }}</option>
 					  	<option id="black" value="black">{{ trans('param.gris') }}</option>
+					  	<option id="sarc" value="sarc">{{ trans('param.sarc') }}</option>
 					</select>
+				</div>
 					@if($errors->has('coulr')) 
 					<span class="help-block"> 
 						<strong>{{$errors->first('coulr') }}</strong>
@@ -43,10 +47,13 @@
 			<div class="form-group{{ $errors->has('lang') ? ' has-error' : '' }}">
 	        	<label class="col-md-2 control-label">{{ trans('param.langue') }}</label>
 				<div class="col-md-12">
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-globe fa-fw" aria-hidden="true"></i></span>
 					<select id="#selectLang" class="form-control" name="lang">
 						<option id="FR" value="FR">Français</option>
 						<option id="EN" value="EN">English</option>
 					</select>
+				</div>
 					@if ($errors->has('lang'))
 					<span class="help-block">
 						<strong>{{ $errors->first('lang') }}</strong>

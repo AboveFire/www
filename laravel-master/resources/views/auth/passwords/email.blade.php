@@ -21,8 +21,10 @@
 						<div class="ligne">
 	                        <div class="form-group{{ $errors->has('uti_courl') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
+	                            <div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
 	                                <input type="email" class="form-control" name="uti_courl" value="{{ old('uti_courl') }}" placeholder="{{ trans('auth.courl') }}">
-	
+									</div>
 	                                @if ($errors->has('uti_courl'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('uti_courl') }}</strong>
