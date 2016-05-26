@@ -12,7 +12,7 @@ return [
 		'select_pool' => '- Select a pool -',
 		'select_week' => '- Select a week -',
 		'select_catgr' => '- Select a category -',
-		'butn_inscr' => 'Subscribe',
+		'butn_inscr' => 'Join',
 		'butn_butn' => 'Vote',
 		'butn_see' => 'Consult the pool',
 		'text_nonInscr' => 'You are not yet subscribed to this pool. Click on the "Subscribe" button to join.',

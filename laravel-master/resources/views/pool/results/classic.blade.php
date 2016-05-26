@@ -25,7 +25,7 @@ $typePool = trans ( 'pagination.poolClassic' );
 		<div class="form-group form-butn">
 			<div class="col-md-2">
 				<button type="submit" class="butn">
-					<i class="fa fa-btn fa-save"></i>{{ trans('pool.butn_inscr') }}
+					<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
 				</button>
 			</div>
 		</div>

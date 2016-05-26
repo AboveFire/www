@@ -22,7 +22,10 @@
 
 							<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 	                            <div class="col-md-12">
-	                                <input type="text" class="form-control" name="nom" value="{{ old('nom') }}" placeholder="{{ trans('auth.nom') }}">
+	                            	<div class="margin-bottom-sm input-group">
+										<span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+										<input type="text" class="form-control" name="nom" value="{{ old('nom') }}" placeholder="{{ trans('auth.nom') }}">
+									</div>
 	                                @if ($errors->has('nom'))
 	                                    <span class="help-block">
 	                                        <strong>{{ $errors->first('nom') }}</strong>
