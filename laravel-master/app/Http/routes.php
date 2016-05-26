@@ -64,6 +64,9 @@ Route::get('/param',['middleware' => 'auth', function () {
 Route::get('/results', function () {
 	return view('results');
 });
+
+Route::get ('/pool', ['middleware' => 'auth', 'uses' => 'PoolController@getPool']);
+
 //Pool route
 Route::get('/form-classic',['middleware' => 'auth', function () {
 	return view('pool.forms.classic');

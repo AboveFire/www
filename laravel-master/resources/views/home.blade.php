@@ -17,7 +17,7 @@
 		</div>
 		<div class="col-lg-4 col-sm-6 text-center">
 			<div class="ligne_option">
-				<a class="txtEtImage" href="{{ url('/results-classic') }}"> <i class="fa fa-gamepad"></i>
+				<a class="txtEtImage" href="{{ url('/pool?typePool=poolClassic') }}"> <i class="fa fa-gamepad"></i>
 					<h1 class="titreMenu">{{ trans('pagination.poolClassic') }}</h1>
 				</a>
 			</div>
@@ -27,7 +27,7 @@
 		</div>
 		<div class="col-lg-4 col-sm-6 text-center">
 			<div class="ligne_option">
-				<a class="txtEtImage" href="{{ url('/results-playoff') }}"> <i class="fa fa-crosshairs"></i>
+				<a class="txtEtImage" href="{{ url('/pool?typePool=poolPlayoff') }}"> <i class="fa fa-crosshairs"></i>
 					<h1 class="titreMenu">{{ trans('pagination.poolPlayoff') }}</h1>
 				</a>
 			</div>
@@ -37,7 +37,7 @@
 		</div>
 		<div class="col-lg-4 col-sm-6 text-center">
 			<div class="ligne_option">
-				<a class="txtEtImage" href="{{ url('/results-survivor') }}"> <i class="fa fa-sitemap"></i>
+				<a class="txtEtImage" href="{{ url('/pool?typePool=poolSurvivor') }}"> <i class="fa fa-sitemap"></i>
 					<h1 class="titreMenu">{{ trans('pagination.poolSurvivor') }}</h1>
 				</a>
 			</div>
