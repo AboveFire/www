@@ -16,6 +16,7 @@ return [
 		'butn_butn' => 'Voter',
 		'butn_see' => 'Consulter le pool',
 		'text_nonInscr' => 'Vous n\'êtes pas encore inscrit au :pool. Cliquez sur le bouton « Inscription » pour vous y joindre.',
+		'text_aucunPool' => 'Il n\'y a aucun :pool existant.',
 		'rank' => 'Rang',
 		'yourRank' => 'Votre rang',
 		'yourScore' => 'Votre pointage',

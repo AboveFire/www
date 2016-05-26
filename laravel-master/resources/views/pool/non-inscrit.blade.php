@@ -9,15 +9,22 @@
 	@if (session('status'))
 	<div class="alert alert-success">{{ session('status') }}</div>
 	@endif
+	@if ($poolCourant == null)
+	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.' . $typePool)]) }}</p>
+	@else
 	<div class="form-inline">
-		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => $typePool]) }}</p>
+		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.' . $typePool)]) }}</p>
 		<br />
 		<div class="form-group">
 			<div class="col-md-12">
 				<select id="selectPool" class="form-control" name="pool">
-					<option selected disabled>{{ trans('pool.select_pool') }}</option>
+					<option disabled>{{ trans('pool.select_pool') }}</option>
 						@foreach($pools as $pool)
+							@if ($pool->POO_SEQNC == $poolCourant)
+					    <option value="{{$pool->POO_SEQNC}}" selected>{{ $pool->POO_NOM }}</option>
+							@else
 					    <option value="{{$pool->POO_SEQNC}}">{{ $pool->POO_NOM }}</option>
+						    @endif
 						@endforeach
 				</select>
 			</div>
@@ -41,89 +48,50 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Samuel Foisy</td>
-						<td>132</td>
-						<td>1</td>
-					</tr>
-					<tr>
-						<td>Olivier Parent</td>
-						<td>100</td>
-						<td>2</td>
-					</tr>
-					<tr>
-						<td>Samuel Dansereau</td>
-						<td>85</td>
-						<td>3</td>
-					</tr>
-					<tr>
-						<td>Simon Côté</td>
-						<td>67</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>Robert Aubé</td>
-						<td>75</td>
-						<td>5</td>
-					</tr>
-					<tr>
-						<td>Bob</td>
-						<td>56</td>
-						<td>6</td>
-					</tr>
-					<tr>
-						<td>Bobinette</td>
-						<td>27</td>
-						<td>7</td>
-					</tr>
-					<tr>
-						<td>Anna</td>
-						<td>22</td>
-						<td>8</td>
-					</tr>
-					<tr>
-						<td>Roger</td>
-						<td>21</td>
-						<td>9</td>
-					</tr>
-					<tr>
-						<td>Robert</td>
-						<td>10</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td>Richard</td>
-						<td>2</td>
-						<td>11</td>
-					</tr>
+					@foreach($users as $user)
+						@if ($user->UTI_SEQNC == Auth::user()->UTI_SEQNC)
+						<tr class="user_courant">
+						@else
+						<tr>
+						@endif
+							<td>{{ $user->UTI_NOM }}</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+					@endforeach
 				</tbody>
 			</table>
 		</div>
 		<div class="parties col-md-6">
+			@if ($partie_precd != null)
 			<div class="precedente">
-			<h2>Parties prédedentes</h2>
+				<h2>{{ trans ('pool.partiePrec') }}</h2>
 				<div class="images">
 					<div class="image col-md-2">
-						<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgD">
+						<img src="{{ $partie_precd['image2'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgWin">
 					</div>
 					<div class="image col-md-2">
-						<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgG">
+						<img src="{{ $partie_precd['image1'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgLose">
 					</div>
 				</div>
 			</div>
+			@endif
+			@if ($partie_suivt != null)
 			<div class="suivante">
-			<h2>Parties suivantes</h2>
+				<h2>{{ trans ('pool.partieSuiv') }}</h2>
 				<div class="images">
 					<div class="image col-md-2">
-						<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgD">
+						<img src="{{ $partie_suivt['image2'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgEven">
 					</div>
 					<div class="image col-md-2">
-						<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgG">
+						<img src="{{ $partie_suivt['image1'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgEven">
 					</div>
 				</div>
 			</div>
+			@endif
 		</div>
 	</div>
+	@endif
 </div>
 
 <script type="text/javascript">

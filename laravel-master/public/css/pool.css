@@ -45,14 +45,19 @@
 	width: 150px;
 }
 
-.image .imgG
+.image .imgWin
 {
 	border-color: green;
 }
 
-.image .imgD
+.image .imgLose
 {
 	border-color: red;
+}
+
+.image .imgEven
+{
+	border-color: white;	
 }
 
 .parties h2
@@ -60,4 +65,14 @@
 	width: 305px;
 	text-align: center;
 	float: right;
+}
+
+.titlePool
+{
+	text-align: center;
+}
+
+.user_courant
+{
+	color: #FFFFFF;
 }

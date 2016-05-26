@@ -16,6 +16,7 @@ return [
 		'butn_butn' => 'Vote',
 		'butn_see' => 'Consult the pool',
 		'text_nonInscr' => 'You are not yet subscribed to this pool. Click on the "Subscribe" button to join.',
+		'text_aucunPool' => 'There is no existing :pool.',
 		'rank' => 'Rank',
 		'yourRank' => 'Your rank',
 		'yourScore' => 'Your score',
