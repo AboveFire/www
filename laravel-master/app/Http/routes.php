@@ -26,48 +26,63 @@ Route::get('/',['middleware' => 'auth', function () {
 	}
 }]);
 
-Route::get('/switchLangue', 'LangueController@switchLangue');
-
-Route::post('/profil/save',['middleware' => 'auth', 'uses' =>  'ProfilController@update']);
-
-Route::post('/param/save', ['middleware' => 'auth', 'uses' => 'ParamController@update']);
-
-Route::post('/sschat', ['middleware' => 'auth', 'uses' => 'ChatController@run']);
-
-/*Route::get('/chat', function () {
-    return view('chat.sschat');
-});*/
-Route::get('/chat',['middleware' => 'auth', function () {
-    return view('chat.sschat');
-}]);
-
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
-Route::get('/test', 'NFLController@test');
-//Normal route
-Route::get('/connection-refused',function () {
-	return view('refused');
-});
-Route::get('/about', function () {
-	return view('about');
-});
 
-Route::get('/profil',['middleware' => 'auth', function () {
-	return view('profil');
-}]);
+/********************** PARAMÈTRES **********************/
+Route::get('/switchLangue', 'LangueController@switchLangue');
+
+Route::post('/param/save', ['middleware' => 'auth', 'uses' => 'ParamController@update']);
 
 Route::get('/param',['middleware' => 'auth', function () {
 	return view('param');
 }]);
 
+/********************** PROFIL **********************/
+Route::post('/profil/save',['middleware' => 'auth', 'uses' =>  'ProfilController@update']);
+
+Route::get('/profil',['middleware' => 'auth', function () {
+	return view('profil');
+}]);
+
+
+/********************** CHAT **********************/
+Route::post('/sschat', ['middleware' => 'auth', 'uses' => 'ChatController@run']);
+
+Route::get('/chat',['middleware' => 'auth', function () {
+    return view('chat.sschat');
+}]);
+
+
+/********************** DATA GENERATION **********************/
+Route::get('/test', 'NFLController@test');
+//Normal route
+Route::get('/connection-refused',function () {
+	return view('refused');
+});
+
+
+/********************** ABOUT **********************/
+Route::get('/about', function () {
+	return view('about');
+});
+
+
+/********************** POOLS **********************/
+
+// REQUÊTES GET
 Route::get('/results', function () {
 	return view('results');
 });
 
-Route::get ('/pool', ['middleware' => 'auth', 'uses' => 'PoolController@getPool']);
+Route::get ('/poolClassic', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolClassic']);
+Route::get ('/poolPlayoff', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolPlayoff']);
+Route::get ('/poolSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolSurvivor']);
 
-//Pool route
+// REQUÊTES POST
+Route::post ('/inscription', ['middleware' => 'auth', 'uses' => 'PoolController@sinscrire']);
+
+// DEPRECATED (for now)
 Route::get('/form-classic',['middleware' => 'auth', function () {
 	return view('pool.forms.classic');
 }]);
@@ -95,7 +110,9 @@ Route::get('/inscription-playoff',['middleware' => 'auth', function () {
 Route::get('/inscription-survivor',['middleware' => 'auth', function () {
 	return view('pool.inscriptions.survivor');
 }]);
-//Administration route
+
+
+/********************** ADMINISTRATION **********************/
 Route::get('/admin',['middleware' => 'admin', function () {
 	return view('administration.home');
 }]);
@@ -107,8 +124,9 @@ Route::get('/admin/pool',['middleware' => 'admin', 'uses' => 'AdminController@po
 Route::post('/admin/users/update',['middleware' => 'admin', 'uses' => 'AdminController@updateUsers']);
 
 Route::post('/admin/pool/create',['middleware' => 'admin', 'uses' => 'AdminController@createPool']);
+
 	
-// APPLICATION MOBILE
+/********************** APPLICATION MOBILE **********************/
 Route::get('/mobile/login', 'Auth\AuthController@authenticateMobile');
 
 Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilController@logoutMobile']);

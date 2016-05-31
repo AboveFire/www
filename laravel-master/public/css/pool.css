@@ -3,11 +3,6 @@
 	text-align: left;
 }
 
-.form-butn
-{
-	margin-left: 22.5%;
-}
-
 .milieu
 {
 	margin-top: 2%;
@@ -79,13 +74,21 @@
 
 @media screen and (max-width: 767px)
 {
-	.form-butn
+	.butn
 	{
-		margin-left: 0;
+		width: 100%;
 	}
 	
 	.milieu .table-responsive, .milieu .parties
 	{
 		width: 100%;
+	}
+	
+	.parties .precedente,.parties .suivante,.parties .images, .parties h2 {
+	    float: left;
+	}
+	
+	.parties .images, .parties h2 {
+	    margin-left: 5.5vw;
 	}
 }

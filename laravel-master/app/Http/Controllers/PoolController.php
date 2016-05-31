@@ -12,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class PoolController extends BaseController {
 	
-	private function obten_utils_pool (int $pool)
+	private function obtenUtilsPool (int $pool)
 	{
 		return DB::table ( 'utilisateur_uti' )
 					->select ( 'UTI_SEQNC', 'UTI_NOM', 'UTI_PRENM' )
@@ -22,7 +22,7 @@ class PoolController extends BaseController {
 					->get ();
 	}
 	
-	private function obten_parties_pool_utils (int $utils, int $pool)
+	private function obtenPartiesPoolUtils (int $utils, int $pool)
 	{
 		return DB::table ( 'partie_equipe_peq' )
 					->join ( 'vote_vot', 'vot_peq_seqnc', '=', 'peq_seqnc' )
@@ -32,7 +32,7 @@ class PoolController extends BaseController {
 					->get();
 	}
 	
-	private function obten_points_vote_clasq (int $utils, int $pool, int $partie)
+	private function obtenPointsVoteClasq (int $utils, int $pool, int $partie)
 	{
 		return DB::select('select case 
 								  when indic_win = \'O\' 
@@ -77,14 +77,14 @@ class PoolController extends BaseController {
 				[$partie,$partie,$partie,$partie,$partie,$partie,$utils,$pool,])[0]->score;
 	}
 	
-	private function obten_score_pool_clasq ($utils, $pool)
+	private function obtenScorePoolClasq ($utils, $pool)
 	{
-		$parties = $this::obten_parties_pool_utils($utils, $pool);
+		$parties = $this::obtenPartiesPoolUtils($utils, $pool);
 		$score = 0;
 		
 		foreach ($parties as $partie)
 		{
-			$score += $this::obten_points_vote_clasq ($utils, $pool, $partie->PEQ_PAR_SEQNC);
+			$score += $this::obtenPointsVoteClasq ($utils, $pool, $partie->PEQ_PAR_SEQNC);
 		}
 		
 		return $score;
@@ -122,7 +122,48 @@ class PoolController extends BaseController {
 		return $array;
 	}
 	
-	public function getPool(Request $request) {
+	private function obtenStatsPoolClasq (int $pool)
+	{
+		$stats = array();
+		$users = $this::obtenUtilsPool ($pool);
+			
+		foreach ($users as $user )
+		{
+			$stat = array ("utils" => $user->UTI_SEQNC,
+					"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
+					"score" => $this::obtenScorePoolClasq($user->UTI_SEQNC, $pool),
+					"rang" => 1,
+			);
+			array_push ($stats, $stat);
+		}
+			
+		$stats = $this::sortBySubValue($stats, "score");
+			
+		if ((count ($stats) < 2) || $stats[0]["score"] != $stats[1]["score"])
+		{
+			$rang = 0;
+		}
+		else
+		{
+			$rang = 1;
+		}
+			
+		$precd = -1;
+		for($i = 0; $i < count($stats); $i++) {
+			if ($stats[$i]["score"] != $precd)
+			{
+				$rang++;
+			}
+				
+			$stats[$i]["rang"] = $rang;
+			$precd = $stats[$i]["score"];
+		}
+		
+		return $stats;
+	}
+	
+	public function getPoolClassic(Request $request) 
+	{
 		$courn = $request ['poolCourant'];
 		$typePool = $request ['typePool'];
 		$stats = array();
@@ -133,47 +174,12 @@ class PoolController extends BaseController {
 				 	->where ('typ_nom', $typePool)
 					->get ();
 					
-		/*->whereIn ( 'poo_seqnc', DB::table ( 'utilisateur_pool_utp' )
-				->select ( 'utp_poo_seqnc' )
-				->where ( 'utp_uti_seqnc', $user ) )*/
-		
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
-		
-		$users = $this::obten_utils_pool ($courn);
-		
-		foreach ($users as $user )
+		if ($courn != null)
 		{
-			$stat = array ("utils" => $user->UTI_SEQNC,
-							"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
-							"score" => $this::obten_score_pool_clasq($user->UTI_SEQNC, $courn),
-							"rang" => 1,
-			);
-			array_push ($stats, $stat);
-		}
-		
-		$stats = $this::sortBySubValue($stats, "score");
-		//dd($stats[0]);
-		$stats = array_unique($stats);
-		if ((count ($stats) > 2) && $stats[0]["score"] != $stats[1]["score"])
-		{
-			$i = 1;
-		}
-		else
-		{
-			$i = 2;
-		}
-
-		$precd = -1;
-		foreach($stats as $stat) {
-			if ($stat["score"] != $precd)
-			{
-				$i++;
-			}
-			
-			$stat["rang"] = $i;
-			$precd = $stat["score"];
+			$stats = $this::obtenStatsPoolClasq($courn);
 		}
 		
 		$partie_suivt = DB::table ( 'partie_par' )

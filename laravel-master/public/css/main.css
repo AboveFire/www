@@ -62,7 +62,7 @@ hr
 
 #header .content-header {
 	
-	font-size: 3.25rem;
+	font-size: 3.5rem;
 	text-align: center;
 }
 
@@ -413,6 +413,7 @@ input[type="file" i].active
 .footer {
 	width: 100%;
     margin-bottom: 0;
+    margin-left: -2px;
     bottom: 0px;
 	height: 7vmin;
 	position: fixed;
