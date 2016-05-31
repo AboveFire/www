@@ -5,7 +5,6 @@
 @section('content')
 <br />
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/form.css') }}"></link>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <div class="container">
 	@if (session('status'))
 	<div class="alert alert-success">

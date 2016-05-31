@@ -167,7 +167,11 @@ class PoolController extends BaseController {
 
 		$precd = -1;
 		foreach($stats as $stat) {
-			if ($stat["score"])
+			if ($stat["score"] != $precd)
+			{
+				$i++;
+			}
+			
 			$stat["rang"] = $i;
 			$precd = $stat["score"];
 		}

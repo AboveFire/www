@@ -3,7 +3,6 @@
 {{ trans('pagination.chat') }}
 @endsection
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="{{ URL::asset('js/sschat.js') }}"></script>
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/sschat.css') }}"></link>
 <input id="code" type="hidden" value="{{ Auth::user()->UTI_CODE }}">
