@@ -1,6 +1,6 @@
 @extends('layouts.app') 
 @section('title') 
-	{{ trans('pagination.' . $typePool) }} 
+	{{ trans('pagination.poolClassic') }} 
 @endsection
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool.css') }}"></link>
@@ -10,10 +10,10 @@
 	<div class="alert alert-success">{{ session('status') }}</div>
 	@endif
 	@if ($poolCourant == null)
-	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.' . $typePool)]) }}</p>
+	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolClassic')]) }}</p>
 	@else
 	<div class="form-inline">
-		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.' . $typePool)]) }}</p>
+		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.poolClassic')]) }}</p>
 		<br />
 		<div class="form-group">
 			<div class="col-md-12">
@@ -68,10 +68,10 @@
 				<h2>{{ trans ('pool.partiePrec') }}</h2>
 				<div class="images">
 					<div class="image col-md-2">
-						<img src="{{ $partie_precd['image2'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgWin">
+						<img src="{{ $partie_precd['image2'] }}" alt="image" class="imgWin">
 					</div>
 					<div class="image col-md-2">
-						<img src="{{ $partie_precd['image1'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgLose">
+						<img src="{{ $partie_precd['image1'] }}" alt="image" class="imgLose">
 					</div>
 				</div>
 			</div>
@@ -81,10 +81,10 @@
 				<h2>{{ trans ('pool.partieSuiv') }}</h2>
 				<div class="images">
 					<div class="image col-md-2">
-						<img src="{{ $partie_suivt['image2'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgEven">
+						<img src="{{ $partie_suivt['image2'] }}" alt="image" class="imgEven">
 					</div>
 					<div class="image col-md-2">
-						<img src="{{ $partie_suivt['image1'] }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="imgEven">
+						<img src="{{ $partie_suivt['image1'] }}" alt="image" class="imgEven">
 					</div>
 				</div>
 			</div>

@@ -165,13 +165,12 @@ class PoolController extends BaseController {
 	public function getPoolClassic(Request $request) 
 	{
 		$courn = $request ['poolCourant'];
-		$typePool = $request ['typePool'];
 		$stats = array();
 		
 		$pools = DB::table ( 'pool_poo' )
 					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
 				 	->select ( 'POO_SEQNC', 'POO_NOM' )
-				 	->where ('typ_nom', $typePool)
+				 	->where ('typ_nom', 'poolClassic')
 					->get ();
 					
 		if ($courn == null and isset($pools[0])) {
@@ -204,8 +203,7 @@ class PoolController extends BaseController {
 							->take (1)
 							->get();
 							
-		return View::make ( '/pool/non-inscrit', array (
-				'typePool' => $typePool,
+		return View::make ( '/pool/classic/non-inscrit', array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
 				'scores' => $stats,

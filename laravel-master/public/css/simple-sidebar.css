@@ -163,7 +163,7 @@ li > .sub-bar {
     #wrapper {
         padding-left: 0;
         padding-right: 0;
-        padding-top: 7vmin;
+        padding-top: 6.25rem;
     }
 
     #wrapper.left-toggled {

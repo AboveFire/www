@@ -95,12 +95,12 @@ hr
 }
 
 .btn-menu-left i {
-	padding-left: 3vmin;
+	padding-left: 1.5vw;
 	float: left;
 }
 
 .btn-menu-right i {
-	padding-right: 3vmin;
+	padding-right: 3vw;
 	float: right;
 }
 
@@ -412,17 +412,30 @@ input[type="file" i].active
 /*Footer*************************************************************************************/
 .footer {
 	width: 100%;
-    margin-bottom: 0;
+    margin: 0;
     margin-left: -2px;
+    margin-right: 2px;
     bottom: 0px;
 	height: 7vmin;
 	position: fixed;
 }
 
+@media (max-height:800px)
+{
+	.btn-menu-left i {
+		width: 10vmin;
+		padding-left: 5vmin;
+	}
+
+	.btn-menu-right i {
+		padding-right: 10vmin;
+	}
+}
+
 @media(max-width:768px) {	
 	.header
 	{
-		height: 12vmin;
+		height: 12vw;
 	}
 	
 	#header .content-header
@@ -484,8 +497,8 @@ input[type="file" i].active
 
 @media (min-width: 1500px)
 {
-	
 	.col-lg-4
-{
-	width: 50%;
+	{
+		width: 50%;
+	}
 }
