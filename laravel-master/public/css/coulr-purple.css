@@ -1,10 +1,10 @@
 body {
-	background: #D3D3D3;
+	background: #66faff;
 }
 
 a
 {
-	color: #000000;
+	color: #ffaec9;
 }
 
 a:hover, a:active, a.hover, a.active
@@ -30,20 +30,20 @@ a.focus, a:focus
 
 hr
 {
-	border: 1px solid #FFFFFF;
+	border: 1px solid #ffaec9;
 }
 
 .header {
 	background-color: #A349A4;
-	color: #FFFFFF;
+	color: #ffaec9;
 }
 
 .header i{
-	color: #FFFFFF;
+	color: #ffaec9;
 }
 
 .header a {
-	color: #FFFFFF;
+	color: #ffaec9;
 }
 
 .ulGlobal 
@@ -63,17 +63,17 @@ hr
 }
 
 #menu-left {
-	background-color: #D3D3D3;
-	border-right: 1px solid #FFFFFF;
+	background-color: #66faff;
+	border-right: 1px solid #ffaec9;
 }
 
 #menu {
-	background-color: #D3D3D3;
-	border-left: 1px solid #FFFFFF;
+	background-color: #66faff;
+	border-left: 1px solid #ffaec9;
 }
 
 #header-menu-left {
-	border-right: 1px solid #FFFFFF;
+	border-right: 1px solid #ffaec9;
 }
 
 #header-menu-left .titreMenuG{
@@ -83,7 +83,7 @@ hr
 
 #header-menu {
 	background-color: #A349A4;
-	border-left: 1px solid #FFFFFF;
+	border-left: 1px solid #ffaec9;
 }
 
 
@@ -108,22 +108,22 @@ img
 }
 
 .content {
-	background-color: #D3D3D3;
+	background-color: #66faff;
 }
 
 .panel-default>.panel-heading
 {
-	background-color: #D3D3D3;
+	background-color: #66faff;
 }
 
 .panel-body
 {
-	background-color: #D3D3D3;
+	background-color: #66faff;
 }
 
 .panel-heading
 {
-	background-color: #D3D3D3;
+	background-color: #66faff;
 }
 
 .panel
@@ -150,7 +150,7 @@ select.form-control:focus
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
 	background-color: #A349A4;
-	color: #FFFFFF;
+	color: #ffaec9;
 	border: 1px solid #000000;
 }
 
@@ -185,11 +185,17 @@ input[type="file" i].active
 
 
 #left-sidebar-wrapper {
-	background-color: #d3d3d3;
-	border-right: 2px solid #FFFFFF;
+	background-color: #66faff;
+	border-right: 2px solid #ffaec9;
 }
 
 #right-sidebar-wrapper {
-	background-color: #d3d3d3;
-	border-left: 2px solid #FFFFFF;
+	background-color: #66faff;
+	border-left: 2px solid #ffaec9;
+}
+
+.input-group-addon
+{
+	background-color: #A349A4;
+	color: #ffaec9;
 }
