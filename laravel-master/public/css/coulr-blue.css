@@ -19,6 +19,10 @@ a.focus, a:focus
 	color: #000056;
 }
 
+.sidebar-nav > .sidebar-brand {
+    color: #00006F;
+}
+
 .sidebar-brand a:hover, .sidebar-brand a:active, .sidebar-brand a.hover, .sidebar-brand a.active{
 	color: #000000;
 }
@@ -30,7 +34,7 @@ a.focus, a:focus
 
 hr
 {
-	border: 1px solid #FFFFFF;
+	border: 1px solid #00006F;
 }
 
 .header {
@@ -185,16 +189,20 @@ input[type="file" i].active
 
 #left-sidebar-wrapper {
 	background-color: #d3d3d3;
-	border-right: 2px solid #FFFFFF;
+	border-right: 2px solid #00006F;
 }
 
 #right-sidebar-wrapper {
 	background-color: #d3d3d3;
-	border-left: 2px solid #FFFFFF;
+	border-left: 2px solid #00006F;
 }
 
 .input-group-addon
 {
 	background-color: #00006F;
 	color: #FFFFFF;
+}
+
+.sidebar-nav > .sidebar-brand {
+    border-bottom: 2px solid #00006F;
 }

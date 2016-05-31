@@ -1,9 +1,10 @@
 #paperplane{
-	position:absolute;
+	position:relative;
 	width:100px;
 	height:100px;
-	bottom:0px;
-	right:-50px;
+	bottom:5vmax;
+	right:-15vmin;
+	float: right
 }
 .footer{
 	display:none;
@@ -168,6 +169,13 @@
 	{
 		width: 80%;
 		height: 100%;
+	}
+	
+	#paperplane
+	{
+		position:absolute;
+		bottom: 1.5vmin;
+		right:-4.5vmin;
 	}
 	
 }

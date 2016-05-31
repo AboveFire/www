@@ -5,8 +5,14 @@
 }
 .main {
 	text-align: center;
-	font-size: 7vmin;
 }
+
+.main span
+{
+	
+	font-size: 2rem;
+}
+
 .main ul {
 	list-style-type: none;
 }
@@ -15,20 +21,14 @@
 }
 .main p{
 	margin: 10vmin;
-	font-size: 5vmin;
 }
 
 @media(min-width:768px) {
 	.logo {
 		width:30vmin;
 	}
-	
-	.main {
-		font-size: 3vmin;
-	}
-	
+		
 	.main p{
 		margin: 4vmin;
-		font-size: 2vmin;
 	}
 }

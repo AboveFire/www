@@ -9,14 +9,18 @@ a
 
 a:hover, a:active, a.hover, a.active
 {
-	color: #262626; 
-	border-color: #262626;
+	color: #4c4c4c; 
+	border-color: #4c4c4c;
 }
 
 a.focus, a:focus 
 {
 	/*couleur 2*/
-	color: #191919;
+	color: #727272;
+}
+
+.sidebar-nav > .sidebar-brand {
+    color: #4c4c4c;
 }
 
 .sidebar-brand a:hover, .sidebar-brand a:active, .sidebar-brand a.hover, .sidebar-brand a.active{
@@ -30,11 +34,11 @@ a.focus, a:focus
 
 hr
 {
-	border: 1px solid #FFFFFF;
+	border: 1px solid #4c4c4c;
 }
 
 .header {
-	background-color: #262626;
+	background-color: #4c4c4c;
 	color: #FFFFFF;
 }
 
@@ -53,8 +57,8 @@ hr
 
 .ulGlobal i:hover
 {
-	color: #262626;
-	border: 1px solid #262626;
+	color: #4c4c4c;
+	border: 1px solid #4c4c4c;
 }
 
 .ulGlobal i 
@@ -77,18 +81,18 @@ hr
 }
 
 #header-menu-left .titreMenuG{
-	background-color: #262626;
+	background-color: #4c4c4c;
 }
 
 
 #header-menu {
-	background-color: #262626;
+	background-color: #4c4c4c;
 	border-left: 1px solid #FFFFFF;
 }
 
 
 #header-menu .titreMenu{
-	background-color: #262626;
+	background-color: #4c4c4c;
 }
 
 img
@@ -97,14 +101,14 @@ img
 }
 .imageMenu:hover, .imageMenu:active, .imageMenu.hover, .imageMenu.active
 {
-	color: #262626;
-	border-color: #262626;
+	color: #4c4c4c;
+	border-color: #4c4c4c;
 }
 
 .imageMenu.focus, .imageMenu:focus 
 {
 	/*couleur 2*/
-	color: #191919;
+	color: #727272;
 }
 
 .content {
@@ -149,7 +153,7 @@ select.form-control:focus
 
 .butn, input[type="file" i]::-webkit-file-upload-button
 {
-	background-color: #262626;
+	background-color: #4c4c4c;
 	color: #FFFFFF;
 	border: 1px solid #000000;
 }
@@ -158,14 +162,14 @@ select.form-control:focus
 .butn:hover, input[type="file" i]::-webkit-file-upload-button:hover
 {
 	/*couleur 2*/
-	background-color: #191919;
+	background-color: #727272;
 }
 
 button.butn:focus,
 button.butn.focus
 {
 	/*couleur 3*/
-	background-color: #0d0d0d;
+	background-color: #262626;
 	border: 1px solid #000000;
   	box-shadow: 0 1px 1px #000000 inset, 0 0 2px #000000;
 }
@@ -180,21 +184,25 @@ input[type="file" i].active
 }
 
 .footer {
-	background-color: #262626;
+	background-color: #4c4c4c;
 }
 
 #left-sidebar-wrapper {
 	background-color: #d3d3d3;
-	border-right: 2px solid #FFFFFF;
+	border-right: 2px solid #4c4c4c;
 }
 
 #right-sidebar-wrapper {
 	background-color: #d3d3d3;
-	border-left: 2px solid #FFFFFF;
+	border-left: 2px solid #4c4c4c;
 }
 
 .input-group-addon
 {
-	background-color: #262626;
+	background-color: #4c4c4c;
 	color: #FFFFFF;
+}
+
+.sidebar-nav > .sidebar-brand {
+    border-bottom: 2px solid #4c4c4c;
 }

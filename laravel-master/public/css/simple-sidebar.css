@@ -29,7 +29,7 @@
     left: 250px;
     width: 0;
     height: 100%;
-    margin-left: -250px;
+    margin-left: -252px;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -43,7 +43,7 @@
     right: 250px;
     width: 0;
     height: 100%;
-    margin-right: -250px;
+    margin-right: -252px;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -115,6 +115,7 @@
 
 .sidebar-nav li a {
     display: block;
+    font-size: 1.75rem;
 }
 
 .sidebar-nav li a:hover {
@@ -130,7 +131,6 @@
     height: 50px;
     font-size: 22px;
     line-height: 50px;
-    border-bottom: 2px solid #FFFFFF;
     margin-bottom: 15px;
     text-align: center;
 	font-weight: bold;

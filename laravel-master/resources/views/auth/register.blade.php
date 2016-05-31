@@ -102,12 +102,11 @@
 
 							<div class="form-group">
 								<div class="col-md-12 col-md-offset-4">
-									<a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/') }}"><i
-										class="fa fa-sign-in"></i> &nbsp;{{ trans('auth.butn_dejaInscrit') }}</a>
 									<button type="submit" class="butn colonne droite btn-width-50">
 										<i class="fa fa-btn fa-user-plus "></i>{{ trans('auth.butn_inscrire') }}
 									</button>
-
+									<a class="btn btn-link colonne gauche btn-width-50" href="{{ url('/') }}"><i
+										class="fa fa-sign-in"></i> &nbsp;{{ trans('auth.butn_dejaInscrit') }}</a>
 								</div>
 							</div>
 						</div>

@@ -37,16 +37,16 @@
 	<div id="header" class="header">
 		<div class="content-header">
 			@if (Auth::guest())
-			<a href="{{ url('/switchLangue') }}" class="textOffline btn-menu btn-menu-right">
-				<i>{{ trans('general.language') }}</i>
+			<a href="{{ url('/switchLangue') }}" class="btn-menu btn-menu-right">
+				<i class="fa fa-globe"></i>
 			</a>
 			@if (Route::getCurrentRoute()->getPath() === ('about'))
-			<a href="{{ url('/login') }}" class="textOffline btn-menu btn-menu-left">
-				<i>{{ trans('pagination.login') }}</i>
+			<a href="{{ url('/login') }}" class="btn-menu btn-menu-left">
+				<i class="fa fa-sign-in"></i>
 			</a>
 			@else
-			<a href="{{ url('/about') }}" class="textOffline btn-menu btn-menu-left">
-				<i>{{ trans('pagination.about') }}</i>
+			<a href="{{ url('/about') }}" class="btn-menu btn-menu-left">
+				<i class="fa fa-info-circle"></i>
 			</a>
 			@endif
 			@else

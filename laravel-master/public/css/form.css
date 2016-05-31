@@ -8,5 +8,13 @@
 
 .btn-width-50
 {
-	width: 49%;
+	width: 100%;
+}
+
+@media (min-width: 675px)
+{
+	.btn-width-50
+	{
+		width: 49.5%;
+	}
 }

@@ -19,6 +19,10 @@ a.focus, a:focus
 	color: #914192;
 }
 
+.sidebar-nav > .sidebar-brand {
+    color: #ffaec9;
+}
+
 .sidebar-brand a:hover, .sidebar-brand a:active, .sidebar-brand a.hover, .sidebar-brand a.active{
 	color: #000000;
 }
@@ -198,4 +202,8 @@ input[type="file" i].active
 {
 	background-color: #A349A4;
 	color: #ffaec9;
+}
+
+.sidebar-nav > .sidebar-brand {
+    border-bottom: 2px solid #ffaec9;
 }
