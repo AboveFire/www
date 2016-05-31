@@ -133,6 +133,8 @@ Route::get('/mobile/logout',['middleware' => 'mobile', 'uses' => 'ProfilControll
 
 Route::get('/mobile/profil',['middleware' => 'mobile', 'uses' => 'ProfilController@getProfileMobile']);
 
+Route::get('/mobile/results',['middleware' => 'mobile', 'uses' => 'ResultsController@getMatchMobile']);
+
 Route::get('/mobile/chat',['middleware' => 'mobile', function () {
 	return view('chat.sschatMobile');
 }]);

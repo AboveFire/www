@@ -186,6 +186,7 @@ class ChatController extends Controller
 			}else{
 				$getNumber = 0;
 			}
+			//FIXME "->first()" semble ne pas fonctionner sur Linux
 			$BiggestValue = DB::table('message_msg')->select('MSG_SEQNC')->orderBy('MSG_SEQNC', 'desc')->first()->MSG_SEQNC;
 			$lines = DB::table("message_msg")->select('MSG_CONTN')->where('MSG_SEQNC', '<=', $BiggestValue - ($_POST['number']-1))->where('MSG_SEQNC', '>=', $BiggestValue - (9 + $_POST['number'] + $getNumber))->orderBy('MSG_SEQNC', 'asc')->get();//file(storage_path() . '/channel/'.'general'.'.txt');
 			$tempArray = array();

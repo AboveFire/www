@@ -74,7 +74,7 @@ class AdminController extends Controller
     	$typeFormt = DB::table('type_pool_typ')->select('TYP_NOM')->where('TYP_SEQNC', '=', $request['type'])->get()[0]->TYP_NOM;
     	
     	try {
-    		DB::table('pool_poo')->insert(['POO_NOM' => $request ['nom'],'POO_TYP_SEQNC' => $request['type'], 'POO_SAI_SEQNC' => 1]);
+    		DB::table('pool_poo')->insert(['POO_NOM' => $request ['nom'],'POO_TYP_SEQNC' => $request['type'], 'POO_SAI_SEQNC' => DB::table('saison_sai')->select("sai_seqnc")->orderBy("sai_date_debut")->limit(1)->get()[0]->sai_seqnc]);
     		$pool = DB::getPdo()->lastInsertId();
     	} catch(\Illuminate\Database\QueryException $e){
     		return back()-> with('error', trans('admin.erreur_saison'));
