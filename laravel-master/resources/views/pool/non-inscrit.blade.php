@@ -48,15 +48,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($users as $user)
-						@if ($user->UTI_SEQNC == Auth::user()->UTI_SEQNC)
+					@foreach($scores as $score)
+						@if ($score["utils"] == Auth::user()->UTI_SEQNC)
 						<tr class="user_courant">
 						@else
 						<tr>
 						@endif
-							<td>{{ $user->UTI_NOM }}</td>
-							<td>0</td>
-							<td>0</td>
+							<td>{{ $score["nom"] }}</td>
+							<td>{{ $score["score"] }}</td>
+							<td>{{ $score["rang"] }}</td>
 						</tr>
 					@endforeach
 				</tbody>
