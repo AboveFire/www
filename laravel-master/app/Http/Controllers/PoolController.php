@@ -193,7 +193,7 @@ class PoolController extends BaseController {
 		{
 			$stats = $this::obtenStatsPoolClasq($courn);
 		}
-		
+		 
 		foreach ($stats as $stat)
 		{
 			if($stat['utils'] == Auth::user()->UTI_SEQNC)
