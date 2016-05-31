@@ -13,7 +13,11 @@
 	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolClassic')]) }}</p>
 	@else
 	<div class="form-inline">
-		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.poolClassic')]) }}</p>
+		<p class="col-md-12">
+			{{ trans('pool.welcome') }}!
+			<br />
+			{{ trans('pool.text_results',['pool' => trans('pagination.poolClassic')]) }}
+		</p>
 		<br />
 		<div class="form-group">
 			<div class="col-md-12">
@@ -27,13 +31,6 @@
 						    @endif
 						@endforeach
 				</select>
-			</div>
-		</div>
-		<div class="form-group form-butn">
-			<div class="col-md-2">
-				<button type="submit" class="butn" onClick="inscrire();">
-					<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
-				</button>
 			</div>
 		</div>
 	</div>

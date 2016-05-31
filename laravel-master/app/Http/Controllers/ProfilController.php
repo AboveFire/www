@@ -14,7 +14,6 @@ class ProfilController extends Controller
     public function update(Request $request)
     {
 		App::setLocale(strtolower(Auth::user()->getLangue()));
-    	 
     	$this->validate($request, [
     		'telph' => 'Regex:/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/',
             'nom' => 'required|max:80',

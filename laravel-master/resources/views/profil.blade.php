@@ -12,7 +12,8 @@
 	</div>
 	@endif
 	<hr>
-		<form class="form">
+		<form class="form" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
+		{!! csrf_field() !!}
 						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
 						<span class="help-block"> 
