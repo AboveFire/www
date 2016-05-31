@@ -164,19 +164,19 @@ class PoolController extends BaseController {
 	
 	private function estParticipant ($utils, $pool)
 	{
-		$result = DB::table ( 'utilisateur_pool_utp' )
-							->select ('count(1)')
+		return 0 < DB::table ( 'utilisateur_pool_utp' )
+							->select ('UTP_SEQNC')
 							->where ('UTP_POO_SEQNC', $pool)
 							->where ('UTP_UTI_SEQNC', $utils)
-							->get();
-		dd ($result);
-		return true;
+							->count();;
 	}
 	
 	public function getPoolClassic(Request $request) 
 	{
 		
 		$courn = $request ['poolCourant'];
+		$scoreCourn = 0;
+		$rangCourn = 0;
 		
 		$stats = array();
 		
@@ -192,6 +192,15 @@ class PoolController extends BaseController {
 		if ($courn != null)
 		{
 			$stats = $this::obtenStatsPoolClasq($courn);
+		}
+		
+		foreach ($stats as $stat)
+		{
+			if($stat['utils'] == Auth::user()->UTI_SEQNC)
+			{
+				$scoreCourn = $stat['score'];
+				$rangCourn = $stat['rang'];
+			}
 		}
 		
 		$partie_suivt = DB::table ( 'partie_par' )
@@ -216,7 +225,7 @@ class PoolController extends BaseController {
 							->take (1)
 							->get();
 			
-		if ($this::estParticipant(Auth::user(), $courn))
+		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
 		{
 			return View::make ( '/pool/classic/inscrit', array (
 					'pools' => $pools,
@@ -224,6 +233,8 @@ class PoolController extends BaseController {
 					'scores' => $stats,
 					'partie_precd' => $this->getImagesPartie($partie_precd),
 					'partie_suivt' => $this->getImagesPartie($partie_suivt),	
+					'scoreCourn' => $scoreCourn,
+					'rangCourn' => $rangCourn,
 			) );
 		}
 		else
@@ -233,7 +244,7 @@ class PoolController extends BaseController {
 					'poolCourant' => $courn,
 					'scores' => $stats,
 					'partie_precd' => $this->getImagesPartie($partie_precd),
-					'partie_suivt' => $this->getImagesPartie($partie_suivt),	
+					'partie_suivt' => $this->getImagesPartie($partie_suivt),
 			) );
 		}
 				
