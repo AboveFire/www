@@ -38,7 +38,7 @@
   			<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.nom') }}</label>
 				<div class="margin-bottom-sm input-group">
-					<span class="input-group-addon"><i class="fa fa-male fa-fw" aria-hidden="true"></i></span>
+					<span class="input-group-addon"><i class="fa fa-neuter fa-fw" aria-hidden="true"></i></span>
 					<input type="text" class="form-control" name="nom" value="{{ Auth::user()->UTI_NOM }}"> 
 				</div>
 					@if ($errors->has('nom')) 
@@ -50,7 +50,7 @@
 			<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }} col-md-6">
 				<label class="control-label">{{ trans('auth.prenom') }}</label>
 				<div class="margin-bottom-sm input-group">
-					<span class="input-group-addon"><i class="fa fa-fw fa-male" aria-hidden="true"></i></span>
+					<span class="input-group-addon"><i class="fa fa-fw fa-neuter" aria-hidden="true"></i></span>
 					<input type="text" class="form-control" name="prenm" value="{{ Auth::user()->UTI_PRENM }}"> 
 				</div>
 					@if ($errors->has('prenm')) 

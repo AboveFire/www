@@ -18,7 +18,7 @@
 							<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 								<div class="col-md-12">
 									<div class="margin-bottom-sm input-group">
-										<span class="input-group-addon"><i class="fa fa-male fa-fw" aria-hidden="true"></i></span>
+										<span class="input-group-addon"><i class="fa fa-neuter fa-fw" aria-hidden="true"></i></span>
 										<input type="text" class="form-control" name="nom" value="{{ old('nom') }}"
 											placeholder="{{ trans('auth.nom') }}">
 									</div>
@@ -32,7 +32,7 @@
 							<div class="form-group{{ $errors->has('prenm') ? ' has-error' : '' }}">
 								<div class="col-md-12">
 									<div class="margin-bottom-sm input-group">
-										<span class="input-group-addon"><i class="fa fa-male fa-fw" aria-hidden="true"></i></span>
+										<span class="input-group-addon"><i class="fa fa-neuter fa-fw" aria-hidden="true"></i></span>
 										<input type="text" class="form-control" name="prenm" value="{{ old('prenm') }}"
 											placeholder="{{ trans('auth.prenom') }}">
 									</div>

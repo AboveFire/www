@@ -73,7 +73,7 @@
 				@if (!Auth::guest())
 				<li><a href="{{ url('/profil') }}">
 					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="imageMenu" class="imageMenu">
-					{{ Auth::user()->getNomPrenm() }}
+					{{ Auth::user()->UTI_CODE }}
 				</a></li>
 				<li><a href="{{ url('/param') }}">
 					<i class="fa fa-btn fa-cog"></i>{{ trans('pagination.param') }}
