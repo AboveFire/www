@@ -1,0 +1,53 @@
+.box-container
+{
+	padding-bottom: 15px;
+}
+
+.col-butn
+{
+	margin-bottom: 15px;
+}
+
+.col-md-4
+{
+	padding-left: 0;
+	padding-right: 0;
+}
+	
+#selectMultp
+{
+	width: 50%;
+	margin: 0 25% 0 25%;
+}
+
+.image
+{
+	width: 33.33%;
+	height: 33.33%;
+}
+
+.list-container
+{
+	width: 100%;		
+}
+	
+@media (min-width: 768px)
+{
+	#selectMultp
+	{
+		width: 100%;
+		margin: 0 15px 0 15px;
+	}
+	
+	.image
+	{
+		width: 50%;
+		height: 50%;    
+	}
+	
+	.list-container
+	{
+		width: 33.33%;
+		margin: 0 0 0 0;
+	}
+}

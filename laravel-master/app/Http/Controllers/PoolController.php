@@ -32,6 +32,13 @@ class PoolController extends BaseController {
 					->get();
 	}
 	
+	private function obtenTeams()
+	{
+		return DB::table ( 'equipe_eqp' )
+				 	->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
+					->get ();
+	}
+	
 	private function estParticipant ($utils, $pool)
 	{
 		return 0 < DB::table ( 'utilisateur_pool_utp' )
@@ -368,17 +375,15 @@ class PoolController extends BaseController {
 		return $stats;
 	}
 	
-	public function getPoolPlayoff(Request $request)
+public function getPoolPlayoff(Request $request) 
 	{
 		$courn = $request ['poolCourant'];
 		$stats = array();
-	
-		$pools = DB::table ( 'pool_poo' )
-		->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-		->select ( 'POO_SEQNC', 'POO_NOM' )
-		->where ('typ_nom', 'poolPlayoff')
-		->get ();
-			
+		
+		$pools = $this::obtenPoolsSelonType('poolPlayoff');
+		
+		dd($pools);
+		
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
@@ -386,36 +391,54 @@ class PoolController extends BaseController {
 		{
 			$stats = $this::obtenStatsPoolPlayf($courn);
 		}
-	
-		$partie_suivt = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date > sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date')
-		->take (1)
-		->get();
-	
-		$partie_precd = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date < sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date', 'desc')
-		->take (1)
-		->get();
-			
-		return View::make ( '/pool/playoff/non-inscrit', array (
+		
+		foreach ($stats as $stat)
+		{
+			if($stat['utils'] == Auth::user()->UTI_SEQNC)
+			{
+				$scoreCourn = $stat['score'];
+				$rangCourn = $stat['rang'];
+			}
+		}
+		
+		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
+		{			
+			return View::make ( '/pool/playoff/inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,
+					'scores' => $stats,
+					'scoreCourn' => $scoreCourn,
+					'rangCourn' => $rangCourn,
+			) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
+		else
+		{
+			return View::make ( '/pool/playoff/non-inscrit', array_merge (array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
 				'scores' => $stats,
-				'partie_precd' => $this->getImagesPartie($partie_precd),
-				'partie_suivt' => $this->getImagesPartie($partie_suivt),
-		) );
+		) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
+	}
+	
+	public function getVotePlayoff (Request $request)
+	{
+		$courn = $request ['poolCourant'];
+	
+		$pools = $this::obtenPoolsSelonType('poolPlayoff');
+		
+		$teams = $this::obtenTeams();
+			
+		if ($courn == null and isset($pools[0])) {
+			$courn = $pools [0]->POO_SEQNC;
+		}
+	
+		return View::make ( '/pool/playoff/vote', array_merge (array (
+				'pools' => $pools,
+				'teams' => $teams,
+				'poolCourant' => $courn,
+				
+		)));
 	}
 	
 	/*****************************************************************/

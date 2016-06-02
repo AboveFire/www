@@ -12,7 +12,7 @@
 	@if ($poolCourant == null)
 	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolPlayoff')]) }}</p>
 	@else
-	<div class="form-inline">
+	<div class="form-inline form-inscrit">
 		<p class="col-md-12">
 			{{ trans('pool.welcome') }}!
 			<br />
@@ -33,6 +33,12 @@
 				</select>
 			</div>
 		</div>
+	</div>
+	<div class="scoreCourn col-md-6">
+		<table class="block">
+			<tr><th>{{ trans('pool.yourScore') }} : <th><td><i> {{ $scoreCourn }}</i></td></tr>
+			<tr><th>{{ trans('pool.yourRank') }} : <th><td><i> {{ $rangCourn }}</i></td></tr>
+		</table>
 	</div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
@@ -58,11 +64,6 @@
 					@endforeach
 				</tbody>
 			</table>
-		</div>
-		<div class="scoreCourn">
-		<h1>{{ trans('pool.yourScore') }} : </h1>{{ $scoreCourn }}
-		<br />
-		<h1>{{ trans('pool.yourRank') }} : </h1>{{ $rangCourn }}
 		</div>
 		<div class="parties col-md-6">
 			@if ($partie_precd != null)
@@ -91,6 +92,13 @@
 				</div>
 			</div>
 			@endif
+			<div class="butn_vote ">
+				<div class="bouton">
+					<button type="submit" class="butn" onClick="voter();">
+						<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	@endif
@@ -104,35 +112,8 @@ $(document).ready( function() {
 	});
 });
 
-function inscrire() {
-	$.post('inscription', {action: 'send', typePool: 'poolPlayoff', poolCourant: <?=$poolCourant?> , _token:tokenMobile}, function(data){
-		window.location = "{{ url('/poolPlayoff') }}";
-	});
-}
-
-function proceed () {
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', "{{ url('/inscription') }}");
-    form.style.display = 'hidden';
-    $('<input>').attr({
-        type: 'hidden',
-        id: 'poolCourant',
-        name: 'poolCourant',
-        value: <?=$poolCourant?>
-    }).appendTo('form');
-
-    $('<input>').attr({
-        type: 'hidden',
-        id: '_token',
-        name: '_token',
-        value: "{{ csrf_token() }}"
-    }).appendTo('form');
-    
-    alert (form);
-    document.body.appendChild(form)
-    
-    form.submit();
+function voter() {
+	window.location= "{{ url('/votePlayoff') }}?poolCourant=" + <?=$poolCourant?>;
 }
 </script>
 @endsection
