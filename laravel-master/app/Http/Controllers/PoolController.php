@@ -223,33 +223,28 @@ class PoolController extends BaseController {
 	private function obtenPointsVotePlayf ($utils, $pool, $partie)
 	{
 		return DB::select('select case
-								  when indic_win = \'O\'
-							      and ((peq_indic_home = \'O\' and par_cote < 0)
-										or (peq_indic_home = \'N\' and par_cote > 0)) then
-								   1.5
+								  when indic_win = \'N\'
+							      then
+								   (reslt.peq_score * vot_multp)
 								 when indic_win = \'O\'
-							      and ((peq_indic_home = \'O\' and par_cote > 0)
-										or (peq_indic_home = \'N\' and par_cote < 0)) then
-								1
-								 when indic_win = \'N\'
-									and ((peq_indic_home = \'O\' and par_cote > 0)
-									    or (peq_indic_home = \'N\' and par_cote < 0))
-									and (dif_valr < par_cote)then
-							         0.5
+							     then
+								 (((select min(peq_score) 
+							  	      from partie_equipe_peq
+								     where PEQ_PAR_SEQNC = ?) + (dif.dif_valr/2))*vot_multp)
 								   else
 									 0
 								   end
 							         score
 							  from vote_vot,
 								   partie_par,
-								   (select peq_seqnc, peq_indic_home, \'O\' indic_win
+								   (select peq_seqnc, peq_indic_home, peq_score, \'O\' indic_win
 								     from partie_equipe_peq
 								    where PEQ_PAR_SEQNC = ?
 								      and peq_score = (select max(peq_score)
 								     from partie_equipe_peq
 								    where PEQ_PAR_SEQNC = ?)
 								   union
-								   select peq_seqnc, peq_indic_home, \'N\' indic_win
+								   select peq_seqnc, peq_indic_home, peq_score, \'N\' indic_win
 							  	     from partie_equipe_peq
 								    where PEQ_PAR_SEQNC = ?
 							 	      and peq_score = (select min(peq_score)
@@ -262,8 +257,8 @@ class PoolController extends BaseController {
 							   and par_seqnc = ?
 							   and vot_uti_seqnc = ?
 							   and vot_poo_seqnc = ?',
-				[$partie,$partie,$partie,$partie,$partie,$partie,$utils,$pool,])[0]->score;
-	}
+				[$partie,$partie,$partie,$partie,$partie,$partie,$partie,$utils,$pool,])[0]->score;
+	}	
 	
 	private function obtenScorePoolPlayf ($utils, $pool)
 	{
@@ -272,7 +267,7 @@ class PoolController extends BaseController {
 	
 		foreach ($parties as $partie)
 		{
-			$score += $this::obtenPointsVoteClasq ($utils, $pool, $partie->PEQ_PAR_SEQNC);
+			$score += $this::obtenPointsVotePlayf ($utils, $pool, $partie->PEQ_PAR_SEQNC);
 		}
 	
 		return $score;
