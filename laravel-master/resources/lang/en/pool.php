@@ -13,7 +13,7 @@ return [
 		'select_week' => '- Select a week -',
 		'select_catgr' => '- Select a category -',
 		'butn_inscr' => 'Join',
-		'butn_butn' => 'Vote',
+		'butn_vote' => 'Vote',
 		'butn_see' => 'Consult the pool',
 		'text_nonInscr' => 'You are not yet subscribed to this pool. Click on the "Subscribe" button to join.',
 		'text_aucunPool' => 'There is no existing :pool.',

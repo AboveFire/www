@@ -257,6 +257,22 @@ class PoolController extends BaseController {
 		}
 	}
 	
+	public function getVoteClassic(Request $request)
+	{
+		$courn = $request ['poolCourant'];
+	
+		$pools = $this::obtenPoolsSelonType('poolClassic');
+			
+		if ($courn == null and isset($pools[0])) {
+			$courn = $pools [0]->POO_SEQNC;
+		}
+	
+		return View::make ( '/pool/classic/vote', array_merge (array (
+				'pools' => $pools,
+				'poolCourant' => $courn,
+				
+		)));
+	}
 	
 	/*****************************************************************/
 	private function obtenPointsVotePlayf ($utils, $pool, $partie)

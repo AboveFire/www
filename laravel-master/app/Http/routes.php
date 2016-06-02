@@ -78,6 +78,10 @@ Route::get ('/poolClassic', ['middleware' => 'auth', 'uses' => 'PoolController@g
 Route::get ('/poolPlayoff', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolPlayoff']);
 Route::get ('/poolSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolSurvivor']);
 
+Route::get ('/voteClassic', ['middleware' => 'auth', 'uses' => 'PoolController@getVoteClassic']);
+Route::get ('/votePlayoff', ['middleware' => 'auth', 'uses' => 'PoolController@getVotePlayoff']);
+Route::get ('/voteSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@getVoteSurvivor']);
+
 // REQUÊTES POST
 Route::post ('/inscription', ['middleware' => 'auth', 'uses' => 'PoolController@sinscrire']);
 
