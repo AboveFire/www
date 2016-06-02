@@ -520,10 +520,11 @@ class PoolController extends BaseController {
 		return DB::table("utilisateur_pool_utp")->where("utp_poo_seqnc", "=", $pool)->select("utp_uti_seqnc")->get();
 	}
 	
-	private function obtenStatsPoolSurvr ($pool,$saison)
+	private function obtenStatsPoolSurvr ($pool)
 	{
 		//$pool=5;
 		//$saison=6;
+		$saison = DB::table ('pool_poo')->select('POO_SAI_SEQNC')->where('POO_SEQNC', $pool)->get()[0]->POO_SAI_SEQNC;
 		$semaines = DB::table("semaine_sem")->where("sem_sai_seqnc", $saison)->where("sem_date_fin", "<", date('Y-m-d H:i:s'))->get();
 		$userAlive = $this->checkPoolSurvivorUserAlive($pool);
 		$userInPool = $this->getUserPerPool($pool);
@@ -549,7 +550,9 @@ class PoolController extends BaseController {
 	{
 		$courn = $request ['poolCourant'];
 		$stats = array();
-	
+		$rangCourn = 0;
+		$scoreCourn = 0;
+		
 		$pools = $this::obtenPoolsSelonType('poolSurvivor');
 			
 		if ($courn == null and isset($pools[0])) {
@@ -559,36 +562,25 @@ class PoolController extends BaseController {
 		{
 			$stats = $this::obtenStatsPoolSurvr($courn);
 		}
-	
-		$partie_suivt = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date > sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date')
-		->take (1)
-		->get();
-	
-		$partie_precd = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date < sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date', 'desc')
-		->take (1)
-		->get();
-			 
-		return View::make ( '/pool/survivor/non-inscrit', array (
+				
+		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
+		{			
+			return View::make ( '/pool/survivor/inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,
+					'scores' => $stats,
+					'scoreCourn' => $scoreCourn,
+					'rangCourn' => $rangCourn,
+			) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
+		else
+		{
+			return View::make ( '/pool/survivor/non-inscrit', array_merge (array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
 				'scores' => $stats,
-				'partie_precd' => $this->getImagesPartie($partie_precd),
-				'partie_suivt' => $this->getImagesPartie($partie_suivt),
-		) );
+		) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
 	}
 	
 	/*****************************************************************/
