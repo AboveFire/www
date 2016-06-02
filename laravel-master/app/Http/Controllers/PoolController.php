@@ -546,7 +546,7 @@ class PoolController extends BaseController {
 		->orderBy('par_date', 'desc')
 		->take (1)
 		->get();
-			
+			 
 		return View::make ( '/pool/survivor/non-inscrit', array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
