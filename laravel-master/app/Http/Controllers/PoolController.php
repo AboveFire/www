@@ -209,6 +209,10 @@ class PoolController extends BaseController {
 					  'partie_suivt' => $this->getImagesPartie($partie_suivt));
 	}
 	
+	public function obtenStatsPoolClasqMobile (Request $request){
+		return json_encode($this->obtenStatsPoolClasq($request["pool"]));
+	}
+	
 	public function getPoolClassic(Request $request) 
 	{
 		$courn = $request ['poolCourant'];
