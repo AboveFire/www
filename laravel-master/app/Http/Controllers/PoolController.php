@@ -80,13 +80,24 @@ class PoolController extends BaseController {
 		return $array;
 	}
 	
-	public function obtenPoolsSelonType ($type)
+	public function obtenPoolsSelonType ($type, $utilsInscr = null)
 	{
-		return DB::table ( 'pool_poo' )
-					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-				 	->select ( 'POO_SEQNC', 'POO_NOM' )
-				 	->where ('typ_nom', $type)
-					->get ();
+		$pools =  DB::table ( 'pool_poo' )
+					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc');
+		
+		if ($utilsInscr != null)
+		{
+			$pools = $pools->join ('utilisateur_pool_utp', 'utp_poo_seqnc', '=', 'poo_seqnc')
+						   ->select ( 'POO_SEQNC', 'POO_NOM' )
+						   ->where ('utp_uti_seqnc', $utilsInscr);
+		}
+		else 
+		{
+			$pools = $pools->select ( 'POO_SEQNC', 'POO_NOM' );
+		}
+				 	
+		return $pools->where ('typ_nom', $type)
+					 ->get ();
 	}
 	
 	/*****************************************************************/
@@ -487,69 +498,85 @@ public function getPoolPlayoff(Request $request)
 				[$partie,$partie,$partie,$partie,$partie,$partie,$utils,$pool,])[0]->score;
 	}
 
-	private function obtenScorePoolSurvr ($utils, $pool)
+	public function getPoolSurvivorWinningTeamPerWeek($pWeek)
 	{
-		$parties = $this::obtenPartiesPoolUtils($utils, $pool);
-		$score = 0;
-	
-		foreach ($parties as $partie)
-		{
-			$score += $this::obtenPointsVoteSurvr ($utils, $pool, $partie->PEQ_PAR_SEQNC);
+		$match = DB::table("partie_par")
+		->join("partie_equipe_peq AS O", function($join){
+			$join->on("partie_par.par_seqnc", "=", "O.peq_par_seqnc")
+			->where("O.peq_indic_home", "=", "O");
+		})
+		->join("partie_equipe_peq AS N", function($join){
+			$join->on("partie_par.par_seqnc", "=", "N.peq_par_seqnc")
+			->where("N.peq_indic_home", "=", "N");
+		})
+		->select("partie_par.par_seqnc", "partie_par.par_date AS date","O.peq_seqnc AS peq_home", "O.peq_score AS point_home","N.peq_seqnc AS peq_visitor", "N.peq_score AS point_visitor")
+		->where("partie_par.par_sem_seqnc", "=", $pWeek)
+		->where("partie_par.par_date", "<", date('Y-m-d H:i:s'))
+		->get();
+		$winning = [];
+		foreach($match as $partie){
+			if($partie->point_home > $partie->point_visitor){
+				$winning[] = $partie->peq_home;
+			}elseif($partie->point_home < $partie->point_visitor){
+				$winning[] = $partie->peq_visitor;
+			}
 		}
+		return $winning;
+	}
 	
-		return $score;
+	public function checkPoolSurvivorUserAlive($pool){
+		$alive = [];
+		//$dead = [];
+		$weeks = DB::select("SELECT * FROM `semaine_sem`, vote_vot WHERE sem_date_fin < NOW() and vot_poo_seqnc = ? and sem_seqnc in (SELECT par_sem_seqnc from partie_par, partie_equipe_peq where par_seqnc = peq_par_seqnc and peq_seqnc = vot_peq_seqnc);", [$pool]);
+		foreach($weeks as $vote){
+			$temp = $this->getPoolSurvivorWinningTeamPerWeek($vote->SEM_SEQNC);
+			if(in_array($vote->VOT_PEQ_SEQNC, $temp)){
+				$alive[$vote->SEM_SEQNC][] = $vote->VOT_UTI_SEQNC;
+			}/*else{
+			$dead[$vote->SEM_SEQNC][] = $vote->VOT_PEQ_SEQNC;
+			}*/
+		}
+		return $alive;
+	}
+	
+	public function getUserPerPool($pool){
+		return DB::table("utilisateur_pool_utp")->where("utp_poo_seqnc", "=", $pool)->select("utp_uti_seqnc")->get();
 	}
 	
 	private function obtenStatsPoolSurvr ($pool)
 	{
-		$stats = array();
-		$users = $this::obtenUtilsPool ($pool);
-			
-		foreach ($users as $user )
-		{
-			$stat = array ("utils" => $user->UTI_SEQNC,
-					"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
-					"score" => $this::obtenScorePoolSurvr($user->UTI_SEQNC, $pool),
-					"rang" => 1,
-			);
-			array_push ($stats, $stat);
-		}
-			
-		$stats = $this::sortBySubValue($stats, "score");
-			
-		if ((count ($stats) < 2) || $stats[0]["score"] != $stats[1]["score"])
-		{
-			$rang = 0;
-		}
-		else
-		{
-			$rang = 1;
-		}
-			
-		$precd = -1;
-		for($i = 0; $i < count($stats); $i++) {
-			if ($stats[$i]["score"] != $precd)
-			{
-				$rang++;
+		//$pool=5;
+		//$saison=6;
+		$saison = DB::table ('pool_poo')->select('POO_SAI_SEQNC')->where('POO_SEQNC', $pool)->get()[0]->POO_SAI_SEQNC;
+		$semaines = DB::table("semaine_sem")->where("sem_sai_seqnc", $saison)->where("sem_date_fin", "<", date('Y-m-d H:i:s'))->get();
+		$userAlive = $this->checkPoolSurvivorUserAlive($pool);
+		$userInPool = $this->getUserPerPool($pool);
+		ksort($userAlive, SORT_NUMERIC);
+		$dead = [];
+		foreach($semaines as $semaine){
+			foreach($userInPool as $value){
+				if(array_key_exists($semaine->SEM_SEQNC, $userAlive) && in_array($value->utp_uti_seqnc, $userAlive[$semaine->SEM_SEQNC])){
+					if(!array_key_exists($value->utp_uti_seqnc, $dead)){
+						$dead[$value->utp_uti_seqnc] = -1;
+					}
+				}else{
+					if(!array_key_exists($value->utp_uti_seqnc, $dead) || $dead[$value->utp_uti_seqnc] == -1){
+						$dead[$value->utp_uti_seqnc] = $semaine->SEM_SEQNC;
+					}
+				}
 			}
-	
-			$stats[$i]["rang"] = $rang;
-			$precd = $stats[$i]["score"];
 		}
-	
-		return $stats;
+		return $dead;
 	}
 	
 	public function getPoolSurvivor(Request $request)
 	{
 		$courn = $request ['poolCourant'];
 		$stats = array();
-	
-		$pools = DB::table ( 'pool_poo' )
-		->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-		->select ( 'POO_SEQNC', 'POO_NOM' )
-		->where ('typ_nom', 'poolSurvivor')
-		->get ();
+		$rangCourn = 0;
+		$scoreCourn = 0;
+		
+		$pools = $this::obtenPoolsSelonType('poolSurvivor');
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
@@ -558,36 +585,25 @@ public function getPoolPlayoff(Request $request)
 		{
 			$stats = $this::obtenStatsPoolSurvr($courn);
 		}
-	
-		$partie_suivt = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date > sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date')
-		->take (1)
-		->get();
-	
-		$partie_precd = DB::table ( 'partie_par' )
-		->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-		->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-		->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-		->select ('PAR_SEQNC')
-		->whereRaw ('par_date < sysdate()')
-		->where ('poo_seqnc', $courn)
-		->orderBy('par_date', 'desc')
-		->take (1)
-		->get();
-			 
-		return View::make ( '/pool/survivor/non-inscrit', array (
+				
+		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
+		{			
+			return View::make ( '/pool/survivor/inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,
+					'scores' => $stats,
+					'scoreCourn' => $scoreCourn,
+					'rangCourn' => $rangCourn,
+			) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
+		else
+		{
+			return View::make ( '/pool/survivor/non-inscrit', array_merge (array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
 				'scores' => $stats,
-				'partie_precd' => $this->getImagesPartie($partie_precd),
-				'partie_suivt' => $this->getImagesPartie($partie_suivt),
-		) );
+		) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
 	}
 	
 	/*****************************************************************/

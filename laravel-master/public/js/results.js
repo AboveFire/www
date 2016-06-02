@@ -5,7 +5,7 @@ var $_GET = {};
 $(document).ready(function(){
 	$.post("ssresults", {action: 'addten',number: $number, _token:tokenMobile}, function(data){
 		$obj = JSON.parse(data);
-		for ($key = $obj.length-2; $key >= 0; $key--) {
+		for ($key = $obj.length-1; $key >= 1; $key--) {
 			$('#image').append("<li>"
 			+'<span class="date">' + $obj[$key].date.slice(0, -3).replace(" ", '<span class="space"></span>') + "</span><br />"
 			+'<span class="cote">( ' + $obj[$key].cote + " )</span><br />"
@@ -15,7 +15,7 @@ $(document).ready(function(){
 			+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
 			+'</li><hr/>');
 		}
-		$key = $obj.length-1;
+		$key = 0;
 		$('#image').append("<li>"
 		+'<span class="date">' + $obj[$key].date.slice(0, -3).replace(" ", '<span class="space"></span>') + "</span><br />"
 		+'<span class="cote">( ' + $obj[$key].cote + " )</span><br />"
@@ -42,7 +42,7 @@ function adjustScroll($offset){
 function addten($adjust){
 	$.post("ssresults", {action: 'addten',number: $number, _token:tokenMobile}, function(data){
 		$obj = JSON.parse(data);
-		for ($key = $obj.length-2; $key >= 0; $key--) {
+		for ($key = $obj.length-1; $key >= 1; $key--) {
 			$('#image').append("<li>"
 			+'<span class="date">' + $obj[$key].date.slice(0, -3).replace(" ", '<span class="space"></span>') + "</span><br />"
 			+'<span class="cote">( ' + $obj[$key].cote + " )</span><br />"
@@ -52,7 +52,7 @@ function addten($adjust){
 			+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
 			+'</li><hr/>');
 		}
-		$key = $obj.length-1;
+		$key = 0;
 		$('#image').append("<li>"
 		+'<span class="date">' + $obj[$key].date.slice(0, -3).replace(" ", '<span class="space"></span>') + "</span><br />"
 		+'<span class="cote">( ' + $obj[$key].cote + " )</span><br />"
@@ -62,6 +62,7 @@ function addten($adjust){
 		+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
 		+'</li>');
 		$('#image').append('<hr class="black" /><hr /><hr class="black" />');
+		$number+=1;
 	});
 	$number+=1;
 }
