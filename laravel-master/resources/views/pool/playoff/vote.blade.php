@@ -35,7 +35,7 @@
 					</div>
 					<div class="clearfix"></div>
 					<hr>
-                    <!-- Zone d'affichage -->
+                    <!-- Zone d'affichage --> 
                     <div class="tableau form-group">
 						<!-- Team Members Row -->
 						@foreach($teams as $team)
