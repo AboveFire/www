@@ -15,7 +15,7 @@ class PoolController extends BaseController {
 	private function obtenUtilsPool ($pool)
 	{
 		return DB::table ( 'utilisateur_uti' )
-					->select ( 'UTI_SEQNC', 'UTI_NOM', 'UTI_PRENM' )
+					->select ( 'UTI_SEQNC', 'UTI_NOM', 'UTI_PRENM', 'UTI_CODE' )
 					->whereIn ( 'uti_seqnc', DB::table ( 'utilisateur_pool_utp' )
 												->select ( 'utp_uti_seqnc' )
 												->where ( 'utp_poo_seqnc', $pool ) )
@@ -149,7 +149,7 @@ class PoolController extends BaseController {
 		foreach ($users as $user )
 		{
 			$stat = array ("utils" => $user->UTI_SEQNC,
-					"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
+					"nom" => $user->UTI_CODE,
 					"score" => $this::obtenScorePoolClasq($user->UTI_SEQNC, $pool),
 					"rang" => 1,
 			);

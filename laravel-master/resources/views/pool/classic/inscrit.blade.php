@@ -12,7 +12,7 @@
 	@if ($poolCourant == null)
 	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolClassic')]) }}</p>
 	@else
-	<div class="form-inline">
+	<div class="form-inline form-inscrit">
 		<p class="col-md-12">
 			{{ trans('pool.welcome') }}!
 			<br />
@@ -34,10 +34,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="scoreCourn">
-		<h1>{{ trans('pool.yourScore') }} : </h1>{{ $scoreCourn }}
-		<br />
-		<h1>{{ trans('pool.yourRank') }} : </h1>{{ $rangCourn }}
+	<div class="scoreCourn col-md-6">
+		<table class="block">
+			<tr><th>{{ trans('pool.yourScore') }} : <th><td><i> {{ $scoreCourn }}</i></td></tr>
+			<tr><th>{{ trans('pool.yourRank') }} : <th><td><i> {{ $rangCourn }}</i></td></tr>
+		</table>
 	</div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
@@ -91,6 +92,13 @@
 				</div>
 			</div>
 			@endif
+			<div class="butn_vote ">
+				<div class="bouton">
+					<button type="submit" class="butn" onClick="inscrire();">
+						<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	@endif

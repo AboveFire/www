@@ -29,7 +29,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group form-butn">
+		<div class="form-group">
 			<div class="col-md-2">
 				<button type="submit" class="butn" onClick="inscrire();">
 					<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
