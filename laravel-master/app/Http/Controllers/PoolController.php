@@ -73,13 +73,24 @@ class PoolController extends BaseController {
 		return $array;
 	}
 	
-	public function obtenPoolsSelonType ($type)
+	public function obtenPoolsSelonType ($type, $utilsInscr = null)
 	{
-		return DB::table ( 'pool_poo' )
-					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-				 	->select ( 'POO_SEQNC', 'POO_NOM' )
-				 	->where ('typ_nom', $type)
-					->get ();
+		$pools =  DB::table ( 'pool_poo' )
+					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc');
+		
+		if ($utilsInscr != null)
+		{
+			$pools = $pools->join ('utilisateur_pool_utp', 'utp_poo_seqnc', '=', 'poo_seqnc')
+						   ->select ( 'POO_SEQNC', 'POO_NOM' )
+						   ->where ('utp_uti_seqnc', $utilsInscr);
+		}
+		else 
+		{
+			$pools = $pools->select ( 'POO_SEQNC', 'POO_NOM' );
+		}
+				 	
+		return $pools->where ('typ_nom', $type)
+					 ->get ();
 	}
 	
 	/*****************************************************************/
@@ -522,11 +533,7 @@ class PoolController extends BaseController {
 		$courn = $request ['poolCourant'];
 		$stats = array();
 	
-		$pools = DB::table ( 'pool_poo' )
-		->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-		->select ( 'POO_SEQNC', 'POO_NOM' )
-		->where ('typ_nom', 'poolSurvivor')
-		->get ();
+		$pools = $this::obtenPoolsSelonType('poolSurvivor');
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;

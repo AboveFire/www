@@ -21,16 +21,26 @@
 		<br />
 		<div class="form-group">
 			<div class="col-md-12">
-				<select id="selectPool" class="form-control" name="pool">
-					<option disabled>{{ trans('pool.select_pool') }}</option>
-						@foreach($pools as $pool)
-							@if ($pool->POO_SEQNC == $poolCourant)
-					    <option value="{{$pool->POO_SEQNC}}" selected>{{ $pool->POO_NOM }}</option>
-							@else
-					    <option value="{{$pool->POO_SEQNC}}">{{ $pool->POO_NOM }}</option>
-						    @endif
-						@endforeach
-				</select>
+				<div class="margin-bottom-sm input-group">
+					<span class="input-group-addon"><i class="fa fa-gamepad fa-fw" aria-hidden="true"></i></span>
+					<select id="selectPool" class="form-control" name="pool">
+						<option disabled>{{ trans('pool.select_pool') }}</option>
+							@foreach($pools as $pool)
+								@if ($pool->POO_SEQNC == $poolCourant)
+						    <option value="{{$pool->POO_SEQNC}}" selected>{{ $pool->POO_NOM }}</option>
+								@else
+						    <option value="{{$pool->POO_SEQNC}}">{{ $pool->POO_NOM }}</option>
+							    @endif
+							@endforeach
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<button type="submit" class="butn" onClick="voter();">
+					<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -92,13 +102,6 @@
 				</div>
 			</div>
 			@endif
-			<div class="butn_vote ">
-				<div class="bouton">
-					<button type="submit" class="butn" onClick="voter();">
-						<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
-					</button>
-				</div>
-			</div>
 		</div>
 	</div>
 	@endif

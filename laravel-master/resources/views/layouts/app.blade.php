@@ -108,7 +108,7 @@
 					<i class="fa fa-btn fa-gamepad"></i>{{ trans('pagination.poolClassic') }}
 				</a></li>
 				<ul>
-					<li><a href="{{ url('/form-classic') }}">
+					<li><a href="{{ url('/voteClassic') }}">
 						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
@@ -116,7 +116,7 @@
 					<i class="fa fa-btn fa-crosshairs"></i>{{ trans('pagination.poolPlayoff') }}
 				</a></li>
 				<ul>
-					<li><a href="{{ url('/form-playoff') }}">
+					<li><a href="{{ url('/votePlayoff') }}">
 						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
@@ -124,7 +124,7 @@
 					<i class="fa fa-btn fa-sitemap"></i>{{ trans('pagination.poolSurvivor') }}
 				</a></li>
 				<ul>
-					<li><a href="{{ url('/form-survivor') }}">
+					<li><a href="{{ url('/voteSurvivor') }}">
 						<i class="fa fa-btn fa-file-o"></i>{{ trans('pagination.form') }}
 					</a></li>
 				</ul>
