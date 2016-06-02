@@ -1,31 +1,76 @@
+/* haut */
+
 .haut
 {
 	text-align: left;
 }
+
+.form-inscrit
+{
+	width: 50%;
+	display: inline-block;
+}
+
+.scoreCourn
+{
+	float: right;
+	margin-bottom: 3vw;
+}
+
+.block
+{
+	float: right;
+	font-size: 3.5rem;
+}
+
+.block th, .block i { 
+	padding: 2px;
+	text-align: right;
+}
+
+
+/* milieu */
 
 .milieu
 {
 	margin-top: 2%;
 }
 
+/* Tableau */
+
 .milieu div
 {
 	width: 50%;
 }
 
-.milieu .precedente
+.user_courant
+{
+	color: #FFFFFF;
+}
+
+/* Parties */
+
+.parties h2
+{
+	width: 305px;
+	text-align: center;
+	float: right;
+	font-weight: bold;
+}
+
+.milieu .parties div
+{
+	float: right;
+}
+
+.milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote
 {
 	width: 100%;
 }
 
-.milieu .images
+.milieu .images, .milieu .bouton
 {
 	width: 305px;
-}
-
-.parties div
-{
-	float: right;
 }
 
 .image
@@ -34,6 +79,7 @@
 	padding: 0px;
 	margin-left: 0 1px;
 }
+
 .image img
 {
 	border: 5px solid;
@@ -55,21 +101,10 @@
 	border-color: white;	
 }
 
-.parties h2
+.milieu .parties .butn_vote button
 {
-	width: 305px;
-	text-align: center;
+	width: 100%;
 	float: right;
-}
-
-.titlePool
-{
-	text-align: center;
-}
-
-.user_courant
-{
-	color: #FFFFFF;
 }
 
 @media screen and (max-width: 767px)
@@ -84,11 +119,21 @@
 		width: 100%;
 	}
 	
-	.parties .precedente,.parties .suivante,.parties .images, .parties h2 {
+	.milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote, .milieu .parties .images, .milieu .parties h2, .milieu .parties .bouton {
 	    float: left;
 	}
 	
-	.parties .images, .parties h2 {
+	.milieu .parties .images, .milieu .parties h2, .milieu .parties .butn_vote {
 	    margin-left: 5.5vw;
+	}
+	
+	.scoreCourn
+	{
+		float: left;
+	}
+	
+	.form-inscrit
+	{
+		width: 100%;
 	}
 }

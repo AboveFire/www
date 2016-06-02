@@ -29,7 +29,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group form-butn">
+		<div class="form-group">
 			<div class="col-md-2">
 				<button type="submit" class="butn" onClick="inscrire();">
 					<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
@@ -106,31 +106,6 @@ function inscrire() {
 	$.post('inscription', {action: 'send', typePool: 'poolClassic', poolCourant: <?=$poolCourant?> , _token:tokenMobile}, function(data){
 		window.location = "{{ url('/poolClassic') }}";
 	});
-}
-
-function proceed () {
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', "{{ url('/inscription') }}");
-    form.style.display = 'hidden';
-    $('<input>').attr({
-        type: 'hidden',
-        id: 'poolCourant',
-        name: 'poolCourant',
-        value: <?=$poolCourant?>
-    }).appendTo('form');
-
-    $('<input>').attr({
-        type: 'hidden',
-        id: '_token',
-        name: '_token',
-        value: "{{ csrf_token() }}"
-    }).appendTo('form');
-    
-    alert (form);
-    document.body.appendChild(form)
-    
-    form.submit();
 }
 </script>
 @endsection

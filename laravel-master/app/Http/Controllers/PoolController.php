@@ -15,7 +15,7 @@ class PoolController extends BaseController {
 	private function obtenUtilsPool ($pool)
 	{
 		return DB::table ( 'utilisateur_uti' )
-					->select ( 'UTI_SEQNC', 'UTI_NOM', 'UTI_PRENM' )
+					->select ( 'UTI_SEQNC', 'UTI_NOM', 'UTI_PRENM', 'UTI_CODE' )
 					->whereIn ( 'uti_seqnc', DB::table ( 'utilisateur_pool_utp' )
 												->select ( 'utp_uti_seqnc' )
 												->where ( 'utp_poo_seqnc', $pool ) )
@@ -32,6 +32,14 @@ class PoolController extends BaseController {
 					->get();
 	}
 	
+	private function estParticipant ($utils, $pool)
+	{
+		return 0 < DB::table ( 'utilisateur_pool_utp' )
+						->select ('UTP_SEQNC')
+						->where ('UTP_POO_SEQNC', $pool)
+						->where ('UTP_UTI_SEQNC', $utils)
+						->count();
+	}
 	
 	function sortBySubValue($array, $value, $asc = true, $preserveKeys = false)
 	{
@@ -63,6 +71,15 @@ class PoolController extends BaseController {
 			}
 		}
 		return $array;
+	}
+	
+	public function obtenPoolsSelonType ($type)
+	{
+		return DB::table ( 'pool_poo' )
+					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
+				 	->select ( 'POO_SEQNC', 'POO_NOM' )
+				 	->where ('typ_nom', $type)
+					->get ();
 	}
 	
 	/*****************************************************************/
@@ -123,7 +140,7 @@ class PoolController extends BaseController {
 	
 		return $score;
 	}
-	//$pool - sequnc du pool
+	
 	private function obtenStatsPoolClasq ($pool)
 	{
 		$stats = array();
@@ -132,7 +149,7 @@ class PoolController extends BaseController {
 		foreach ($users as $user )
 		{
 			$stat = array ("utils" => $user->UTI_SEQNC,
-					"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
+					"nom" => $user->UTI_CODE,
 					"score" => $this::obtenScorePoolClasq($user->UTI_SEQNC, $pool),
 					"rang" => 1,
 			);
@@ -164,6 +181,34 @@ class PoolController extends BaseController {
 		return $stats;
 	}
 	
+	private function obtenPartiesPrecdSuivt ($pool)
+	{
+		$partie_suivt = DB::table ( 'partie_par' )
+							->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
+							->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
+							->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
+							->select ('PAR_SEQNC')
+							->whereRaw ('par_date > sysdate()')
+							->where ('poo_seqnc', $pool)
+							->orderBy('par_date')
+							->take (1)
+							->get();
+		
+		$partie_precd = DB::table ( 'partie_par' )
+							->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
+							->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
+							->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
+							->select ('PAR_SEQNC')
+							->whereRaw ('par_date < sysdate()')
+							->where ('poo_seqnc', $pool)
+							->orderBy('par_date', 'desc')
+							->take (1)
+							->get();
+		
+		return array ('partie_precd' => $this->getImagesPartie($partie_precd), 
+					  'partie_suivt' => $this->getImagesPartie($partie_suivt));
+	}
+	
 	public function obtenStatsPoolClasqMobile (Request $request){
 		return json_encode($this->obtenStatsPoolClasq($request["pool"]));
 	}
@@ -173,11 +218,7 @@ class PoolController extends BaseController {
 		$courn = $request ['poolCourant'];
 		$stats = array();
 		
-		$pools = DB::table ( 'pool_poo' )
-					->join ('type_pool_typ', 'typ_seqnc', '=', 'poo_typ_seqnc')
-				 	->select ( 'POO_SEQNC', 'POO_NOM' )
-				 	->where ('typ_nom', 'poolClassic')
-					->get ();
+		$pools = $this::obtenPoolsSelonType('poolClassic');
 					
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
@@ -187,37 +228,51 @@ class PoolController extends BaseController {
 			$stats = $this::obtenStatsPoolClasq($courn);
 		}
 		
-		$partie_suivt = DB::table ( 'partie_par' )
-							->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-							->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-							->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-							->select ('PAR_SEQNC')
-							->whereRaw ('par_date > sysdate()')
-							->where ('poo_seqnc', $courn)
-                    		->orderBy('par_date')
-                    		->take (1)
-							->get();
+		foreach ($stats as $stat)
+		{
+			if($stat['utils'] == Auth::user()->UTI_SEQNC)
+			{
+				$scoreCourn = $stat['score'];
+				$rangCourn = $stat['rang'];
+			}
+		}
 		
-		$partie_precd = DB::table ( 'partie_par' )
-							->join ( 'semaine_sem', 'sem_seqnc', '=', 'par_sem_seqnc' )
-							->join ( 'saison_sai', 'sai_seqnc', '=', 'sem_sai_seqnc' )
-							->join ( 'pool_poo', 'sai_seqnc', '=', 'poo_sai_seqnc' )
-							->select ('PAR_SEQNC')
-							->whereRaw ('par_date < sysdate()')
-							->where ('poo_seqnc', $courn)
-							->orderBy('par_date', 'desc')
-							->take (1)
-							->get();
-							
-		return View::make ( '/pool/classic/non-inscrit', array (
+		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
+		{			
+			return View::make ( '/pool/classic/inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,
+					'scores' => $stats,
+					'scoreCourn' => $scoreCourn,
+					'rangCourn' => $rangCourn,
+			) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
+		else
+		{
+			return View::make ( '/pool/classic/non-inscrit', array_merge (array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
 				'scores' => $stats,
-				'partie_precd' => $this->getImagesPartie($partie_precd),
-				'partie_suivt' => $this->getImagesPartie($partie_suivt),
-		) );
+		) ), $this::obtenPartiesPrecdSuivt($courn));
+		}
 	}
 	
+	public function getVoteClassic(Request $request)
+	{
+		$courn = $request ['poolCourant'];
+	
+		$pools = $this::obtenPoolsSelonType('poolClassic');
+			
+		if ($courn == null and isset($pools[0])) {
+			$courn = $pools [0]->POO_SEQNC;
+		}
+	
+		return View::make ( '/pool/classic/vote', array_merge (array (
+				'pools' => $pools,
+				'poolCourant' => $courn,
+				
+		)));
+	}
 	
 	/*****************************************************************/
 	private function obtenPointsVotePlayf ($utils, $pool, $partie)
@@ -502,7 +557,7 @@ class PoolController extends BaseController {
 		->orderBy('par_date', 'desc')
 		->take (1)
 		->get();
-			
+			 
 		return View::make ( '/pool/survivor/non-inscrit', array (
 				'pools' => $pools,
 				'poolCourant' => $courn,
