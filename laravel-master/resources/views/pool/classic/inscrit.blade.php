@@ -34,6 +34,11 @@
 			</div>
 		</div>
 	</div>
+	<div class="scoreCourn">
+		<h1>{{ trans('pool.yourScore') }} : </h1>{{ $scoreCourn }}
+		<br />
+		<h1>{{ trans('pool.yourRank') }} : </h1>{{ $rangCourn }}
+	</div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
 			<table class="table">
@@ -58,11 +63,6 @@
 					@endforeach
 				</tbody>
 			</table>
-		</div>
-		<div class="scoreCourn">
-		<h1>{{ trans('pool.yourScore') }} : </h1>{{ $scoreCourn }}
-		<br />
-		<h1>{{ trans('pool.yourRank') }} : </h1>{{ $rangCourn }}
 		</div>
 		<div class="parties col-md-6">
 			@if ($partie_precd != null)
