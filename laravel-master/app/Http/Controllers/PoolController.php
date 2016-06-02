@@ -280,16 +280,19 @@ class PoolController extends BaseController {
 		$courn = $request ['poolCourant'];
 	
 		$pools = $this::obtenPoolsSelonType('poolClassic');
+		
+		$teams = $this::obtenTeams();
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
 	
-		return View::make ( '/pool/classic/vote', array_merge (array (
+		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
+				'teams' => $teams,
 				'poolCourant' => $courn,
 				
-		)));
+		));
 	}
 	
 	/*****************************************************************/
@@ -393,8 +396,6 @@ public function getPoolPlayoff(Request $request)
 		
 		$pools = $this::obtenPoolsSelonType('poolPlayoff');
 		
-		dd($pools);
-		
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
@@ -444,12 +445,12 @@ public function getPoolPlayoff(Request $request)
 			$courn = $pools [0]->POO_SEQNC;
 		}
 	
-		return View::make ( '/pool/playoff/vote', array_merge (array (
+		return View::make ( '/pool/playoff/vote', array (
 				'pools' => $pools,
 				'teams' => $teams,
 				'poolCourant' => $courn,
 				
-		)));
+		));
 	}
 	
 	/*****************************************************************/

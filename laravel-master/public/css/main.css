@@ -435,7 +435,7 @@ input[type="file" i].active
 @media(max-width:768px) {	
 	.header
 	{
-		height: 12vw;
+		/*height: 12vw;*/
 	}
 	
 	#header .content-header

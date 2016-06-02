@@ -12,6 +12,7 @@ return [
 		'select_pool' => '- Choisissez un pool -',
 		'select_week' => '- Choisissez une semaine -',
 		'select_catgr' => '- Choisissez une catégorie -',
+		'select_multp' => '- Choisissez un multiplicateur -',
 		'butn_inscr' => 'Inscription',
 		'butn_vote' => 'Voter',
 		'butn_see' => 'Consulter le pool',
