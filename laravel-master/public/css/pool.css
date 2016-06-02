@@ -107,11 +107,65 @@
 	float: right;
 }
 
+.butn
+{
+	width: 100%;
+}
+
+.butn-vote
+{
+	width: 49.5%;
+	padding: 0 0 0 0;
+}
+
+.butn-list
+{
+	width: 49.5%;
+	padding: 0 0 0 0;
+}
+
+.butn-inscr-nin
+{
+	width: 24.75%;
+	padding: 0 0 0 0;
+}
+
+.butn-list-nin
+{
+	width: 24.75%;
+	padding: 0 0 0 0;
+}
+	
+	
 @media screen and (max-width: 767px)
 {
 	.butn
 	{
 		width: 100%;
+	}
+	
+	.butn-vote
+	{
+		width: 100%;
+		padding: 0 0 0 0;
+	}
+	
+	.butn-inscr-nin
+	{
+		width: 100%;
+		padding: 0 0 0 0;
+	}
+	
+	.butn-list
+	{
+		width: 100%;
+		padding: 0 0 0 0;
+	}
+	
+	.butn-list-nin
+	{
+		width: 100%;
+		padding: 0 0 0 0;
 	}
 	
 	.milieu .table-responsive, .milieu .parties

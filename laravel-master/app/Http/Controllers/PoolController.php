@@ -39,6 +39,14 @@ class PoolController extends BaseController {
 					->get ();
 	}
 	
+	private function obtenSemaines($semaineCourante)
+	{
+		return DB::table ( 'semaine_sem' )
+		->select ( 'SEM_SEQNC', 'SEM_NUMR')
+		->where ('SEM_SAI_SEQNC', $semaineCourante)
+		->get ();
+	}
+	
 	private function estParticipant ($utils, $pool)
 	{
 		return 0 < DB::table ( 'utilisateur_pool_utp' )
@@ -278,18 +286,27 @@ class PoolController extends BaseController {
 	public function getVoteClassic(Request $request)
 	{
 		$courn = $request ['poolCourant'];
+		
+		$semCour = $request ['semaineCourante'];
 	
 		$pools = $this::obtenPoolsSelonType('poolClassic');
 		
 		$teams = $this::obtenTeams();
+		
+		$semas = $this::obtenSemaines(1);
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
+		}
+		
+		if ($semCour == null and isset($semas[0])) {
+			$semCour = $semas [0]->SEM_NUMR;
 		}
 	
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
 				'teams' => $teams,
+				'semas' => $semas,
 				'poolCourant' => $courn,
 				
 		));
@@ -357,7 +374,7 @@ class PoolController extends BaseController {
 		foreach ($users as $user )
 		{
 			$stat = array ("utils" => $user->UTI_SEQNC,
-					"nom" => $user->UTI_PRENM . ' ' . $user->UTI_NOM,
+					"nom" => $user->UTI_CODE,
 					"score" => $this::obtenScorePoolPlayf($user->UTI_SEQNC, $pool),
 					"rang" => 1,
 			);

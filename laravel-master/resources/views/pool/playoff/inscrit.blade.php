@@ -19,7 +19,7 @@
 			{{ trans('pool.text_results',['pool' => trans('pagination.poolPlayoff')]) }}
 		</p>
 		<br />
-		<div class="form-group">
+		<div class="form-group butn-list col-md-6">
 			<div class="col-md-12">
 				<div class="margin-bottom-sm input-group">
 					<span class="input-group-addon"><i class="fa fa-crosshairs fa-fw" aria-hidden="true"></i></span>
@@ -34,6 +34,13 @@
 							@endforeach
 					</select>
 				</div>
+			</div>
+		</div>
+		<div class="form-group butn-vote col-md-6">
+			<div class="col-md-12">
+				<button type="submit" class="butn" onClick="voter();">
+					<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -95,13 +102,6 @@
 				</div>
 			</div>
 			@endif
-			<div class="butn_vote ">
-				<div class="bouton">
-					<button type="submit" class="butn" onClick="voter();">
-						<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
-					</button>
-				</div>
-			</div>
 		</div>
 	</div>
 	@endif

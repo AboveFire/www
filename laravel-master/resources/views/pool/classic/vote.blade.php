@@ -13,7 +13,7 @@
                 <div class="panel-body">
                 <form class="form" role="form" method="POST" action="{{ url('') }}" enctype="multipart/form-data">
                     <!-- Liste déroulante -->
-	                <div class="col-md-5 list-container">
+	                <div class="col-md-4 liste-gauche list-container">
 						<div class="margin-bottom-sm input-group">
 							<span class="input-group-addon"><i class="fa fa-gamepad fa-fw" aria-hidden="true"></i></span>
 							<select id="selectPool" class="form-control" name="pool">
@@ -28,16 +28,16 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-5 list-container">
+					<div class="col-md-4 liste-droite list-container">
 						<div class="margin-bottom-sm input-group">
 							<span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
-							<select id="selectPool" class="form-control" name="pool">
+							<select id="select_week" class="form-control" name="week">
 								<option disabled>{{ trans('pool.select_week') }}</option>
-									@foreach($pools as $pool)
-										@if ($pool->POO_SEQNC == $poolCourant)
-								    <option value="{{$pool->POO_SEQNC}}" selected>{{ $pool->POO_NOM }}</option>
+									@foreach($semas as $sema)
+										@if (true)
+								    <option value="{{$sema->SEM_NUMR}}" selected>{{ $sema->SEM_NUMR }}</option>
 										@else
-								    <option value="{{$pool->POO_SEQNC}}">{{ $pool->POO_NOM }}</option>
+								    <option value="{{$sema->SEM_NUMR}}">{{ $pool->SEM_NUMR }}</option>
 									    @endif
 									@endforeach
 							</select>

@@ -15,7 +15,7 @@
 	<div class="form-inline">
 		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.poolClassic')]) }}</p>
 		<br />
-		<div class="form-group">
+		<div class="form-group butn-list-nin col-md-6">
 			<div class="col-md-12">
 				<div class="margin-bottom-sm input-group">
 					<span class="input-group-addon"><i class="fa fa-gamepad fa-fw" aria-hidden="true"></i></span>
@@ -32,13 +32,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<div class="col-md-2">
+		<div class="form-group butn-inscr-nin col-md-6">
+			<div class="col-md-12">
 				<button type="submit" class="butn" onClick="inscrire();">
 					<i class="fa fa-btn fa-plus"></i>{{ trans('pool.butn_inscr') }}
 				</button>
 			</div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
