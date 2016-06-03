@@ -21,7 +21,7 @@
 		<br />
 		<div class="form-group butn-list col-md-6">
 			<div class="col-md-12">
-				<div class="margin-bottom-sm input-group">
+				<div class="margin-bottom-sm input-group liste-pools">
 					<span class="input-group-addon"><i class="fa fa-gamepad fa-fw" aria-hidden="true"></i></span>
 					<select id="selectPool" class="form-control" name="pool">
 						<option disabled>{{ trans('pool.select_pool') }}</option>
@@ -50,6 +50,7 @@
 			<tr><th>{{ trans('pool.yourRank') }} : <th><td><i> {{ $rangCourn }}</i></td></tr>
 		</table>
 	</div>
+	<div class="clearfix"></div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
 			<table class="table">

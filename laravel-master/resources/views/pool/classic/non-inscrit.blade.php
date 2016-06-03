@@ -13,11 +13,14 @@
 	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolClassic')]) }}</p>
 	@else
 	<div class="form-inline">
-		<p class="col-md-12">{{ trans('pool.text_nonInscr',['pool' => trans('pagination.poolClassic')]) }}</p>
+		<p class="col-md-12">
+			{{ trans('pool.welcome') }}!
+			<br />
+			{{ trans('pool.text_nonInscr',['pool' => trans('pagination.poolClassic')]) }}</p>
 		<br />
 		<div class="form-group butn-list-nin col-md-6">
 			<div class="col-md-12">
-				<div class="margin-bottom-sm input-group">
+				<div class="margin-bottom-sm input-group liste-pools">
 					<span class="input-group-addon"><i class="fa fa-gamepad fa-fw" aria-hidden="true"></i></span>
 					<select id="selectPool" class="form-control" name="pool">
 						<option disabled>{{ trans('pool.select_pool') }}</option>

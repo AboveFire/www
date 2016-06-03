@@ -12,17 +12,17 @@
 	@if ($poolCourant == null)
 	<p class="col-md-12">{{ trans('pool.text_aucunPool',['pool' => trans('pagination.poolSurvivor')]) }}</p>
 	@else
-	<div class="form-inline">
+	<div class="form-inline form-inscrit">
 		<p class="col-md-12">
 			{{ trans('pool.welcome') }}!
 			<br />
 			{{ trans('pool.text_results',['pool' => trans('pagination.poolSurvivor')]) }}
 		</p>
 		<br />
-		<div class="form-group">
+		<div class="form-group butn-list col-md-6">
 			<div class="col-md-12">
-				<div class="margin-bottom-sm input-group">
-					<span class="input-group-addon"><i class="fa fa-sitemap fa-fw" aria-hidden="true"></i></span>
+				<div class="margin-bottom-sm input-group liste-pools">
+					<span class="input-group-addon"><i class="fa fa-crosshairs fa-fw" aria-hidden="true"></i></span>
 					<select id="selectPool" class="form-control" name="pool">
 						<option disabled>{{ trans('pool.select_pool') }}</option>
 							@foreach($pools as $pool)
@@ -36,7 +36,15 @@
 				</div>
 			</div>
 		</div>
+		<div class="form-group butn-vote col-md-6">
+			<div class="col-md-12">
+				<button type="submit" class="butn" onClick="voter();">
+					<i class="fa fa-btn fa-check-square"></i>{{ trans('pool.butn_vote') }}
+				</button>
+			</div>
+		</div>
 	</div>
+	<div class="clearfix"></div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
 			<table class="table">
@@ -61,11 +69,6 @@
 					@endforeach
 				</tbody>
 			</table>
-		</div>
-		<div class="scoreCourn">
-		<h1>{{ trans('pool.yourScore') }} : </h1>{{ $scoreCourn }}
-		<br />
-		<h1>{{ trans('pool.yourRank') }} : </h1>{{ $rangCourn }}
 		</div>
 		<div class="parties col-md-6">
 			@if ($partie_precd != null)
@@ -107,35 +110,8 @@ $(document).ready( function() {
 	});
 });
 
-function inscrire() {
-	$.post('inscription', {action: 'send', typePool: 'poolSurvivor', poolCourant: <?=$poolCourant?> , _token:tokenMobile}, function(data){
-		window.location = "{{ url('/poolSurvivor') }}";
-	});
-}
-
-function proceed () {
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', "{{ url('/inscription') }}");
-    form.style.display = 'hidden';
-    $('<input>').attr({
-        type: 'hidden',
-        id: 'poolCourant',
-        name: 'poolCourant',
-        value: <?=$poolCourant?>
-    }).appendTo('form');
-
-    $('<input>').attr({
-        type: 'hidden',
-        id: '_token',
-        name: '_token',
-        value: "{{ csrf_token() }}"
-    }).appendTo('form');
-    
-    alert (form);
-    document.body.appendChild(form)
-    
-    form.submit();
+function voter() {
+	window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + <?=$poolCourant?>;
 }
 </script>
 @endsection

@@ -15,6 +15,7 @@
 {
 	float: right;
 	margin-bottom: 3vw;
+	padding: 0 0 0 0;
 }
 
 .block
@@ -24,8 +25,9 @@
 }
 
 .block th, .block i { 
-	padding: 2px;
+	padding: 0px;
 	text-align: right;
+	font-size: 2.5vw;
 }
 
 
@@ -76,7 +78,7 @@
 .image
 {
 	width: 150px;
-	padding: 0px;
+	padding: 0 0 0 0;
 	margin-left: 0 1px;
 }
 
@@ -105,6 +107,11 @@
 {
 	width: 100%;
 	float: right;
+}
+
+.parties 
+{
+	padding: 0 0 0 0;
 }
 
 .butn
@@ -136,9 +143,18 @@
 	padding: 0 0 0 0;
 }
 	
+.liste-pools
+{
+	width:100%;
+}
 	
 @media screen and (max-width: 767px)
 {
+	.parties 
+	{
+		padding: 0 20% 0 20%;
+	}
+
 	.butn
 	{
 		width: 100%;
@@ -184,10 +200,17 @@
 	.scoreCourn
 	{
 		float: left;
+		padding: 0 25% 0 25%;
 	}
 	
 	.form-inscrit
 	{
 		width: 100%;
+	}
+	
+	.block th, .block i { 
+		padding: 0px;
+		text-align: right;
+		font-size: 5vw;
 	}
 }

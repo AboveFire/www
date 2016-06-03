@@ -289,7 +289,7 @@ class PoolController extends BaseController {
 		
 		$semCour = $request ['semaineCourante'];
 	
-		$pools = $this::obtenPoolsSelonType('poolClassic');
+		$pools = $this::obtenPoolsSelonType('poolClassic', Auth::user()->UTI_SEQNC);
 		
 		$teams = $this::obtenTeams();
 		
@@ -454,7 +454,7 @@ public function getPoolPlayoff(Request $request)
 	{
 		$courn = $request ['poolCourant'];
 	
-		$pools = $this::obtenPoolsSelonType('poolPlayoff');
+		$pools = $this::obtenPoolsSelonType('poolPlayoff', Auth::user()->UTI_SEQNC);
 		
 		$teams = $this::obtenTeams();
 			

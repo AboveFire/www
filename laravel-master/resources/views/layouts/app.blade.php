@@ -98,7 +98,7 @@
 				<li class="sidebar-brand">
 					Menu
 				</li>
-				<li><a href="{{ url('/home') }}">
+				<li><a href="{{ url('/') }}">
 					<i class="fa fa-btn fa-home"></i>{{ trans('pagination.home') }}
 				</a></li>
 				<li><a href="{{ url('/results') }}">
