@@ -34,10 +34,10 @@
 							<select id="select_week" class="form-control" name="week">
 								<option disabled>{{ trans('pool.select_week') }}</option>
 									@foreach($semas as $sema)
-										@if (true)
+										@if ($sema->SEM_NUMR == $semaineCourante)
 								    <option value="{{$sema->SEM_NUMR}}" selected>{{ $sema->SEM_NUMR }}</option>
 										@else
-								    <option value="{{$sema->SEM_NUMR}}">{{ $pool->SEM_NUMR }}</option>
+								    <option value="{{$sema->SEM_NUMR}}">{{$sema->SEM_NUMR }}</option>
 									    @endif
 									@endforeach
 							</select>
@@ -50,16 +50,22 @@
 						<!-- Team Members Row -->
 						@foreach($games as $game)
 							<div class="box-container col-md-6 text-center">
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
-									2016-01-01
+									{{$game->DATE}}
 									</div>
 									<div class="col-md-12">
-									(1234)
+									(
+										@if($game->COTE != null)
+											{{$game->COTE}}
+										@else
+											-
+										@endif
+								    )
 									</div>
 								</div>
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE2 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
 							</div>
 						@endforeach
 					</div>
@@ -90,12 +96,11 @@
 var tokenMobile = "{{ csrf_token() }}";
 $(document).ready( function() {
 	$('#selectPool').change(function() {
-		window.location= "{{ url('/poolPlayoff') }}?poolCourant=" + $('#selectPool').val();
+		window.location= "{{ url('/voteClassic') }}?poolCourant=" + $('#selectPool').val();
+	});
+	$('#select_week').change(function() {
+		window.location= "{{ url('/voteClassic') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
 });
-
-function voter() {
-	window.location= "{{ url('/votePlayoff') }}?poolCourant=" + <?=$poolCourant?>;
-}
 </script>
 @endsection
