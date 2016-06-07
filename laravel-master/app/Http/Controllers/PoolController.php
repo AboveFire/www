@@ -22,6 +22,10 @@ class PoolController extends BaseController {
 					->get ();
 	}
 	
+	public function obtenCurrentSeason($pool){
+		return DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_DEBUT', '<=', date('Y-m-d H:i:s'))->where('SAI_DATE_FIN', '>=', date('Y-m-d H:i:s'))->get()[0]->SAI_SEQNC;
+	}
+	
 	private function obtenPartiesPoolUtils ($utils, $pool)
 	{
 		return DB::table ( 'partie_equipe_peq' )
