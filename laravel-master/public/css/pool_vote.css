@@ -24,7 +24,7 @@
 	padding-right: 0;
 }
 	
-#selectMultp
+.selectMultp
 {
 	width: 50%;
 	margin: 0 25% 0 25%;
@@ -42,9 +42,15 @@
 	display: inline-block;	
 }
 	
+.mesgCentre
+{
+	text-align: center;
+	display: block;
+}	
+
 @media (min-width: 768px)
 {
-	#selectMultp
+	.selectMultp
 	{
 		width: 100%;
 		margin: 0 15px 0 15px;

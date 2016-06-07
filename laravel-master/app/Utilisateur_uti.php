@@ -94,8 +94,6 @@ class Utilisateur_uti extends Authenticatable
 	{
 		$base64   = base64_encode($this->UTI_IMAGE);
 		return ('data:' .'image/' . $this->UTI_TYPE_IMAGE . ';base64,' . $base64);
-
-		//return $this->UTI_IMAGE;
 	}
 	
 	public function getImageMobile()
