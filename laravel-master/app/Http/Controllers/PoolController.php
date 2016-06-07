@@ -39,6 +39,14 @@ class PoolController extends BaseController {
 					->get ();
 	}
 	
+	private function obtenGames($semaineCourante)
+	{
+		return DB::table ( 'equipe_eqp' )
+		->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
+		//->where ('SEM_SAI_SEQNC', $semaineCourante)
+		->get ();
+	}
+	
 	private function obtenSemaines($semaineCourante)
 	{
 		return DB::table ( 'semaine_sem' )
@@ -291,8 +299,6 @@ class PoolController extends BaseController {
 	
 		$pools = $this::obtenPoolsSelonType('poolClassic', Auth::user()->UTI_SEQNC);
 		
-		$teams = $this::obtenTeams();
-		
 		$semas = $this::obtenSemaines(1);
 			
 		if ($courn == null and isset($pools[0])) {
@@ -302,10 +308,12 @@ class PoolController extends BaseController {
 		if ($semCour == null and isset($semas[0])) {
 			$semCour = $semas [0]->SEM_NUMR;
 		}
+		
+		$games = $this::obtenGames($semCour);
 	
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
-				'teams' => $teams,
+				'games' => $games,
 				'semas' => $semas,
 				'poolCourant' => $courn,
 				
