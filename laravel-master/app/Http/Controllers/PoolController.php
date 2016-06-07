@@ -673,7 +673,7 @@ class PoolController extends BaseController {
 	
 		$pools = $this::obtenPoolsSelonType('poolSurvivor', Auth::user()->UTI_SEQNC);
 	
-		$semas = $this::obtenSemaines(1);
+		$semas = $this::obtenSemaines($this::obtenCurrentSeason());
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
