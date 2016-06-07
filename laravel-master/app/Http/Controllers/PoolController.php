@@ -622,7 +622,7 @@ class PoolController extends BaseController {
 				}
 			}
 		}
-		return $dead;
+		return $dead; 
 	}
 	
 	public function obtenStatsPoolSurvrMobile (Request $request){
