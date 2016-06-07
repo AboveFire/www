@@ -143,6 +143,10 @@ Route::get('/mobile/results',['middleware' => 'mobile', 'uses' => 'ResultsContro
 
 Route::get('/mobile/pool-classique',['middleware' => 'mobile', 'uses' => 'PoolController@obtenStatsPoolClasqMobile']);
 
+Route::get('/mobile/pool-playoff',['middleware' => 'mobile', 'uses' => 'PoolController@obtenStatsPoolPlayfMobile']);
+
+Route::get('/mobile/pool-survivor',['middleware' => 'mobile', 'uses' => 'PoolController@obtenStatsPoolSurvrMobile']);
+
 Route::get('/mobile/chat',['middleware' => 'mobile', function () {
 	return view('chat.sschatMobile');
 }]);

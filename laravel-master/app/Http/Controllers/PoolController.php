@@ -426,7 +426,11 @@ class PoolController extends BaseController {
 		return $stats;
 	}
 	
-public function getPoolPlayoff(Request $request) 
+	public function obtenStatsPoolPlayfMobile (Request $request){
+		return json_encode($this->obtenStatsPoolPlayf($request["pool"]));
+	}
+	
+	public function getPoolPlayoff(Request $request) 
 	{
 		$courn = $request ['poolCourant'];
 		$stats = array();
@@ -604,6 +608,10 @@ public function getPoolPlayoff(Request $request)
 			}
 		}
 		return $dead;
+	}
+	
+	public function obtenStatsPoolSurvrMobile (Request $request){
+		return json_encode($this->obtenStatsPoolSurvr($request["pool"]));
 	}
 	
 	public function getPoolSurvivor(Request $request)
