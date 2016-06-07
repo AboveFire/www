@@ -23,6 +23,11 @@
 	padding-left: 0;
 	padding-right: 0;
 }
+
+.num
+{
+	margin: 0 0 0 0;
+}
 	
 #selectMultp
 {
@@ -64,6 +69,11 @@
 	{
 		width: 50%;
 		height: 50%;    
+	}
+	
+	.num
+	{
+		margin: 19.5% 0 19.5% 0;
 	}
 	
 	.list-container

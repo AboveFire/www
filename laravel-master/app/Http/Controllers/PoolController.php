@@ -39,19 +39,30 @@ class PoolController extends BaseController {
 					->get ();
 	}
 	
-	private function obtenGames($semaineCourante)
-	{
-		return DB::table ( 'equipe_eqp' )
-		->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
-		//->where ('SEM_SAI_SEQNC', $semaineCourante)
-		->get ();
+	public function obtenGames($semaineCourante)
+	{		
+		return DB::table("partie_par")
+		->join("partie_equipe_peq AS O", function($join){
+			$join->on("partie_par.par_seqnc", "=", "O.peq_par_seqnc")	
+			->where("O.peq_indic_home", "=", "O");
+		})
+		->join('equipe_eqp as EO', 'O.PEQ_EQP_SEQNC', '=', 'EO.EQP_SEQNC' )
+		->join("partie_equipe_peq AS N", function($join){
+			$join->on("partie_par.par_seqnc", "=", "N.peq_par_seqnc")
+			->where("N.peq_indic_home", "=", "N");
+		})
+		->join('equipe_eqp AS EN', 'N.PEQ_EQP_SEQNC', '=', 'EN.EQP_SEQNC' )
+		->select("partie_par.par_seqnc", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE","EN.eqp_code AS EQP_CODE1","EO.eqp_code AS EQP_CODE2")
+		->where("partie_par.PAR_SEM_SEQNC", $semaineCourante)
+		->orderBy('PAR_DATE')
+		->get();
 	}
 	
-	private function obtenSemaines($semaineCourante)
+	private function obtenSemaines($saisonCourante)
 	{
 		return DB::table ( 'semaine_sem' )
 		->select ( 'SEM_SEQNC', 'SEM_NUMR')
-		->where ('SEM_SAI_SEQNC', $semaineCourante)
+		->where ('SEM_SAI_SEQNC', $saisonCourante)
 		->get ();
 	}
 	
@@ -318,6 +329,7 @@ class PoolController extends BaseController {
 				'pools' => $pools,
 				'games' => $games,
 				'semas' => $semas,
+				'semaineCourante' => $semCour,
 				'poolCourant' => $courn,
 				
 		));
@@ -417,7 +429,11 @@ class PoolController extends BaseController {
 		return $stats;
 	}
 	
-public function getPoolPlayoff(Request $request) 
+	public function obtenStatsPoolPlayfMobile (Request $request){
+		return json_encode($this->obtenStatsPoolPlayf($request["pool"]));
+	}
+	
+	public function getPoolPlayoff(Request $request) 
 	{
 		$courn = $request ['poolCourant'];
 		$stats = array();
@@ -477,7 +493,6 @@ public function getPoolPlayoff(Request $request)
 				'pools' => $pools,
 				'teams' => $teams,
 				'poolCourant' => $courn,
-				
 		));
 	}
 	
@@ -604,6 +619,10 @@ public function getPoolPlayoff(Request $request)
 			}
 		}
 		return $dead;
+	}
+	
+	public function obtenStatsPoolSurvrMobile (Request $request){
+		return json_encode($this->obtenStatsPoolSurvr($request["pool"]));
 	}
 	
 	public function getPoolSurvivor(Request $request)

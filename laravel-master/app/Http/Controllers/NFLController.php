@@ -193,18 +193,21 @@ class NFLController extends BaseController
 			}
 		}
 	}
+	
 	public function getCurrentWeek()
 	{
 		$xml = file_get_contents('http://www.nfl.com/liveupdate/scorestrip/ss.xml');
 		$obj = $this->xmlstr_to_array($xml);
 		return $obj['gms']['@attributes']['w'];
 	}
+	
 	public function getCurrentPostSeasonWeek()
 	{
 		$xml = file_get_contents('http://www.nfl.com/liveupdate/scorestrip/postseason/ss.xml');
 		$obj = $this->xmlstr_to_array($xml);
 		return $obj['gms']['@attributes']['w'];
 	}
+	
 	public function getWeekData($year, $week, $seasonType = "REG")
 	{
 		if ($seasonType == "POST"){
