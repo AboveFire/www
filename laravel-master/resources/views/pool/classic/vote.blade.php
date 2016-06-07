@@ -48,9 +48,9 @@
                     <!-- Zone d'affichage --> 
                     <div class="tableau form-group">
 						<!-- Team Members Row -->
-						@foreach($teams as $team)
+						@foreach($games as $game)
 							<div class="box-container col-md-6 text-center">
-								<img src="{{{ asset('images/teams/' . $team->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
 									2016-01-01
@@ -59,11 +59,11 @@
 									(1234)
 									</div>
 								</div>
-								<img src="{{{ asset('images/teams/' . $team->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
 							</div>
 						@endforeach
-						<div class="clearfix"></div>
 					</div>
+					<div class="clearfix"></div>
                     <!-- Zone de boutons -->
                     <hr>
 					<div class="form-group">
