@@ -56,8 +56,9 @@ class PoolController extends BaseController {
 			->where("N.peq_indic_home", "=", "N");
 		})
 		->join('equipe_eqp AS EN', 'N.PEQ_EQP_SEQNC', '=', 'EN.EQP_SEQNC' )
+		->join('semaine_sem AS SEM', 'SEM_SEQNC', '=', 'partie_par.PAR_SEM_SEQNC' )
 		->select("partie_par.par_seqnc", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE","EN.eqp_code AS EQP_CODE1","EO.eqp_code AS EQP_CODE2")
-		->where("partie_par.PAR_SEM_SEQNC", $semaineCourante)
+		->where("SEM.SEM_NUMR", $semaineCourante)
 		->orderBy('PAR_DATE')
 		->get();
 	}
@@ -674,7 +675,7 @@ class PoolController extends BaseController {
 		$pools = $this::obtenPoolsSelonType('poolSurvivor', Auth::user()->UTI_SEQNC);
 	
 		$semas = $this::obtenSemaines($this::obtenCurrentSeason());
-			
+
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
@@ -682,13 +683,14 @@ class PoolController extends BaseController {
 		if ($semCour == null and isset($semas[0])) {
 			$semCour = $semas [0]->SEM_NUMR;
 		}
-	
+		
 		$games = $this::obtenGames($semCour);
-	
+
 		return View::make ( '/pool/survivor/vote', array (
 				'pools' => $pools,
 				'games' => $games,
 				'semas' => $semas,
+				'semaineCourante' => $semCour,
 				'poolCourant' => $courn,
 	
 		));

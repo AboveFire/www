@@ -1,9 +1,10 @@
 #paperplane{
-	position:absolute;
-	width:90px;
-	height:90px;
-	bottom:0px;
-	right:0px;
+	position:relative;
+	width:100px;
+	height:100px;
+	bottom:4vmax;
+	right:-15vmin;
+	float: right
 }
 .footer{
 	display:none;
@@ -19,7 +20,7 @@
 }
 #sschat {
 	position:fixed;
-	padding-bottom:120px;
+	padding-bottom:14vmin;
 	/*border: #ccc 1px solid;*/
 	width: 100%;
 	height: 100%;
@@ -78,14 +79,13 @@
 
 #sschat_entry {
 	bottom:0px;
-	/*font-size:2.5vmin;*/
-	font-size:20px;
+	font-size:2.5vmin;
 	height:50px;
 }
 
 #sschat_connected {
 	vertical-align:top;
-	display: inline-block;
+	display: none;
 	height:100%;
 	width: 20%;
 }
@@ -162,13 +162,20 @@
 {
 	#sschat_connected
 	{
-		display: none;
+		display: inline-block;
 	}
 	
 	#sschat_lines
 	{
 		width: 80%;
 		height: 100%;
+	}
+	
+	#paperplane
+	{
+		position:absolute;
+		bottom: 1.5vmin;
+		right:-4.5vmin;
 	}
 	
 }
