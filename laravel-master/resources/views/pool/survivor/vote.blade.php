@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-{{ trans('pagination.formClassic') }}
+{{ trans('pagination.formSurvivor') }}
 @endsection
 @section('content')
-<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool_vote.css') }}"></link>
+<link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool_vote_classic.css') }}"></link>
 
 <div class="container">
     <div class="row">
@@ -34,10 +34,10 @@
 							<select id="select_week" class="form-control" name="week">
 								<option disabled>{{ trans('pool.select_week') }}</option>
 									@foreach($semas as $sema)
-										@if (true)
+										@if ($sema->SEM_NUMR == $semaineCourante)
 								    <option value="{{$sema->SEM_NUMR}}" selected>{{ $sema->SEM_NUMR }}</option>
 										@else
-								    <option value="{{$sema->SEM_NUMR}}">{{ $pool->SEM_NUMR }}</option>
+								    <option value="{{$sema->SEM_NUMR}}">{{$sema->SEM_NUMR }}</option>
 									    @endif
 									@endforeach
 							</select>
@@ -48,24 +48,28 @@
                     <!-- Zone d'affichage --> 
                     <div class="tableau form-group">
 						<!-- Team Members Row -->
-						@foreach($teams as $team)
-							<div class="box-container col-md-4 text-center">
-								<img src="{{{ asset('images/teams/' . $team->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-6 image">
-								<div class="col-md-4">
-									<select id="selectMultp" class="form-control" name="multp">
-										<option disabled>{{ trans('pool.select_multp') }}</option>
-										<option id="x1" value="1">x1</option>
-									  	<option id="x2" value="2">x2</option>
-									  	<option id="x3" value="3">x3</option>
-									  	<option id="x4" value="4">x4</option>
-									  	<option id="x5" value="5">x5</option>
-									  	<option id="x6" value="6">x6</option>
-									</select>
+						@foreach($games as $game)
+							<div class="box-container col-md-6 text-center">
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
+								<div class="col-md-4 date-cote">
+									<div class="col-md-12">
+									{{$game->DATE}}
+									</div>
+									<div class="col-md-12">
+									(
+										@if($game->COTE != null)
+											{{$game->COTE}}
+										@else
+											-
+										@endif
+								    )
+									</div>
 								</div>
+								<img src="{{{ asset('images/teams/' . $game->EQP_CODE2 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
 							</div>
 						@endforeach
-						<div class="clearfix"></div>
 					</div>
+					<div class="clearfix"></div>
                     <!-- Zone de boutons -->
                     <hr>
 					<div class="form-group">
@@ -92,12 +96,11 @@
 var tokenMobile = "{{ csrf_token() }}";
 $(document).ready( function() {
 	$('#selectPool').change(function() {
-		window.location= "{{ url('/poolPlayoff') }}?poolCourant=" + $('#selectPool').val();
+		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val();
+	});
+	$('#select_week').change(function() {
+		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
 });
-
-function voter() {
-	window.location= "{{ url('/votePlayoff') }}?poolCourant=" + <?=$poolCourant?>;
-}
 </script>
 @endsection
