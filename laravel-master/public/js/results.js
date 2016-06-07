@@ -55,7 +55,8 @@ function addten($adjust){
 		$key = 0;
 		$('#image').append("<li>"
 		+'<span class="date">' + $obj[$key].date.slice(0, -3).replace(" ", '<span class="space"></span>') + "</span><br />"
-		+'<span class="cote">( ' + $obj[$key].cote + " )</span><br />"
+		+'<span class="cote">( ' + $obj[$key].cote + " )</span>" +
+				"<br />"
 		+'<span class="group"><img class="imgEven home" src="' + $obj[$key].image_home + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'
 		+'<span class="point phome">' + $obj[$key].point_home + "</span></span>"
 		+'<span class="group"><img class="imgEven visitor" src="' + $obj[$key].image_visitor + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'

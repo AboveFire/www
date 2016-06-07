@@ -116,6 +116,9 @@ class PoolController extends BaseController {
 					 ->get ();
 	}
 	
+	public function obtenPoolsSelonTypeMobile(Request $request){
+		return json_encode($this->obtenPoolsSelonType($request["type"]));
+	}
 	/*****************************************************************/
 	private function obtenPointsVoteClasq ($utils, $pool, $partie)
 	{
@@ -550,44 +553,52 @@ public function getPoolPlayoff(Request $request)
 		return $winning;
 	}
 	
-	public function checkPoolSurvivorUserAlive($pool){
+	public function checkPoolSurvivorUserAlive(){
+		$pool = 5;
 		$alive = [];
-		//$dead = [];
+		//$present = [];
 		$weeks = DB::select("SELECT * FROM `semaine_sem`, vote_vot WHERE sem_date_fin < NOW() and vot_poo_seqnc = ? and sem_seqnc in (SELECT par_sem_seqnc from partie_par, partie_equipe_peq where par_seqnc = peq_par_seqnc and peq_seqnc = vot_peq_seqnc);", [$pool]);
 		foreach($weeks as $vote){
 			$temp = $this->getPoolSurvivorWinningTeamPerWeek($vote->SEM_SEQNC);
 			if(in_array($vote->VOT_PEQ_SEQNC, $temp)){
-				$alive[$vote->SEM_SEQNC][] = $vote->VOT_UTI_SEQNC;
-			}/*else{
-			$dead[$vote->SEM_SEQNC][] = $vote->VOT_PEQ_SEQNC;
-			}*/
+				$alive[$vote->SEM_SEQNC]['alive'][] = $vote->VOT_UTI_SEQNC;
+				//$present[] = $vote->VOT_UTI_SEQNC;
+			}
 		}
+		/*$players = $this->obtenUtilsPool($pool);
+		$saison = DB::table("pool_poo")->where("POO_SEQNC", "=", $pool)->get()[0]->POO_SAI_SEQNC;
+		$allWeeks = DB::table("semaine_sem")->where("SEM_SAI_SEQNC","=",$saison)->get();
+		foreach($allWeeks as $week){
+			if(!array_key_exists($week->SEM_SEQNC, $alive)){
+				$alive[$week->SEM_SEQNC]['alive'] = [];
+			}
+			foreach($players as $player){
+				if(!in_array($player->UTI_SEQNC, $alive[$week->SEM_SEQNC]['alive'])){
+					$alive[$week->SEM_SEQNC]['dead'][] = $player->UTI_SEQNC;
+				}
+			}
+		}*/
 		return $alive;
-	}
-	
-	public function getUserPerPool($pool){
-		return DB::table("utilisateur_pool_utp")->where("utp_poo_seqnc", "=", $pool)->select("utp_uti_seqnc")->get();
 	}
 	
 	private function obtenStatsPoolSurvr ($pool)
 	{
 		//$pool=5;
-		//$saison=6;
 		$saison = DB::table ('pool_poo')->select('POO_SAI_SEQNC')->where('POO_SEQNC', $pool)->get()[0]->POO_SAI_SEQNC;
 		$semaines = DB::table("semaine_sem")->where("sem_sai_seqnc", $saison)->where("sem_date_fin", "<", date('Y-m-d H:i:s'))->get();
 		$userAlive = $this->checkPoolSurvivorUserAlive($pool);
-		$userInPool = $this->getUserPerPool($pool);
+		$userInPool = $this->obtenUtilsPool($pool);
 		ksort($userAlive, SORT_NUMERIC);
 		$dead = [];
 		foreach($semaines as $semaine){
 			foreach($userInPool as $value){
-				if(array_key_exists($semaine->SEM_SEQNC, $userAlive) && in_array($value->utp_uti_seqnc, $userAlive[$semaine->SEM_SEQNC])){
-					if(!array_key_exists($value->utp_uti_seqnc, $dead)){
-						$dead[$value->utp_uti_seqnc] = -1;
+				if(array_key_exists($semaine->SEM_SEQNC, $userAlive) && in_array($value->UTI_SEQNC, $userAlive[$semaine->SEM_SEQNC]['alive'])){
+					if(!array_key_exists($value->UTI_SEQNC, $dead)){
+						$dead[$value->UTI_SEQNC] = ["seqnc" => $value->UTI_SEQNC ,"week" => -1, "code" => $value->UTI_CODE];
 					}
 				}else{
-					if(!array_key_exists($value->utp_uti_seqnc, $dead) || $dead[$value->utp_uti_seqnc] == -1){
-						$dead[$value->utp_uti_seqnc] = $semaine->SEM_SEQNC;
+					if(!array_key_exists($value->UTI_SEQNC, $dead) || $dead[$value->UTI_SEQNC]["week"] == -1){
+						$dead[$value->UTI_SEQNC] = ["seqnc" => $value->UTI_SEQNC ,"week" => $semaine->SEM_SEQNC, "code" => $value->UTI_CODE];
 					}
 				}
 			}
@@ -613,7 +624,7 @@ public function getPoolPlayoff(Request $request)
 		}
 				
 		if ($this::estParticipant(Auth::user()->UTI_SEQNC, $courn))
-		{			
+		{	
 			return View::make ( '/pool/survivor/inscrit', array_merge (array (
 					'pools' => $pools,
 					'poolCourant' => $courn,
@@ -630,6 +641,34 @@ public function getPoolPlayoff(Request $request)
 				'scores' => $stats,
 		) ), $this::obtenPartiesPrecdSuivt($courn));
 		}
+	}
+	public function getVoteSurvivor(Request $request)
+	{
+		$courn = $request ['poolCourant'];
+	
+		$semCour = $request ['semaineCourante'];
+	
+		$pools = $this::obtenPoolsSelonType('poolSurvivor', Auth::user()->UTI_SEQNC);
+	
+		$semas = $this::obtenSemaines(1);
+			
+		if ($courn == null and isset($pools[0])) {
+			$courn = $pools [0]->POO_SEQNC;
+		}
+	
+		if ($semCour == null and isset($semas[0])) {
+			$semCour = $semas [0]->SEM_NUMR;
+		}
+	
+		$games = $this::obtenGames($semCour);
+	
+		return View::make ( '/pool/survivor/vote', array (
+				'pools' => $pools,
+				'games' => $games,
+				'semas' => $semas,
+				'poolCourant' => $courn,
+	
+		));
 	}
 	
 	/*****************************************************************/

@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
     	$schedule->call(function () {
     		app('App\Http\Controllers\NFLController')->fillCote();
+    		app('App\Http\Controllers\NFLController')->fillPlayOffs();
     	})->daily()->at('02:00');
     	$schedule->call(function () {
     		ini_set('max_execution_time', 0);

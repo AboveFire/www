@@ -56,6 +56,8 @@ Route::get('/chat',['middleware' => 'auth', function () {
 
 /********************** DATA GENERATION **********************/
 Route::get('/test', 'NFLController@test');
+Route::get('/testPOST', 'NFLController@testPOST');
+//Route::get('/test2', 'PoolController@obtenStatsPoolSurvr');
 //Normal route
 Route::get('/connection-refused',function () {
 	return view('refused');
@@ -146,7 +148,9 @@ Route::get('/mobile/pool-classique',['middleware' => 'mobile', 'uses' => 'PoolCo
 Route::get('/mobile/chat',['middleware' => 'mobile', function () {
 	return view('chat.sschatMobile');
 }]);
-	
+
+Route::get('/mobile/pools',['middleware' => 'mobile', 'uses' => 'PoolController@obtenPoolsSelonTypeMobile']);
+
 Route::post('/mobile/sschat', 'ChatController@run');
 
 Route::get('/mobile/image',['middleware' => 'mobile', function () {

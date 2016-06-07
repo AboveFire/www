@@ -15,6 +15,10 @@ class NFLController extends BaseController
 		$this->fillMatch();
 		ini_set('max_execution_time', 3000);
 	}
+	public function testPOST()
+	{
+		$this->fillPlayOffs();
+	}
 	public function fillTeam(){
 		$temp;
 		$counter = 1;
@@ -40,6 +44,55 @@ class NFLController extends BaseController
 			}
 			$counter++;
 			}while(!empty($temp));
+	}
+	public function fillPlayOffs(){
+		$temp = $this->getWeekData(date('Y'),22, 'POST');
+		$firstOfWeek = true;
+		$dateFinSemaine;
+		$weekId = 0;
+		$counter = 22;
+		
+		foreach ($temp as $value){
+			if($firstOfWeek){
+				$seasonId = DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_DEBUT', '=', $value['date']->format('Y-m-d H:i:s'))->get()[0]->SAI_SEQNC;
+			}
+			$weekDone = false;
+			if($firstOfWeek){
+				//insert semaine
+				$weekId = DB::table('semaine_sem')->select('SEM_SEQNC')->where('SEM_NUMR', '=', $counter)->where('SEM_SAI_SEQNC', '=', $seasonId)->get();
+				if(empty($weekId)){
+					DB::table('semaine_sem')->insert(['SEM_NUMR' => $counter,'SEM_DATE_DEBUT' => $value['date']->format('Y-m-d H:i:s'),'SEM_DATE_FIN' => $value['date']->format('Y-m-d H:i:s'),'SEM_SAI_SEQNC' => $seasonId]);
+					$weekId = DB::getPdo()->lastInsertId();
+				}else{
+					$weekId = $weekId[0]->SEM_SEQNC;
+					$weekDone = true;
+				}
+			}
+			if(!$weekDone){
+				//insert partie
+				$eid = DB::table('partie_par')->select('PAR_LUGC_ID', 'PAR_SEQNC')->where('PAR_LUGC_ID', $value['eid'])->where('PAR_SEM_SEQNC', $weekId)->get();
+				if(empty($eid)){
+					DB::table('partie_par')->insert(['PAR_DATE' => $value['date']->format('Y-m-d H:i:s'),'PAR_LUGC_ID' => $value['eid'],'PAR_SEM_SEQNC' => $weekId]);
+					$partieId = DB::getPdo()->lastInsertId();
+					$equipeH = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['home'])->get();
+					$equipeV = DB::table('equipe_eqp')->select('EQP_SEQNC')->where('EQP_CODE', '=', $value['visitor'])->get();
+					//insert liens
+					$score = $this->getMatchData($value['eid']);
+					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeH[0]->EQP_SEQNC, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => $score['home']]);
+					DB::table('partie_equipe_peq')->insert(['PEQ_PAR_SEQNC' => $partieId,'PEQ_EQP_SEQNC' => $equipeV[0]->EQP_SEQNC, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => $score['visitor']]);
+				}else{
+					$score = $this->getMatchData($eid[0]->PAR_LUGC_ID);
+					DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $eid[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'O')->update(['PEQ_SCORE' => $score['home']]);
+					DB::table('partie_equipe_peq')->where('PEQ_PAR_SEQNC', $eid[0]->PAR_SEQNC)->where('PEQ_INDIC_HOME', 'N')->update(['PEQ_SCORE' => $score['visitor']]);
+				}
+			}
+			$dateFinSaison = $value['date'];
+			$dateFinSemaine = $value['date'];
+			$firstOfWeek = false;
+		}
+		//update semaine date fin
+		DB::table('semaine_sem')->where('SEM_SEQNC', $weekId)->update(['SEM_DATE_FIN' => $dateFinSemaine->format('Y-m-d H:i:s')]);
+		
 	}
 	public function fillMatch(){
 		$temp;
@@ -101,7 +154,8 @@ class NFLController extends BaseController
 			$counter++;
 		}while(!empty($temp));
 		//update saison date fin
-		DB::table('saison_sai')->where('SAI_SEQNC', $seasonId)->update(['SAI_DATE_FIN' => $dateFinSaison->format('Y-m-d H:i:s')]);
+		$dateFinSaison = date('Y-m-d', strtotime("+4 months", strtotime($dateFinSaison->format('Y-m-d H:i:s'))));
+		DB::table('saison_sai')->where('SAI_SEQNC', $seasonId)->update(['SAI_DATE_FIN' => $dateFinSaison]);
 		
 	}
 	public function fillCote(){
@@ -153,7 +207,11 @@ class NFLController extends BaseController
 	}
 	public function getWeekData($year, $week, $seasonType = "REG")
 	{
-		$xml = file_get_contents('http://www.nfl.com/ajax/scorestrip?=' . $year . '&seasonType=' . $seasonType . '&week=' . $week);
+		if ($seasonType == "POST"){
+			$xml = file_get_contents('http://www.nfl.com/liveupdate/scorestrip/postseason/ss.xml');
+		}else{
+			$xml = file_get_contents('http://www.nfl.com/ajax/scorestrip?=' . $year . '&seasonType=' . $seasonType . '&week=' . $week);
+		}
 		$obj = $this->xmlstr_to_array($xml);
 		$info = array();
 		if(!empty($obj)){
