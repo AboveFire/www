@@ -25,5 +25,7 @@ return [
 		'text_results' => 'Here are the actual results for the pool :pool.',
 		'week' => 'Week',
 		'Date' => 'Date',
+		'err_vote_playoff' => 'Your vote was not accepted because you have a wrong number of the :multpx multiplier. Only 2 instances of each multiplier is required.',
+		'noPlayoff' => 'The teams qualified for the playoffs have not been determined yet!',
 ]
 ;

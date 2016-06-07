@@ -12,6 +12,16 @@ use Illuminate\Routing\Controller as BaseController;
 
 class PoolController extends BaseController {
 	
+	private function obtenTypePool ($pool)
+	{
+		return DB::table ( 'type_pool_typ' )
+		->select ( 'TYP_NOM' )
+		->whereIn ( 'typ_seqnc', DB::table ( 'pool_poo' )
+				->select ( 'POO_TYP_SEQNC' )
+				->where ( 'POO_SEQNC', $pool ) )
+				->get ()[0]->TYP_NOM;
+	}
+	
 	private function obtenUtilsPool ($pool)
 	{
 		return DB::table ( 'utilisateur_uti' )
@@ -135,6 +145,17 @@ class PoolController extends BaseController {
 	public function obtenPoolsSelonTypeMobile(Request $request){
 		return json_encode($this->obtenPoolsSelonType($request["type"]));
 	}
+	
+	private function ajoutVote ($pool, $utils, $partieEquipe, $multp = null)
+	{
+		DB::table ( 'vote_vot' )->insert ( [
+				'VOT_POO_SEQNC' => $pool,
+				'VOT_UTI_SEQNC' => $utils,
+				'VOT_PEQ_SEQNC' => $partieEquipe,
+				'VOT_MULTP' => $multp,
+		] );
+	}
+	
 	/*****************************************************************/
 	private function obtenPointsVoteClasq ($utils, $pool, $partie)
 	{
@@ -341,6 +362,54 @@ class PoolController extends BaseController {
 	}
 	
 	/*****************************************************************/
+	private function obtenTeamsPlayoff($pool)
+	{
+		return DB::table ( 'equipe_eqp' )
+					->join ( 'partie_equipe_peq', 'PEQ_EQP_SEQNC', '=', 'EQP_SEQNC' )
+					->join ( 'partie_par', 'peq_par_seqnc', '=', 'par_seqnc' )
+					->join ( 'semaine_sem', 'par_sem_seqnc', '=', 'sem_seqnc' )
+					->join ( 'saison_sai', 'sem_sai_seqnc', '=', 'sai_seqnc' )
+					->join ( 'pool_poo', 'poo_sai_seqnc', '=', 'sai_seqnc' )
+					->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
+					->where ( 'sem_numr', 1 )
+					->where ( 'POO_SEQNC', $pool )
+					->take(12)
+					->get ();
+	}
+	
+	private function obtenMultpVote ($pool, $equipe, $utils)
+	{
+		$valr =  DB::table ( 'vote_vot' )
+					->join ( 'partie_equipe_peq', 'VOT_PEQ_SEQNC', '=', 'PEQ_SEQNC' )
+					->select ( 'VOT_MULTP')
+					->where ( 'vot_poo_seqnc', $pool )
+					->where ( 'vot_uti_seqnc', $utils )
+					->where ( 'peq_eqp_seqnc', $equipe )
+					->get ();
+
+		if (isset($valr[0]))
+		{
+			return $valr[0]->VOT_MULTP;
+		}
+		else 
+		{
+			return null;
+		}
+	}
+	private function obtenPartiesTeamPlayoff($pool, $team)
+	{
+		return DB::table ( 'partie_equipe_peq' )
+					->join ( 'partie_par', 'peq_par_seqnc', '=', 'par_seqnc' )
+					->join ( 'semaine_sem', 'par_sem_seqnc', '=', 'sem_seqnc' )
+					->join ( 'saison_sai', 'sem_sai_seqnc', '=', 'sai_seqnc' )
+					->join ( 'pool_poo', 'poo_sai_seqnc', '=', 'sai_seqnc' )
+					->select ( 'PEQ_SEQNC' )
+					->where ( 'sem_numr', 1 )
+					->where ( 'peq_eqp_seqnc', $team )
+					->where ( 'POO_SEQNC', $pool )
+					->get ();
+	}
+	
 	private function obtenPointsVotePlayf ($utils, $pool, $partie)
 	{
 		return DB::select('select case
@@ -483,22 +552,86 @@ class PoolController extends BaseController {
 	}
 	
 	public function getVotePlayoff (Request $request)
-	{
+	{		
 		$courn = $request ['poolCourant'];
-	
+		$voteActif = true;
 		$pools = $this::obtenPoolsSelonType('poolPlayoff', Auth::user()->UTI_SEQNC);
-		
-		$teams = $this::obtenTeams();
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
+		
+		$teams = $this::obtenTeamsPlayoff($courn);
 	
+		for ($i = 0; $i < sizeof($teams); $i++)
+		{
+			$teams[$i]->VOT_MULTP = $this::obtenMultpVote ($courn, $teams[$i]->EQP_SEQNC, Auth::user()->UTI_SEQNC);
+			if ($voteActif && $teams[$i]->VOT_MULTP != null)
+			{
+				$voteActif = false;
+			}
+		}
+
 		return View::make ( '/pool/playoff/vote', array (
 				'pools' => $pools,
 				'teams' => $teams,
 				'poolCourant' => $courn,
+				'voteActif' => $voteActif,
+				
 		));
+	}
+	
+	public function votePlayoff (Request $request)
+	{
+		$courn = $request['poolCourant'];
+		$arrayVotes = array();
+		$multpErr = null;
+		$messageRetour = array('type' => 'status',
+							   'contn' => trans('general.success')
+		);
+		
+		for ($i = 1;$i <= 12; $i++)
+		{
+			array_push($arrayVotes, array('valr' => $request['multp' . $i]));
+		}
+		
+		$result = [];
+		foreach ($arrayVotes as $item) {
+			if (!isset($result[$item['valr']])) {
+				$result[$item['valr']] = $item;
+				$result[$item['valr']]['ocurn'] = 1;
+			} else {
+				$result[$item['valr']]['ocurn']++;
+			}
+		}
+		
+		foreach ($result as $result)
+		{
+			if ($result['ocurn'] != 2 )
+			{
+				$multpErr = $result['valr'];
+			}
+		}
+		
+		if ($multpErr != null)
+		{
+			$messageRetour = array('type' => 'error',
+							 'contn' => trans('pool.err_vote_playoff', ['multp' => $multpErr])
+			);
+		}
+		else 
+		{
+			$teams = $this::obtenTeamsPlayoff($courn);
+			for ($i = 0; $i < sizeof($teams); $i++)
+			{
+				foreach ($this::obtenPartiesTeamPlayoff($courn, $teams[$i]->EQP_SEQNC) as $partieTeam)
+				{
+					$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $partieTeam->PEQ_SEQNC, $arrayVotes[$i]['valr']);
+				}
+			}
+		}
+		
+		return $messageRetour;
 	}
 	
 	/*****************************************************************/
@@ -724,5 +857,22 @@ class PoolController extends BaseController {
 				'UTP_UTI_SEQNC' => Auth::user ()->UTI_SEQNC,
 				'UTP_POO_SEQNC' => $request ['poolCourant']
 		] );
+	}
+	
+	public function vote(Request $request) {
+		switch ($this::obtenTypePool($request['poolCourant']))
+		{
+			case 'poolClassic':
+				$messageRetour = $this::voteClassic ($request);
+				break;
+			case 'poolPlayoff':
+				$messageRetour = $this::votePlayoff ($request);
+				break;
+			case 'poolSurvivor':
+				$messageRetour = $this::voteSurvivor ($request);
+				break;
+		}
+		
+		return back()->with($messageRetour['type'], $messageRetour['contn']);
 	}
 }

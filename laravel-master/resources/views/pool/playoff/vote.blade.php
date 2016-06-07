@@ -4,14 +4,25 @@
 @endsection
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool_vote.css') }}"></link>
-
 <div class="container">
+	@if (session('status'))
+	<div class="alert alert-success">
+		{{ trans(session('status')) }}
+	</div>
+	@endif
+	@if (session('error'))
+	<div class="alert alert-danger">
+		{{ session('error') }}
+	</div>
+	@endif
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading sous-titre"></div>
                 <div class="panel-body">
-                <form class="form" role="form" method="POST" action="{{ url('') }}" enctype="multipart/form-data">
+                <form class="form" role="form" method="POST" action="{{ url('/vote') }}" enctype="multipart/form-data">
+                {!! csrf_field() !!}
+				<input type="hidden" name="poolCourant" value="<?=$poolCourant?>"> 
                     <!-- Liste déroulante -->
 	                <div class="col-md-4 list-container">
 					<div class="margin-bottom-sm input-group">
@@ -38,29 +49,33 @@
                     <!-- Zone d'affichage --> 
                     <div class="tableau form-group">
 						<!-- Team Members Row -->
-						@foreach($teams as $team)
+						@if (sizeof($teams) == 0)
+						<span class="mesgCentre">{{trans('pool.noPlayoff')}}</span>
+						@endif
+						@for ($i = 0; $i < sizeof($teams); $i++)
 							<div class="box-container col-md-4 text-center">
-								<img src="{{{ asset('images/teams/' . $team->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-6 image">
-								<div class="col-md-4 num">
-									<select id="selectMultp" class="form-control" name="multp">
+								<img src="{{{ asset('images/teams/' . $teams[$i]->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-6 image">
+								<div class="col-md-4">
+									<select class="selectMultp form-control" name="multp<?=$i+1?>">
 										<option disabled>{{ trans('pool.select_multp') }}</option>
-										<option id="x1" value="1">x1</option>
-									  	<option id="x2" value="2">x2</option>
-									  	<option id="x3" value="3">x3</option>
-									  	<option id="x4" value="4">x4</option>
-									  	<option id="x5" value="5">x5</option>
-									  	<option id="x6" value="6">x6</option>
+										<option id="multp<?=$i?>x1" value="1">x1</option>
+									  	<option id="multp<?=$i?>x2" value="2">x2</option>
+									  	<option id="multp<?=$i?>x3" value="3">x3</option>
+									  	<option id="multp<?=$i?>x4" value="4">x4</option>
+									  	<option id="multp<?=$i?>x5" value="5">x5</option>
+									  	<option id="multp<?=$i?>x6" value="6">x6</option>
 									</select>
 								</div>
 							</div>
-						@endforeach
+						@endfor
 						<div class="clearfix"></div>
 					</div>
                     <!-- Zone de boutons -->
                     <hr>
+                    @if ($voteActif and (sizeof($teams) > 0))
 					<div class="form-group">
 						<div class="col-md-6 col-butn">
-							<button onclick="location.href='{{ url('/results-playoff') }}'" type="button" class="butn btn-width-100">
+							<button onclick="location.href='{{ url('/votePlayoff') }}?poolCourant=<?=$poolCourant?>'" type="button" class="butn btn-width-100">
 								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 							</button>
 						</div>
@@ -70,6 +85,7 @@
 						</button>
 						</div>
 					</div>
+					@endif
 				</form> 
                 </div>
             </div>
@@ -82,12 +98,21 @@
 var tokenMobile = "{{ csrf_token() }}";
 $(document).ready( function() {
 	$('#selectPool').change(function() {
-		window.location= "{{ url('/poolPlayoff') }}?poolCourant=" + $('#selectPool').val();
+		window.location= "{{ url('/votePlayoff') }}?poolCourant=" + $('#selectPool').val();
 	});
 });
-
-function voter() {
-	window.location= "{{ url('/votePlayoff') }}?poolCourant=" + <?=$poolCourant?>;
+<?php 
+for ($i = 0; $i < sizeof($teams); $i++)
+{
+	if (!$voteActif)
+	{
+		echo '$(\'.selectMultp\').attr("disabled", "disabled");';
+		if ($teams[$i]->VOT_MULTP != null)
+		{
+			echo '$(\'#multp' . $i  . 'x' . $teams[$i]->VOT_MULTP . '\').attr("selected", "selected");';
+		}
+	}
 }
+?>
 </script>
 @endsection

@@ -111,7 +111,7 @@ $(document).ready( function() {
 
 function inscrire() {
 	$.post('inscription', {action: 'send', typePool: 'poolClassic', poolCourant: <?=$poolCourant?> , _token:tokenMobile}, function(data){
-		window.location = "{{ url('/poolClassic') }}";
+		window.location = "{{ url('/poolClassic?poolCourant=' . $poolCourant) }}";
 	});
 }
 </script>

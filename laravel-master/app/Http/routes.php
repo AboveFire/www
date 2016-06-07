@@ -87,34 +87,7 @@ Route::get ('/voteSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@
 // REQUÊTES POST
 Route::post ('/inscription', ['middleware' => 'auth', 'uses' => 'PoolController@sinscrire']);
 
-// DEPRECATED (for now)
-Route::get('/form-classic',['middleware' => 'auth', function () {
-	return view('pool.forms.classic');
-}]);
-Route::get('/form-playoff',['middleware' => 'auth', function () {
-	return view('pool.forms.playoff');
-}]);
-Route::get('/form-survivor',['middleware' => 'auth', function () {
-	return view('pool.forms.survivor');
-}]);
-Route::get('/results-classic',['middleware' => 'auth', function () {
-	return view('pool.results.classic');
-}]);
-Route::get('/results-playoff',['middleware' => 'auth', function () {
-	return view('pool.results.playoff');
-}]);
-Route::get('/results-survivor',['middleware' => 'auth', function () {
-	return view('pool.results.survivor');
-}]);
-Route::get('/inscription-classic',['middleware' => 'auth', function () {
-	return view('pool.results.classic');
-}]);
-Route::get('/inscription-playoff',['middleware' => 'auth', function () {
-	return view('pool.results.playoff');
-}]);
-Route::get('/inscription-survivor',['middleware' => 'auth', function () {
-	return view('pool.inscriptions.survivor');
-}]);
+Route::post ('/vote', ['middleware' => 'auth', 'uses' => 'PoolController@vote']);
 
 /*********************** RESULTS ***************************/
 
@@ -160,8 +133,3 @@ Route::post('/mobile/sschat', 'ChatController@run');
 Route::get('/mobile/image',['middleware' => 'mobile', function () {
 	return Auth::user()->getImageMobile();
 }]);
-
-
-Route::get('/fml', function () {
-	return view('fml');
-});
