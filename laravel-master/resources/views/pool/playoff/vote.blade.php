@@ -41,7 +41,7 @@
 						@foreach($teams as $team)
 							<div class="box-container col-md-4 text-center">
 								<img src="{{{ asset('images/teams/' . $team->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-6 image">
-								<div class="col-md-4">
+								<div class="col-md-4 num">
 									<select id="selectMultp" class="form-control" name="multp">
 										<option disabled>{{ trans('pool.select_multp') }}</option>
 										<option id="x1" value="1">x1</option>
