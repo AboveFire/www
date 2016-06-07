@@ -14,8 +14,8 @@
 .scoreCourn
 {
 	float: right;
-	margin-bottom: 3vw;
-	padding: 0 0 0 0;
+	/*margin-bottom: 3vw;*/
+	padding: 0 4% 0 0;
 }
 
 .block
@@ -28,6 +28,8 @@
 	padding: 0px;
 	text-align: right;
 	font-size: 2.5vw;
+	display: table-cell;
+    vertical-align: inherit;
 }
 
 
@@ -54,10 +56,11 @@
 
 .parties h2
 {
-	width: 305px;
+	font-size: 2.5vw;
+	width: 100%;
 	text-align: center;
-	float: right;
 	font-weight: bold;
+	margin: 20px 0 20px 0;
 }
 
 .milieu .parties div
@@ -67,25 +70,27 @@
 
 .milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote
 {
-	width: 100%;
+	width: 75%;
 }
 
 .milieu .images, .milieu .bouton
 {
-	width: 305px;
+	/*width: 305px;*/
+	width: 100%;
+	
 }
 
 .image
 {
-	width: 150px;
 	padding: 0 0 0 0;
-	margin-left: 0 1px;
+	height: 100%;
 }
 
 .image img
 {
 	border: 5px solid;
-	width: 150px;
+	margin: 0 12.5% 0 12.5%;
+	width: 75%;    
 }
 
 .image .imgWin
@@ -152,7 +157,18 @@
 {
 	.parties 
 	{
-		padding: 0 20% 0 20%;
+		padding: 0 0 0 0;
+		margin: 0 0 0 0;
+	}
+	
+	.parties h2
+	{
+		font-size: 7vw;
+		width: 100%;
+		text-align: center;
+		text-align: center;
+		float: right;
+		font-weight: bold;
 	}
 
 	.butn
@@ -191,15 +207,30 @@
 	
 	.milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote, .milieu .parties .images, .milieu .parties h2, .milieu .parties .bouton {
 	    float: left;
+	    width:100%;
 	}
 	
 	.milieu .parties .images, .milieu .parties h2, .milieu .parties .butn_vote {
-	    margin-left: 5.5vw;
+	    /*margin-left: 5.5vw;*/
+	}
+	
+	.image
+	{
+		padding: 0 0 0 0;
+		height: 100%;
+	}
+	
+	.image img
+	{
+		border: 5px solid;
+		margin: 0 12.5% 0 12.5%;
+		width: 75%;    
 	}
 	
 	.scoreCourn
 	{
 		float: left;
+		margin-bottom: 3vw;
 		padding: 0 25% 0 25%;
 	}
 	
@@ -212,5 +243,7 @@
 		padding: 0px;
 		text-align: right;
 		font-size: 5vw;
+		display: table-cell;
+    	vertical-align: inherit;
 	}
 }

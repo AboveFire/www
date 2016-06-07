@@ -28,5 +28,7 @@ return [
     'butn_login' => 'Log In',
     'butn_mdpOublie' => 'Forgot your password?',
     'butn_resetMdp' => 'Reset',
+	'reset_password' => 'Click on the following link to reset your password :',
+	'reset_text' => 'Reset password',
 
 ];

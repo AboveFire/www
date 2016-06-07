@@ -28,5 +28,7 @@ return [
     'butn_login' => 'Se connecter',
     'butn_mdpOublie' => 'Mot de passe oublié?',
     'butn_resetMdp' => 'Réinitialiser',
+	'reset_password' => 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe :',
+	'reset_text' => 'Réinitialiser le mot de passe',
 
 ];
