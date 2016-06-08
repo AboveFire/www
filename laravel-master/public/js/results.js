@@ -13,7 +13,7 @@ $(document).ready(function(){
 			+'<span class="point phome">' + $obj[$key].point_home + "</span></span>"
 			+'<span class="group"><img class="imgEven visitor" src="' + $obj[$key].image_visitor + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'
 			+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
-			+'</li><hr/>');
+			+'</li><hr class="black" />');
 		}
 		$key = 0;
 		$('#image').append("<li>"
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		+'<span class="group"><img class="imgEven visitor" src="' + $obj[$key].image_visitor + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'
 		+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
 		+'</li>');
-		$('#image').append('<hr class="black" /><hr /><hr class="black" />');
+		$('#image').append('<hr />');
 		$number+=1;
 		addten(true);
 	});
@@ -50,7 +50,7 @@ function addten($adjust){
 			+'<span class="point phome">' + $obj[$key].point_home + "</span></span>"
 			+'<span class="group"><img class="imgEven visitor" src="' + $obj[$key].image_visitor + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'
 			+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
-			+'</li><hr/>');
+			+'</li><hr class="black" />');
 		}
 		$key = 0;
 		$('#image').append("<li>"
@@ -62,7 +62,7 @@ function addten($adjust){
 		+'<span class="group"><img class="imgEven visitor" src="' + $obj[$key].image_visitor + '" onerror="this.src=\'{{{ asset(\'images/profile.png\') }}}\'" alt="image" />'
 		+'<span class="point pvisitor">' + $obj[$key].point_visitor + "</span></span>"
 		+'</li>');
-		$('#image').append('<hr class="black" /><hr /><hr class="black" />');
+		$('#image').append('<hr />');
 		$number+=1;
 	});
 	$number+=1;

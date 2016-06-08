@@ -206,3 +206,8 @@ input[type="file" i].active
 .sidebar-nav > .sidebar-brand {
     border-bottom: 2px solid #969696;
 }
+
+.selected
+{
+	border: 5px solid #969696;
+}
