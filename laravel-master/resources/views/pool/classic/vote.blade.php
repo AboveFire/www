@@ -50,7 +50,7 @@
 						<!-- Team Members Row -->
 						@for ($i = 0; $i < sizeof($games); $i++)
 							<div class="box-container col-md-6 text-center">
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche p{{$games[$i]->PARTIE}} selected" onclick="select(this);">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche p{{$games[$i]->PARTIE}} selected" @if ($games[$i]->VOTED == 'N') onclick="select(this);" @endif>
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
 									{{$games[$i]->DATE}}
@@ -65,7 +65,7 @@
 								    )
 									</div>
 								</div>
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite p{{$games[$i]->PARTIE}}" onclick="select(this);">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite p{{$games[$i]->PARTIE}}" @if ($games[$i]->VOTED == 'N') onclick="select(this);" @endif>
 							</div>
 						@endfor
 					</div>

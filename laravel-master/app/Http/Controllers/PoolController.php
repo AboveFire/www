@@ -408,8 +408,29 @@ class PoolController extends BaseController {
 		}
 		
 		$games = $this::obtenGames($semCour);
-		//dd($games);
-	
+		
+		$gamesVoted = $this::obtenPartiesPoolUtils(Auth::user()->UTI_SEQNC, $courn);
+		
+		for ($i = 0; $i < sizeof($games); $i++)
+		{
+			$ok = false;
+			foreach ($gamesVoted as $gameVoted)
+			{
+				if(!$ok)
+				{
+					if($gameVoted->PEQ_PAR_SEQNC == $games[$i]->PARTIE)
+					{
+						$games[$i]->VOTED = 'O';
+						$ok = true;
+					}
+					else 
+					{
+						$games[$i]->VOTED = 'N';
+					}
+				}
+			}
+		}
+		
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
 				'games' => $games,
