@@ -27,5 +27,6 @@ return [
 		'Date' => 'Date',
 		'err_vote_playoff' => 'Your vote was not accepted because you have a wrong number of the :multpx multiplier. Only 2 instances of each multiplier is required.',
 		'noPlayoff' => 'The teams qualified for the playoffs have not been determined yet!',
+		'err_vote_classic' => 'Your votes were not accepted. Please check that you have voted for each match.',
 ]
 ;

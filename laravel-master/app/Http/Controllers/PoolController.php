@@ -60,7 +60,7 @@ class PoolController extends BaseController {
 		})
 		->join('equipe_eqp AS EN', 'N.PEQ_EQP_SEQNC', '=', 'EN.EQP_SEQNC' )
 		->join('semaine_sem AS SEM', 'SEM_SEQNC', '=', 'partie_par.PAR_SEM_SEQNC' )
-		->select("partie_par.par_seqnc AS PARTIE", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE","EN.eqp_code AS EQUIPE1","EO.eqp_code AS EQUIPE2")
+		->select("partie_par.par_seqnc AS PARTIE", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE", "O.peq_seqnc AS PARTIE_EQUIPE_HOME" ,"EN.eqp_code AS EQUIPE1", "N.peq_seqnc AS PARTIE_EQUIPE_VISITEUR", "EO.eqp_code AS EQUIPE2")
 		->where("SEM.SEM_NUMR", $semaineCourante)
 		->orderBy('PAR_DATE')
 		->get();
@@ -139,7 +139,7 @@ class PoolController extends BaseController {
 		return json_encode($this->obtenPoolsSelonType($request["type"]));
 	}
 	
-	private function ajoutVote ($pool, $utils, $partieEquipe, $multp = null)
+	private function ajoutVote ($pool, $utils, $partieEquipe, $multp = 1)
 	{
 		DB::table ( 'vote_vot' )->insert ( [
 				'VOT_POO_SEQNC' => $pool,
@@ -164,10 +164,25 @@ class PoolController extends BaseController {
 		return $retour;
 	}
 	
-	private function obtenTeamDeString ($string)
+	private function makeStringPartieTeam ($partie, $team)
 	{
-		$code = substr($string, strpos($string, '[') + 1, strpos($string, ']') - strpos($string, '[') - 1);
-		return $this::obtenTeamDeCode($code);
+		return 'p' . $partie . '[' . $this::obtenCodeTeam ($team) . ']';
+	}
+	
+	private function obtenPartieEquipeDeString ($string)
+	{
+		$retour = substr($string, strpos($string, '[') + 1, strpos($string, ']') - strpos($string, '[') - 1);
+		
+		if (!is_numeric($retour))
+		{
+			$retour = null;
+		}
+		else
+		{
+			$retour = intval ($retour);
+		}
+		
+		return $retour;
 	}
 	
 	private function obtenPartieEquipe ($partie, $equipe)
@@ -177,6 +192,14 @@ class PoolController extends BaseController {
 					->where ('PEQ_PAR_SEQNC', $partie)
 					->where ('PEQ_EQP_SEQNC', $equipe)
 					->get ()[0]->PEQ_SEQNC;
+	}
+	
+	private function obtenCodeTeam ($team)
+	{
+		return DB::table ( 'equipe_eqp' )
+					->select ( 'EQP_CODE' )
+					->where ('EQP_SEQNC', $team)
+					->get ()[0]->EQP_CODE;
 	}
 	
 	private function obtenTeamDeCode($code)
@@ -385,6 +408,7 @@ class PoolController extends BaseController {
 		}
 		
 		$games = $this::obtenGames($semCour);
+		//dd($games);
 	
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
@@ -417,15 +441,14 @@ class PoolController extends BaseController {
 		if ($partiesServeur !== $partiesVotes)
 		{
 			$messageRetour = array('type' => 'error',
-					'contn' => trans('pool.err_vote_classic', ['multp' => $multpErr])
+					'contn' => trans('pool.err_vote_classic')
 			);
 		}
 		else
 		{
 			foreach ($votes as $vote)
 			{
-				dd($this::obtenPartieEquipe($this::obtenPartieDeString($vote), $this::obtenTeamDeString($vote)));
-				$this::obtenTeamDeString($vote);
+				$this::ajoutVote($courn, Auth::user()->UTI_SEQNC, $this::obtenPartieEquipeDeString($vote));
 			}
 		}
 	
