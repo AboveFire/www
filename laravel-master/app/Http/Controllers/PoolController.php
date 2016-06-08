@@ -67,7 +67,7 @@ class PoolController extends BaseController {
 		})
 		->join('equipe_eqp AS EN', 'N.PEQ_EQP_SEQNC', '=', 'EN.EQP_SEQNC' )
 		->join('semaine_sem AS SEM', 'SEM_SEQNC', '=', 'partie_par.PAR_SEM_SEQNC' )
-		->select("partie_par.par_seqnc", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE","EN.eqp_code AS EQP_CODE1","EO.eqp_code AS EQP_CODE2")
+		->select("partie_par.par_seqnc AS PARTIE", "partie_par.par_date AS DATE", "partie_par.par_cote AS COTE","EN.eqp_code AS EQUIPE1","EO.eqp_code AS EQUIPE2")
 		->where("SEM.SEM_NUMR", $semaineCourante)
 		->orderBy('PAR_DATE')
 		->get();
@@ -351,6 +351,8 @@ class PoolController extends BaseController {
 		
 		$games = $this::obtenGames($semCour);
 	
+		dd($games);
+		
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
 				'games' => $games,

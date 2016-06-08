@@ -54,7 +54,7 @@
 						@endif
 						@for ($i = 0; $i < sizeof($teams); $i++)
 							<div class="box-container col-md-4 text-center">
-								<img src="{{{ asset('images/teams/' . $teams[$i]->EQP_CODE . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-6 image">
+								<img src="{{{ asset('images/teams/' . $teams[$i]->EQP_CODE . '.png') }}}" alt="$teams[$i]->EQP_CODE" class="col-md-6 image">
 								<div class="col-md-4">
 									<select class="selectMultp form-control" name="multp<?=$i+1?>">
 										<option disabled>{{ trans('pool.select_multp') }}</option>

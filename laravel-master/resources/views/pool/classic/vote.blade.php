@@ -48,26 +48,26 @@
                     <!-- Zone d'affichage --> 
                     <div class="tableau form-group">
 						<!-- Team Members Row -->
-						@foreach($games as $game)
+						@for ($i = 0; $i < sizeof($games); $i++)
 							<div class="box-container col-md-6 text-center">
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche" onclick="voter(this);">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
-									{{$game->DATE}}
+									{{$games[$i]->DATE}}
 									</div>
 									<div class="col-md-12">
 									(
-										@if($game->COTE != null)
-											{{$game->COTE}}
+										@if($games[$i]->COTE != null)
+											{{$games[$i]->COTE}}
 										@else
 											-
 										@endif
 								    )
 									</div>
 								</div>
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE2 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite" onclick="voter(this);">
 							</div>
-						@endforeach
+						@endfor
 					</div>
 					<div class="clearfix"></div>
                     <!-- Zone de boutons -->
@@ -102,5 +102,10 @@ $(document).ready( function() {
 		window.location= "{{ url('/voteClassic') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
 });
+
+function voter(elemn) {
+	alert(elemn.id.substring(1, elemn.id.indexOf("[")));
+	alert(elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]")));
+}
 </script>
 @endsection
