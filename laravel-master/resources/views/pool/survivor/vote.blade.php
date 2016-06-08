@@ -50,7 +50,7 @@
 						<!-- Team Members Row -->
 						@foreach($games as $game)
 							<div class="box-container col-md-6 text-center">
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche">
+								<img onclick="voter(this);" id="p{{$game->PARTIE}}[{{$game->EQUIPE1}}]" src="{{{ asset('images/teams/' . $game->EQUIPE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche p{{$game->PARTIE}}">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
 									{{$game->DATE}}
@@ -65,7 +65,7 @@
 								    )
 									</div>
 								</div>
-								<img src="{{{ asset('images/teams/' . $game->EQP_CODE2 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite">
+								<img onclick="voter(this);" id="p{{$game->PARTIE}}[{{$game->EQUIPE2}}]" src="{{{ asset('images/teams/' . $game->EQUIPE2 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-droite p{{$game->PARTIE}}">
 							</div>
 						@endforeach
 					</div>
@@ -79,7 +79,7 @@
 							</button>
 						</div>
 						<div class="col-md-6 col-butn">
-							<button type="submit" class="butn btn-width-100">
+							<button onclick="send(this);" type="button" class="butn btn-width-100">
 							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
 						</button>
 						</div>
@@ -94,6 +94,8 @@
 
 <script type="text/javascript">
 var tokenMobile = "{{ csrf_token() }}";
+var partie;
+var team;
 $(document).ready( function() {
 	$('#selectPool').change(function() {
 		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val();
@@ -102,5 +104,18 @@ $(document).ready( function() {
 		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
 });
+function voter(elemn) {
+	partie = elemn.id.substring(1, elemn.id.indexOf("["));
+	team = elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]"));
+	$('.image').removeClass('selected');
+	$(elemn).addClass('selected');
+}
+function send(elemn){
+	if($('.selected')[0] != undefined){
+		$.post("vote", {poolCourant: {{ $poolCourant }}, partie: partie, team: team, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
+			alert(data);
+		});
+	}
+}
 </script>
 @endsection
