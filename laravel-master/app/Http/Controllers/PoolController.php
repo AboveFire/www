@@ -46,13 +46,6 @@ class PoolController extends BaseController {
 					->get();
 	}
 	
-	private function obtenTeams()
-	{
-		return DB::table ( 'equipe_eqp' )
-				 	->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
-					->get ();
-	}
-	
 	public function obtenGames($semaineCourante)
 	{		
 		return DB::table("partie_par")
@@ -154,6 +147,51 @@ class PoolController extends BaseController {
 				'VOT_PEQ_SEQNC' => $partieEquipe,
 				'VOT_MULTP' => $multp,
 		] );
+	}
+	
+	private function obtenPartieDeString ($string)
+	{
+		$retour = substr($string, 1,  strpos($string, '[') - 1);
+		if (!is_numeric($retour))
+		{
+			$retour = null;
+		}
+		else
+		{
+			$retour = intval ($retour); 
+		}
+		
+		return $retour;
+	}
+	
+	private function obtenTeamDeString ($string)
+	{
+		$code = substr($string, strpos($string, '[') + 1, strpos($string, ']') - strpos($string, '[') - 1);
+		return $this::obtenTeamDeCode($code);
+	}
+	
+	private function obtenPartieEquipe ($partie, $equipe)
+	{
+		return DB::table ( 'partie_equipe_peq' )
+					->select ( 'PEQ_SEQNC' )
+					->where ('PEQ_PAR_SEQNC', $partie)
+					->where ('PEQ_EQP_SEQNC', $equipe)
+					->get ()[0]->PEQ_SEQNC;
+	}
+	
+	private function obtenTeamDeCode($code)
+	{
+		return DB::table ( 'equipe_eqp' )
+					->select ( 'EQP_SEQNC' )
+					->where ('EQP_CODE', $code)
+					->get ()[0]->EQP_SEQNC;
+	}
+	
+	private function obtenTeams()
+	{
+		return DB::table ( 'equipe_eqp' )
+				 	->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
+					->get ();
 	}
 	
 	/*****************************************************************/
@@ -334,11 +372,8 @@ class PoolController extends BaseController {
 	public function getVoteClassic(Request $request)
 	{
 		$courn = $request ['poolCourant'];
-		
 		$semCour = $request ['semaineCourante'];
-	
 		$pools = $this::obtenPoolsSelonType('poolClassic', Auth::user()->UTI_SEQNC);
-		
 		$semas = $this::obtenSemaines($this::obtenCurrentSeason());
 			
 		if ($courn == null and isset($pools[0])) {
@@ -351,8 +386,6 @@ class PoolController extends BaseController {
 		
 		$games = $this::obtenGames($semCour);
 	
-		dd($games);
-		
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
 				'games' => $games,
@@ -361,6 +394,42 @@ class PoolController extends BaseController {
 				'poolCourant' => $courn,
 				
 		));
+	}
+	
+	public function voteClassic (Request $request)
+	{
+		$courn = $request['poolCourant'];
+		$semCour = $request['semaineCourante'];
+		$messageRetour = array('type' => 'status',
+				'contn' => trans('general.success')
+		);
+		
+		$partiesServeur = array_column($this::obtenGames($semCour), 'PARTIE');
+		$partiesVotes = array();
+		
+		$votes = json_decode($request['votes']);
+		
+		foreach ($votes as $vote)
+		{
+			array_push($partiesVotes, $this::obtenPartieDeString($vote));
+		}
+		
+		if ($partiesServeur !== $partiesVotes)
+		{
+			$messageRetour = array('type' => 'error',
+					'contn' => trans('pool.err_vote_classic', ['multp' => $multpErr])
+			);
+		}
+		else
+		{
+			foreach ($votes as $vote)
+			{
+				dd($this::obtenPartieEquipe($this::obtenPartieDeString($vote), $this::obtenTeamDeString($vote)));
+				$this::obtenTeamDeString($vote);
+			}
+		}
+	
+		return $messageRetour;
 	}
 	
 	/*****************************************************************/
