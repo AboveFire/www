@@ -121,6 +121,9 @@ function send(elemn){
 function resetChoice(){
 	$.post("getChoicesPerWeek", {poolCourant: {{ $poolCourant }}, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
 		$temp = JSON.parse(data);
+		if($temp[0] != undefined){
+			$("#p" . $temp[0]["PARTIE"] + "[" + $temp[0]["CODE"] + "]").addClass("selected");
+		}
 	});
 }
 </script>

@@ -998,6 +998,13 @@ class PoolController extends BaseController {
 	}
 	
 	public function getChoicesPerWeek(Request $request){
-		return json_encode($this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC));
+		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
+		foreach ($e as $value){
+			$temp = DB::table("partie_equipe_peq")
+			->join("equipe_eqp","PEQ_EQP_SEQNC","=", "EQP_SEQNC")->select("EQP_CODE as code","PEQ_EQP_SEQNC as seqnc")->where("PEQ_SEQNC",$value->VOT_PEQ_SEQNC)->get()[0];
+			$value->CODE = $temp->code;
+			$value->PARTIE = $temp->seqnc;
+		}
+		return json_encode($e);
 	}
 }
