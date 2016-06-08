@@ -923,6 +923,33 @@ class PoolController extends BaseController {
 		));
 	}
 	
+	public function voteSurvivor (Request $request)
+	{
+		$courn = $request['poolCourant'];
+		$team = $request['team'];
+		$partie = $request['partie'];
+		$messageRetour = "success";
+		//$e = "SEQNC : " . Auth::user ()->UTI_SEQNC . " pool : " . $request['poolCourant'] . " week : " . $request['semaine'];
+		
+		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
+		foreach ($e as $value){
+			DB::table("vote_vot")->where("VOT_SEQNC",$value->VOT_SEQNC)->delete();
+		}
+		$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $this->obtenPartieEquipe($request['partie'], $this->obtenTeamDeCode($request['team'])));
+		
+		return "success";
+	}
+	
+	public function getVoteOnWeek($util, $poo, $week){
+		return DB::table("vote_vot")
+		->join("partie_equipe_peq", "VOT_PEQ_SEQNC", "=", "PEQ_SEQNC")
+		->join("partie_par", "PEQ_PAR_SEQNC", "=", "PAR_SEQNC")
+		->where("PAR_SEM_SEQNC", $week)
+		->where("VOT_UTI_SEQNC", $util)
+		->where("VOT_POO_SEQNC",$poo)
+		->select("VOT_SEQNC", "VOT_MULTP", "VOT_DATE", "VOT_PEQ_SEQNC", "VOT_POO_SEQNC", "VOT_UTI_SEQNC")->get();
+	}
+	
 	/*****************************************************************/
 	
 	public function getImagesPartie($partie)
@@ -963,10 +990,14 @@ class PoolController extends BaseController {
 				$messageRetour = $this::votePlayoff ($request);
 				break;
 			case 'poolSurvivor':
-				$messageRetour = $this::voteSurvivor ($request);
+				return $this::voteSurvivor ($request);
 				break;
 		}
 		
 		return back()->with($messageRetour['type'], $messageRetour['contn']);
+	}
+	
+	public function getChoicesPerWeek(Request $request){
+		return json_encode($this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC));
 	}
 }
