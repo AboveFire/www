@@ -11,7 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading sous-titre"></div>
                 <div class="panel-body">
-                <form class="form" role="form" method="POST" action="{{ url('') }}" enctype="multipart/form-data">
+                <form class="form" role="form" method="POST" action="javascript:voter();" enctype="multipart/form-data">
                     <!-- Liste déroulante -->
 	                <div class="col-md-4 liste-gauche list-container">
 						<div class="margin-bottom-sm input-group">
@@ -50,7 +50,7 @@
 						<!-- Team Members Row -->
 						@for ($i = 0; $i < sizeof($games); $i++)
 							<div class="box-container col-md-6 text-center">
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche" onclick="voter(this);">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE1}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche p{{$games[$i]->PARTIE}} selected" onclick="select(this);">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
 									{{$games[$i]->DATE}}
@@ -65,7 +65,7 @@
 								    )
 									</div>
 								</div>
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite" onclick="voter(this);">
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->EQUIPE2}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite p{{$games[$i]->PARTIE}}" onclick="select(this);">
 							</div>
 						@endfor
 					</div>
@@ -74,12 +74,12 @@
                     <hr>
 					<div class="form-group">
 						<div class="col-md-6 col-butn">
-							<button onclick="location.href='{{ url('/results-playoff') }}'" type="button" class="butn btn-width-100">
+							<button onclick="location.href='{{ url('/voteClassic?poolCourant=' . $poolCourant) }}'" type="button" class="butn btn-width-100">
 								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 							</button>
 						</div>
 						<div class="col-md-6 col-butn">
-							<button type="submit" class="butn btn-width-100">
+							<button type="button" onclick="voter();" class="butn btn-width-100">
 							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
 						</button>
 						</div>
@@ -103,9 +103,30 @@ $(document).ready( function() {
 	});
 });
 
-function voter(elemn) {
-	alert(elemn.id.substring(1, elemn.id.indexOf("[")));
-	alert(elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]")));
+function select(elemn) {
+	partie = elemn.id.substring(1, elemn.id.indexOf("["));
+	team = elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]"));
+	$('.p' + partie).removeClass('selected');
+	$(elemn).addClass('selected');
+}
+
+function voter () {
+	countTotal = $('.image-droite').length;
+	countSelect = $('.selected').length;
+	if (countTotal != countSelect)
+	{
+		alert (countSelect + '/' + countTotal); 
+	}
+	else
+	{
+		
+		listeSelect = JSON.stringify($( ".selected" ).map(function() { return this.id; }).get());
+		//console.log(listeSelect);
+
+		$.post('vote', {action: 'submit', typePool: 'poolClassic', poolCourant: <?=$poolCourant?> , semaineCourante: <?=$semaineCourante?> , _token:tokenMobile, votes: listeSelect}, function(data){
+			$(document.body).html(data);
+		});
+	}
 }
 </script>
 @endsection
