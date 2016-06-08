@@ -103,6 +103,7 @@ $(document).ready( function() {
 	$('#select_week').change(function() {
 		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
+	resetChoice();
 });
 function voter(elemn) {
 	partie = elemn.id.substring(1, elemn.id.indexOf("["));
@@ -113,9 +114,14 @@ function voter(elemn) {
 function send(elemn){
 	if($('.selected')[0] != undefined){
 		$.post("vote", {poolCourant: {{ $poolCourant }}, partie: partie, team: team, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
-			alert(data);
+			
 		});
 	}
+}
+function resetChoice(){
+	$.post("getChoicesPerWeek", {poolCourant: {{ $poolCourant }}, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
+		$temp = JSON.parse(data);
+	});
 }
 </script>
 @endsection

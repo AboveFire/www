@@ -910,9 +910,9 @@ class PoolController extends BaseController {
 		
 		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
 		foreach ($e as $value){
-			DB:table("vote_vot")->where("VOT_SEQNC",$value->VOT_SEQNC)->delete();
+			DB::table("vote_vot")->where("VOT_SEQNC",$value->VOT_SEQNC)->delete();
 		}
-		$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $request['partie']);
+		$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $this->obtenPartieEquipe($request['partie'], $this->obtenTeamDeCode($request['team'])));
 		
 		return "success";
 	}
@@ -972,5 +972,9 @@ class PoolController extends BaseController {
 		}
 		
 		return back()->with($messageRetour['type'], $messageRetour['contn']);
+	}
+	
+	public function getChoicesPerWeek(Request $request){
+		return json_encode($this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC));
 	}
 }
