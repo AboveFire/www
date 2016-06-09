@@ -42,7 +42,8 @@ class PoolController extends BaseController {
 	{
 		return DB::table ( 'partie_equipe_peq' )
 					->join ( 'vote_vot', 'vot_peq_seqnc', '=', 'peq_seqnc' )
-					->select ('PEQ_PAR_SEQNC', 'PEQ_SEQNC', 'VOT_DATE')
+					->join ( 'partie_par', 'peq_par_seqnc', '=', 'par_seqnc')
+					->select ('PEQ_PAR_SEQNC', 'PEQ_SEQNC', 'VOT_DATE', 'PAR_DATE')
 					->where ('vot_poo_seqnc', $pool)
 					->where ('vot_uti_seqnc', $utils)
 					->orderBy ('vot_date')
@@ -1108,16 +1109,29 @@ class PoolController extends BaseController {
 	public function resetVotes (Request $request)
 	{
 		$courn = $request['poolCourant'];
-
-		if (false){
-			return back()->with('error', trans('general.success'));
+		$games = $this::obtenPartiesPoolUtils(Auth::user()->UTI_SEQNC, $courn);
+		$timeZone = new \DateTimeZone('America/Montreal');
+		$now = new DateTime ('now', $timeZone);
+		
+		$ok = true;
+		
+		foreach ($games as $game){
+			if ((new DateTime ($game->PAR_DATE, $timeZone)) < $now)
+			{
+				$ok = false;
+			}
 		}
 		
-		DB::table('vote_vot')
-			->where('vot_uti_seqnc', '=', Auth::user()->UTI_SEQNC)
-			->where('vot_poo_seqnc', '=', $courn)
-			->delete();
-		
+		if (!$ok){
+			return back()->with('error', trans('pool.err_vote_survivor2'));
+		}
+		else
+		{
+			DB::table('vote_vot')
+				->where('vot_uti_seqnc', '=', Auth::user()->UTI_SEQNC)
+				->where('vot_poo_seqnc', '=', $courn)
+				->delete();
+		}
 		return back()->with('status', trans('general.success'));
 	}
 }

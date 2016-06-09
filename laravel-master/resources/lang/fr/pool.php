@@ -30,7 +30,7 @@ return [
 		'noPlayoff' => 'Les équipes qualifiées pour les playoffs n\'ont pas encore été déterminées!',
 		'err_vote_classic' => 'Vos votes n\'ont pas été acceptés. Veuillez vérifier que vous avez voté pour tous les matchs.',
 		'err_vote_survivor' => "L'équipe n'est pas choisie.",
-		'err_vote_survivor2' => 'La période de vote est finie',
+		'err_vote_survivor2' => 'Votre action a été annulée, car la période de vote est terminée.',
 		'err_vote_survivor3' => 'Une erreur est survenue.',
 		'alive' => 'Les survivants',
 		'dead' => 'Les morts',
