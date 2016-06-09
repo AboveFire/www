@@ -40,7 +40,7 @@ class PoolController extends BaseController {
 	{
 		return DB::table ( 'partie_equipe_peq' )
 					->join ( 'vote_vot', 'vot_peq_seqnc', '=', 'peq_seqnc' )
-					->select ('PEQ_PAR_SEQNC')
+					->select ('PEQ_PAR_SEQNC', 'PEQ_SEQNC')
 					->where ('vot_poo_seqnc', $pool)
 					->where ('vot_uti_seqnc', $utils)
 					->get();
@@ -420,7 +420,7 @@ class PoolController extends BaseController {
 				{
 					if($gameVoted->PEQ_PAR_SEQNC == $games[$i]->PARTIE)
 					{
-						$games[$i]->VOTED = 'O';
+						$games[$i]->VOTED = $gameVoted->PEQ_SEQNC;
 						$ok = true;
 					}
 					else 
@@ -449,7 +449,8 @@ class PoolController extends BaseController {
 				'contn' => trans('general.success')
 		);
 		
-		$partiesServeur = array_column($this::obtenGames($semCour), 'PARTIE');
+		
+		$partiesServeur = array_column($this::obtenGames($semCour), "PARTIE");
 		$partiesVotes = array();
 		
 		$votes = json_decode($request['votes']);
@@ -458,8 +459,9 @@ class PoolController extends BaseController {
 		{
 			array_push($partiesVotes, $this::obtenPartieDeString($vote));
 		}
-		
-		if ($partiesServeur !== $partiesVotes)
+
+		//if ($partiesServeur !== $partiesVotes)
+		if (count(array_intersect($partiesVotes, $partiesServeur)) != count($partiesVotes))
 		{
 			$messageRetour = array('type' => 'error',
 					'contn' => trans('pool.err_vote_classic')
@@ -472,7 +474,7 @@ class PoolController extends BaseController {
 				$this::ajoutVote($courn, Auth::user()->UTI_SEQNC, $this::obtenPartieEquipeDeString($vote));
 			}
 		}
-	
+		
 		return $messageRetour;
 	}
 	

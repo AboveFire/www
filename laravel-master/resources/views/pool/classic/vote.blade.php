@@ -6,12 +6,22 @@
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool_vote_classic.css') }}"></link>
 
 <div class="container">
+	@if (session('status'))
+	<div class="alert alert-success">
+		{{ trans(session('status')) }}
+	</div>
+	@endif
+	@if (session('error'))
+	<div class="alert alert-danger">
+		{{ session('error') }}
+	</div>
+	@endif
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading sous-titre"></div>
                 <div class="panel-body">
-                <form class="form" role="form" method="POST" action="javascript:voter();" enctype="multipart/form-data">
+                <form class="form" role="form" method="POST" action="" enctype="multipart/form-data">
                     <!-- Liste déroulante -->
 	                <div class="col-md-4 liste-gauche list-container">
 						<div class="margin-bottom-sm input-group">
@@ -50,7 +60,9 @@
 						<!-- Team Members Row -->
 						@for ($i = 0; $i < sizeof($games); $i++)
 							<div class="box-container col-md-6 text-center">
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche p{{$games[$i]->PARTIE}} selected" @if ($games[$i]->VOTED == 'N') onclick="select(this);" @endif>
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_HOME}}]" 
+									 src="{{{ asset('images/teams/' . $games[$i]->EQUIPE1 . '.png') }}}" alt="{{$games[$i]->EQUIPE1}}" class="col-md-4 image image-gauche p{{$games[$i]->PARTIE}}" 
+									 @if (!isset($games[$i]->VOTED) || $games[$i]->VOTED == 'N') onclick="select(this);" @endif>
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
 									{{$games[$i]->DATE}}
@@ -65,7 +77,9 @@
 								    )
 									</div>
 								</div>
-								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite p{{$games[$i]->PARTIE}}" @if ($games[$i]->VOTED == 'N') onclick="select(this);" @endif>
+								<img id="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]" name="p{{$games[$i]->PARTIE}}[{{$games[$i]->PARTIE_EQUIPE_VISITEUR}}]"
+								 src="{{{ asset('images/teams/' . $games[$i]->EQUIPE2 . '.png') }}}" alt="{{$games[$i]->EQUIPE2}}" class="col-md-4 image image-droite p{{$games[$i]->PARTIE}}" 
+								 @if (!isset($games[$i]->VOTED) || $games[$i]->VOTED == 'N') onclick="select(this);" @endif>
 							</div>
 						@endfor
 					</div>
@@ -79,8 +93,9 @@
 							</button>
 						</div>
 						<div class="col-md-6 col-butn">
-							<button type="button" onclick="voter();" class="butn btn-width-100">
-							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
+							<button type="button" onclick="voter(this);" class="butn btn-width-100 has-spinner">
+							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }} &nbsp;
+    						<span class="spinner"><i class="fa fa-big fa-spin fa-refresh"></i></span>
 						</button>
 						</div>
 					</div>
@@ -101,6 +116,12 @@ $(document).ready( function() {
 	$('#select_week').change(function() {
 		window.location= "{{ url('/voteClassic') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
+
+	@foreach ($games as $game)
+		@if (isset($game->VOTED))
+			$('#p{{$game->PARTIE}}\\[{{$game->VOTED}}\\]').addClass('selected');
+		@endif
+	@endforeach
 });
 
 function select(elemn) {
@@ -110,21 +131,25 @@ function select(elemn) {
 	$(elemn).addClass('selected');
 }
 
-function voter () {
+function voter (butn) {
 	countTotal = $('.image-droite').length;
 	countSelect = $('.selected').length;
-	if (countTotal != countSelect)
+	var $this = $(butn);
+	if (countTotal != countSelect && false)
 	{
 		alert (countSelect + '/' + countTotal); 
 	}
 	else
-	{
-		
+	{    
+		$this.toggleClass('active');
+				
 		listeSelect = JSON.stringify($( ".selected" ).map(function() { return this.id; }).get());
-		//console.log(listeSelect);
+		console.log(listeSelect);
 
 		$.post('vote', {action: 'submit', typePool: 'poolClassic', poolCourant: <?=$poolCourant?> , semaineCourante: <?=$semaineCourante?> , _token:tokenMobile, votes: listeSelect}, function(data){
 			$(document.body).html(data);
+			window.scrollTo(0,0); 
+			$this.toggleClass('active');
 		});
 	}
 }
