@@ -237,7 +237,7 @@ input[type="file" i].active
 
 .image .imgEven
 {
-	border: 5px solid #333333;
+	border: 5px solid #ffffff;
 }
 
 .image-gauche:hover, .image-gauche:active, .image-gauche.hover, .image-gauche.active,

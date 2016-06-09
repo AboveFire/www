@@ -120,7 +120,6 @@ function voter(elemn) {
 		$('.image').removeClass('selected');
 		$('.image').removeClass('selectedBD');
 		$(elemn).addClass('selected');
-		$(elemn).addClass('selectedBD');
 	}
 }
 function send(elemn){
