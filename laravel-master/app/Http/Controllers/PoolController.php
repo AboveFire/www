@@ -9,6 +9,8 @@ use Auth;
 use DB;
 use View;
 use Illuminate\Routing\Controller as BaseController;
+use Log;
+use DateTime;
 
 class PoolController extends BaseController {
 	
@@ -40,9 +42,10 @@ class PoolController extends BaseController {
 	{
 		return DB::table ( 'partie_equipe_peq' )
 					->join ( 'vote_vot', 'vot_peq_seqnc', '=', 'peq_seqnc' )
-					->select ('PEQ_PAR_SEQNC', 'PEQ_SEQNC')
+					->select ('PEQ_PAR_SEQNC', 'PEQ_SEQNC', 'VOT_DATE')
 					->where ('vot_poo_seqnc', $pool)
 					->where ('vot_uti_seqnc', $utils)
+					->orderBy ('vot_date')
 					->get();
 	}
 	
@@ -64,6 +67,31 @@ class PoolController extends BaseController {
 		->where("SEM.SEM_NUMR", $semaineCourante)
 		->orderBy('PAR_DATE')
 		->get();
+	}
+	
+	private function obtenGamesVoted ($pool, $games, $utils)
+	{
+		$gamesVoted = $this::obtenPartiesPoolUtils($utils, $pool);
+		$revoted = false;
+		
+		for ($i = 0; $i < sizeof($games); $i++)
+		{
+			for ($j = 0; $j < sizeof($gamesVoted); $j++)
+			{
+				if($gamesVoted[$j]->PEQ_PAR_SEQNC == $games[$i]->PARTIE)
+				{
+					if(isset($games[$i]->VOTE))
+					{
+						$revoted = true;
+						$games[$i]->REVOTED = 'O';
+					}
+					$games[$i]->VOTE = $gamesVoted[$j]->PEQ_SEQNC;
+					$games[$i]->DATE_VOTE = $gamesVoted[$j]->VOT_DATE;
+				}
+			}
+		}
+
+		return $games;
 	}
 	
 	private function obtenSemaines($saisonCourante)
@@ -398,6 +426,7 @@ class PoolController extends BaseController {
 		$semCour = $request ['semaineCourante'];
 		$pools = $this::obtenPoolsSelonType('poolClassic', Auth::user()->UTI_SEQNC);
 		$semas = $this::obtenSemaines($this::obtenCurrentSeason());
+		$revoted = false;
 			
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
@@ -407,29 +436,9 @@ class PoolController extends BaseController {
 			$semCour = $semas [0]->SEM_NUMR;
 		}
 		
-		$games = $this::obtenGames($semCour);
+		$games = $this::obtenGamesVoted($courn, $this::obtenGames($semCour), Auth::user()->UTI_SEQNC);
 		
-		$gamesVoted = $this::obtenPartiesPoolUtils(Auth::user()->UTI_SEQNC, $courn);
-		
-		for ($i = 0; $i < sizeof($games); $i++)
-		{
-			$ok = false;
-			foreach ($gamesVoted as $gameVoted)
-			{
-				if(!$ok)
-				{
-					if($gameVoted->PEQ_PAR_SEQNC == $games[$i]->PARTIE)
-					{
-						$games[$i]->VOTED = $gameVoted->PEQ_SEQNC;
-						$ok = true;
-					}
-					else 
-					{
-						$games[$i]->VOTED = 'N';
-					}
-				}
-			}
-		}
+		$games = $this::valideDroitVoteClassic($games);
 		
 		return View::make ( '/pool/classic/vote', array (
 				'pools' => $pools,
@@ -449,8 +458,8 @@ class PoolController extends BaseController {
 				'contn' => trans('general.success')
 		);
 		
+		$partiesServeur = $this::obtenGamesVoted($courn, $this::obtenGames($semCour), Auth::user()->UTI_SEQNC);
 		
-		$partiesServeur = array_column($this::obtenGames($semCour), "PARTIE");
 		$partiesVotes = array();
 		
 		$votes = json_decode($request['votes']);
@@ -461,7 +470,7 @@ class PoolController extends BaseController {
 		}
 
 		//if ($partiesServeur !== $partiesVotes)
-		if (count(array_intersect($partiesVotes, $partiesServeur)) != count($partiesVotes))
+		if (count(array_intersect($partiesVotes, array_column($partiesServeur, "PARTIE"))) != count($partiesVotes))
 		{
 			$messageRetour = array('type' => 'error',
 					'contn' => trans('pool.err_vote_classic')
@@ -618,6 +627,66 @@ class PoolController extends BaseController {
 		}
 	
 		return $stats;
+	}
+	
+	private function valideDroitVoteClassic ($games)
+	{
+		$datePartie = null;
+		$blockChange = false;
+		$timeZone = new \DateTimeZone('America/Montreal');
+		$now = new DateTime ('now', $timeZone);
+		$first = null;
+		$revoteUsed = false;
+		
+		for ($i = 0; $i < sizeof($games); $i++)
+		{
+			$canVote = false;
+			if (isset($games[$i]->PARTIE))
+			{
+				$datePartie = new DateTime($games[$i]->DATE, $timeZone);
+				
+				if($datePartie > $now && !$blockChange)
+				{
+					$canVote = true;
+				}
+				else
+				{
+					$jourPartie = $datePartie->format('N');
+					if (($jourPartie == '6' or $jourPartie == '7'))
+					{
+						if($first == null)
+						{
+							$first = $datePartie;
+							$blockChange = true;
+						}
+						
+						if (isset($games[$i]->REVOTED) && $games[$i]->REVOTED == 'O' && (new DateTime ($games[$i]->DATE_VOTE, $timeZone)) > $first)
+						{
+							$revoteUsed = true;
+						}
+					}
+					
+					if($blockChange)
+					{
+						if (!$revoteUsed)
+						{
+							$canVote = true;
+						}
+					}
+				}
+			}
+			
+			if ($canVote)
+			{
+				$games[$i]->CAN_VOTE = 'O';
+			}
+			else 
+			{
+				$games[$i]->CAN_VOTE = 'N';
+			}
+		}
+		
+		return $games;
 	}
 	
 	public function obtenStatsPoolPlayfMobile (Request $request){

@@ -12,7 +12,6 @@
 </script>
 <div class="container">
     <div id="image" class="image">
-              
 	</div>
 </div>
 @endsection
