@@ -28,5 +28,10 @@ return [
 		'err_vote_playoff' => 'Votre vote n\'a pas été accepté, car vous avez le mauvais nombre de multiplicateur :multpx. Il doit y avoir 2 instances de chaque multiplicateur.',
 		'noPlayoff' => 'Les équipes qualifiées pour les playoffs n\'ont pas encore été déterminées!',
 		'err_vote_classic' => 'Vos votes n\'ont pas été acceptés. Veuillez vérifier que vous avez voté pour tous les matchs.',
+		'err_vote_survivor' => "L'équipe n'est pas choisie.",
+		'err_vote_survivor2' => 'La période de vote est finie',
+		'err_vote_survivor3' => 'Une erreur est survenue.',
+		'alive' => 'Les survivants',
+		'dead' => 'Les morts',
 ]
 ;

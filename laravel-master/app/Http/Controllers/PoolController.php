@@ -823,8 +823,8 @@ class PoolController extends BaseController {
 		return $winning;
 	}
 	
-	public function checkPoolSurvivorUserAlive(){
-		$pool = 5;
+	public function checkPoolSurvivorUserAlive($pool){
+		//$pool = 5;
 		$alive = [];
 		//$present = [];
 		$weeks = DB::select("SELECT * FROM `semaine_sem`, vote_vot WHERE sem_date_fin < NOW() and vot_poo_seqnc = ? and sem_seqnc in (SELECT par_sem_seqnc from partie_par, partie_equipe_peq where par_seqnc = peq_par_seqnc and peq_seqnc = vot_peq_seqnc);", [$pool]);
@@ -953,14 +953,18 @@ class PoolController extends BaseController {
 		$partie = $request['partie'];
 		$messageRetour = "success";
 		//$e = "SEQNC : " . Auth::user ()->UTI_SEQNC . " pool : " . $request['poolCourant'] . " week : " . $request['semaine'];
-		
-		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
-		foreach ($e as $value){
-			DB::table("vote_vot")->where("VOT_SEQNC",$value->VOT_SEQNC)->delete();
+		$semaine = DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0];
+		if(strtotime($semaine->SEM_DATE_DEBUT) > strtotime(date('Y-m-d H:i:s'))){
+			$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], $semaine->SEM_SEQNC);
+			foreach ($e as $value){
+				DB::table("vote_vot")->where("VOT_SEQNC",$value->VOT_SEQNC)->delete();
+			}
+			$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $this->obtenPartieEquipe($request['partie'], $this->obtenTeamDeCode($request['team'])));
+			
+			return "success";
+		}else{
+			return "time";
 		}
-		$this::ajoutVote ($courn, Auth::user()->UTI_SEQNC, $this->obtenPartieEquipe($request['partie'], $this->obtenTeamDeCode($request['team'])));
-		
-		return "success";
 	}
 	
 	public function getVoteOnWeek($util, $poo, $week){
@@ -1024,7 +1028,7 @@ class PoolController extends BaseController {
 		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
 		foreach ($e as $value){
 			$temp = DB::table("partie_equipe_peq")
-			->join("equipe_eqp","PEQ_EQP_SEQNC","=", "EQP_SEQNC")->select("EQP_CODE as code","PEQ_EQP_SEQNC as seqnc")->where("PEQ_SEQNC",$value->VOT_PEQ_SEQNC)->get()[0];
+			->join("equipe_eqp","PEQ_EQP_SEQNC","=", "EQP_SEQNC")->select("EQP_CODE as code","PEQ_PAR_SEQNC as seqnc")->where("PEQ_SEQNC",$value->VOT_PEQ_SEQNC)->get()[0];
 			$value->CODE = $temp->code;
 			$value->PARTIE = $temp->seqnc;
 		}

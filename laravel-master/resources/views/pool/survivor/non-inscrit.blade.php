@@ -50,47 +50,69 @@
 				<thead>
 					<tr>
 						<th>{{ trans('general.user') }}</th>
-						<th>{{ trans('pool.label_score') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($scores as $key => $score)
+						@if ($score["week"] == -1)
+							@if ($score["seqnc"] == Auth::user()->UTI_SEQNC)
+							<tr class="user_courant">
+							@else
+							<tr>
+							@endif
+								<td>{{ $score["code"] }}</td>
+							</tr>
+						@endif
+					@endforeach
+				</tbody>
+			</table>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{ trans('general.user') }}</th>
 						<th>{{ trans('pool.rank') }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($scores as $score)
-						@if ($score["utils"] == Auth::user()->UTI_SEQNC)
-						<tr class="user_courant">
-						@else
-						<tr>
+					<?php $counter = 1 ?>
+					@foreach($scores as $key => $score)
+						@if ($score["week"] != -1)
+							@if ($score["seqnc"] == Auth::user()->UTI_SEQNC)
+							<tr class="user_courant">
+							@else
+							<tr>
+							@endif
+								<td>{{ $score["code"] }}</td>
+								<td>{{ $counter }}</td>
+							</tr>
+							<?php $counter++ ?>
 						@endif
-							<td>{{ $score["nom"] }}</td>
-							<td>{{ $score["score"] }}</td>
-							<td>{{ $score["rang"] }}</td>
-						</tr>
 					@endforeach
 				</tbody>
 			</table>
 		</div>
 		<div class="parties col-md-6">
 			@if ($partie_precd != null)
-			<div class="precedente">
+			<div class="precedente col-md-12">
 				<h2>{{ trans ('pool.partiePrec') }}</h2>
 				<div class="images">
-					<div class="image col-md-2">
+					<div class="image col-md-6">
 						<img src="{{ $partie_precd['image2'] }}" alt="image" class="imgWin">
 					</div>
-					<div class="image col-md-2">
+					<div class="image col-md-6">
 						<img src="{{ $partie_precd['image1'] }}" alt="image" class="imgLose">
 					</div>
 				</div>
 			</div>
 			@endif
 			@if ($partie_suivt != null)
-			<div class="suivante">
+			<div class="suivante col-md-12">
 				<h2>{{ trans ('pool.partieSuiv') }}</h2>
 				<div class="images">
-					<div class="image col-md-2">
+					<div class="image col-md-6">
 						<img src="{{ $partie_suivt['image2'] }}" alt="image" class="imgEven">
 					</div>
-					<div class="image col-md-2">
+					<div class="image col-md-6">
 						<img src="{{ $partie_suivt['image1'] }}" alt="image" class="imgEven">
 					</div>
 				</div>

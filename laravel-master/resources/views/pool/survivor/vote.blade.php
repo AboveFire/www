@@ -74,13 +74,15 @@
                     <hr>
 					<div class="form-group">
 						<div class="col-md-6 col-butn">
-							<button onclick="location.href='{{ url('/results-playoff') }}'" type="button" class="butn btn-width-100">
-								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
+							<button onclick="resetChoice(this);setMessage('{{ trans('general.success') }}');" type="button" class="butn btn-width-100 has-spinner">
+								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }} &nbsp;
+    						<span class="spinner"><i class="fa fa-big fa-spin fa-refresh"></i></span>
 							</button>
 						</div>
 						<div class="col-md-6 col-butn">
-							<button onclick="send(this);" type="button" class="butn btn-width-100">
-							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
+							<button onclick="send(this);" type="button" class="butn btn-width-100 has-spinner">
+							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }} &nbsp;
+    						<span class="spinner"><i class="fa fa-big fa-spin fa-refresh"></i></span>
 						</button>
 						</div>
 					</div>
@@ -96,6 +98,8 @@
 var tokenMobile = "{{ csrf_token() }}";
 var partie;
 var team;
+var disabled;
+
 $(document).ready( function() {
 	$('#selectPool').change(function() {
 		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val();
@@ -104,27 +108,66 @@ $(document).ready( function() {
 		window.location= "{{ url('/voteSurvivor') }}?poolCourant=" + $('#selectPool').val() + "&semaineCourante=" + $('#select_week').val();
 	});
 	resetChoice();
+
+	if ( (new Date("{{$games[0]->DATE}}")).getTime() < (new Date()).getTime()){
+		disabled = true;
+	}
 });
 function voter(elemn) {
-	partie = elemn.id.substring(1, elemn.id.indexOf("["));
-	team = elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]"));
-	$('.image').removeClass('selected');
-	$(elemn).addClass('selected');
+	if (!disabled){
+		partie = elemn.id.substring(1, elemn.id.indexOf("["));
+		team = elemn.id.substring(elemn.id.indexOf("[") + 1, elemn.id.indexOf("]"));
+		$('.image').removeClass('selected');
+		$('.image').removeClass('selectedBD');
+		$(elemn).addClass('selected');
+		$(elemn).addClass('selectedBD');
+	}
 }
 function send(elemn){
 	if($('.selected')[0] != undefined){
+		$(elemn).addClass('active');
 		$.post("vote", {poolCourant: {{ $poolCourant }}, partie: partie, team: team, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
-			
+			$(elemn).removeClass('active');
+			window.scrollTo(0,0);
+			if(data == "time"){
+				setMessage("{{ trans('pool.err_vote_survivor2') }}", "error");
+			}else if(data == "success"){
+				setMessage("{{ trans('general.success') }}");
+			}else{
+				setMessage("{{ trans('pool.err_vote_survivor3') }}", "error");
+			}
 		});
+	}else{
+		setMessage("{{ trans('pool.err_vote_survivor') }}", "error");
+		window.scrollTo(0,0);
 	}
 }
-function resetChoice(){
+function resetChoice(elemn){
+	$(elemn).addClass('active');
 	$.post("getChoicesPerWeek", {poolCourant: {{ $poolCourant }}, semaine: {{ $semaineCourante }}, _token:tokenMobile}, function(data){
 		$temp = JSON.parse(data);
 		if($temp[0] != undefined){
-			$("#p" . $temp[0]["PARTIE"] + "[" + $temp[0]["CODE"] + "]").addClass("selected");
+			$('.image').removeClass('selected');
+			$('.image').removeClass('selectedBD');
+			$("#p" + $temp[0]["PARTIE"] + "\\[" + $temp[0]["CODE"] + "\\]").addClass("selected");
+			$("#p" + $temp[0]["PARTIE"] + "\\[" + $temp[0]["CODE"] + "\\]").addClass("selectedBD");
+			partie = $temp[0]["PARTIE"];
+			team = $temp[0]["CODE"];
 		}
+		window.scrollTo(0,0);
+		$(elemn).removeClass('active');
 	});
+}
+
+function setMessage(message,type){
+	if(type == "error"){
+		$retour = "<div class=\"alert alert-danger\">" + message + "</div>";
+	}else{
+		$retour = "<div class=\"alert alert-success\">" + message + "</div>";
+	}
+	$(".alert-success").remove();
+	$(".alert-danger").remove();
+	$(".container").prepend($retour);
 }
 </script>
 @endsection
