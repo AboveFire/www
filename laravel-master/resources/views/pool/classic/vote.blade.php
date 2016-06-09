@@ -128,18 +128,6 @@ $(document).ready( function() {
 		?>
 				$('#p{{$game->PARTIE}}\\[{{$game->VOTE}}\\]').addClass('selectedBD');
 		<?php 
-				if ($game->VOTE == $game->PARTIE_EQUIPE_VISITEUR) 
-				{
-					?>
-							$('#p{{$game->PARTIE}}\\[{{$game->PARTIE_EQUIPE_HOME}}\\]').addClass('notSelectedBD');
-					<?php 
-				}
-				else 
-				{
-					?>
-							$('#p{{$game->PARTIE}}\\[{{$game->PARTIE_EQUIPE_VISITEUR}}\\]').addClass('notSelectedBD');
-					<?php 
-				}
 			}
 		}
 	}
@@ -166,7 +154,6 @@ function voter (butn) {
 		$this.addClass('active');
 				
 		listeSelect = JSON.stringify($( ".selected" ).map(function() { return this.id; }).get());
-		console.log(listeSelect);
 
 		$.post('vote', {action: 'submit', typePool: 'poolClassic', poolCourant: <?=$poolCourant?> , semaineCourante: <?=$semaineCourante?> , _token:tokenMobile, votes: listeSelect}, function(data){
 			$(document.body).html(data);

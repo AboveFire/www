@@ -12,7 +12,7 @@
 	</div>
 	@endif
 	<div class="panel-heading"><i class="fa fa-cog big-fa"></i></div>
-	<form class="form-horizontal" role="form" method="POST" action="{{ url('/param/save') }}" enctype="multipart/form-data">
+	<form id="form" class="form-horizontal" role="form" method="POST" action="{{ url('/param/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 		<div class="ligne">
 			<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
@@ -67,8 +67,9 @@
 					<button onclick="location.href='{{ url('/param') }}'" type="button" class="butn btn-width-50">
 						<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
 					</button>
-					<button type="submit" class="butn btn-width-50">
+					<button type="button" onclick="save(this);" class="butn btn-width-50 has-spinner">
 						<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
+    					<span class="spinner"><i class="fa fa-spin fa-refresh"></i></span>
 					</button>
 				</div>
 			</div>
@@ -91,5 +92,12 @@
 <script type="text/javascript">
 	$({{ Auth::user()->UTI_COULR}}).attr("selected", "selected");
 	$({{ Auth::user()->getLangue()}}).attr("selected", "selected");
+
+	function save (butn) {
+		var $this = $(butn);
+		$this.addClass('active');
+
+		$('#form').submit();
+	}
 </script>
 @endsection

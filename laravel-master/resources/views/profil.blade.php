@@ -12,7 +12,7 @@
 	</div>
 	@endif
 	<hr>
-		<form class="form" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
+		<form id="form" class="form" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
 						<input type="hidden" name="seqnc" value="{{ Auth::user()->UTI_SEQNC }}"> 
 						@if ($errors->has('seqnc')) 
@@ -128,8 +128,9 @@
 						</button>
 					</div>
 					<div class="col-md-6 col-butn">
-						<button type="submit" class="butn btn-width-100">
+						<button type="button" onclick="save(this);" class="butn btn-width-100 has-spinner ">
 						<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
+    					<span class="spinner"><i class="fa fa-spin fa-refresh"></i></span>
 					</button>
 					</div>
 				</div>
@@ -137,5 +138,13 @@
 
 	<span class="image"></span>
 </div>
+<script type="text/javascript">
 
+	function save (butn) {
+		var $this = $(butn);
+		$this.addClass('active');
+
+		$('#form').submit();
+	}
+</script>
 @endsection

@@ -15,6 +15,7 @@ return [
 		'select_multp' => '- Choisissez un multiplicateur -',
 		'butn_inscr' => 'Inscription',
 		'butn_vote' => 'Voter',
+		'butn_reset_vote' => 'Réinitialiser mes votes',
 		'butn_see' => 'Consulter le pool',
 		'text_nonInscr' => 'Vous n\'êtes pas encore inscrit au :pool. Cliquez sur le bouton « Inscription » pour vous y joindre.',
 		'text_aucunPool' => 'Il n\'y a aucun :pool existant.',

@@ -79,7 +79,7 @@ class AdminController extends Controller
     	} catch(\Illuminate\Database\QueryException $e){
     		return back()-> with('error', trans('admin.erreur_saison'));
     	}
-    	DB::table('utilisateur_pool_utp')->insert(['UTP_UTI_SEQNC' => $request ['seqnc'],'UTP_POO_SEQNC' => $pool]);
+    	//DB::table('utilisateur_pool_utp')->insert(['UTP_UTI_SEQNC' => $request ['seqnc'],'UTP_POO_SEQNC' => $pool]);
     	
     	return back()->with('status', trans('admin.success_createPool', [
     			'nom' => $request ['nom'],

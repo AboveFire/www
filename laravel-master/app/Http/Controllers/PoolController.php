@@ -287,7 +287,8 @@ class PoolController extends BaseController {
 							 where peq_seqnc = vot_peq_seqnc
 							   and par_seqnc = ?
 							   and vot_uti_seqnc = ?
-							   and vot_poo_seqnc = ?',
+							   and vot_poo_seqnc = ?
+							 order by vot_date desc',
 				[$partie,$partie,$partie,$partie,$partie,$partie,$utils,$pool,])[0]->score;
 	}
 
@@ -821,6 +822,17 @@ class PoolController extends BaseController {
 	}
 	
 	/*****************************************************************/
+	public function getChoicesPerWeek(Request $request){
+		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
+		foreach ($e as $value){
+			$temp = DB::table("partie_equipe_peq")
+			->join("equipe_eqp","PEQ_EQP_SEQNC","=", "EQP_SEQNC")->select("EQP_CODE as code","PEQ_EQP_SEQNC as seqnc")->where("PEQ_SEQNC",$value->VOT_PEQ_SEQNC)->get()[0];
+			$value->CODE = $temp->code;
+			$value->PARTIE = $temp->seqnc;
+		}
+		return json_encode($e);
+	}
+	
 	private function obtenPointsVoteSurvr ($utils, $pool, $partie)
 	{
 		return DB::select('select case
@@ -1089,14 +1101,19 @@ class PoolController extends BaseController {
 		return back()->with($messageRetour['type'], $messageRetour['contn']);
 	}
 	
-	public function getChoicesPerWeek(Request $request){
-		$e = $this->getVoteOnWeek(Auth::user ()->UTI_SEQNC,$request['poolCourant'], DB::table("semaine_sem")->where("SEM_NUMR", $request['semaine'])->where("SEM_SAI_SEQNC", $this::obtenCurrentSeason())->get()[0]->SEM_SEQNC);
-		foreach ($e as $value){
-			$temp = DB::table("partie_equipe_peq")
-			->join("equipe_eqp","PEQ_EQP_SEQNC","=", "EQP_SEQNC")->select("EQP_CODE as code","PEQ_EQP_SEQNC as seqnc")->where("PEQ_SEQNC",$value->VOT_PEQ_SEQNC)->get()[0];
-			$value->CODE = $temp->code;
-			$value->PARTIE = $temp->seqnc;
+	public function resetVotes (Request $request)
+	{
+		$courn = $request['poolCourant'];
+
+		if (false){
+			return back()->with('error', trans('general.success'));
 		}
-		return json_encode($e);
+		
+		DB::table('vote_vot')
+			->where('vot_uti_seqnc', '=', Auth::user()->UTI_SEQNC)
+			->where('vot_poo_seqnc', '=', $courn)
+			->delete();
+		
+		return back()->with('status', trans('general.success'));
 	}
 }

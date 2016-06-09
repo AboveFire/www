@@ -53,8 +53,19 @@
 	display: block;
 }	
 
+#butnResetVotes
+{
+	margin-left: 0;	
+}
+
+
 @media (min-width: 768px)
 {
+	#butnResetVotes
+	{
+		margin-left: 25%;	
+	}
+	
 	.selectMultp
 	{
 		width: 100%;

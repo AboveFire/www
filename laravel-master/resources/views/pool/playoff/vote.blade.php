@@ -30,11 +30,11 @@
 						<select id="selectPool" class="form-control" name="pool">
 							<option disabled>{{ trans('pool.select_pool') }}</option>
 								@foreach($pools as $pool)
-									@if ($pool->POO_SEQNC == $poolCourant)
-							    <option value="{{$pool->POO_SEQNC}}" selected>{{ $pool->POO_NOM }}</option>
-									@else
-							    <option value="{{$pool->POO_SEQNC}}">{{ $pool->POO_NOM }}</option>
+								    <option value="{{$pool->POO_SEQNC}}" 
+								    @if ($pool->POO_SEQNC == $poolCourant) 
+								    selected
 								    @endif
+								    >{{ $pool->POO_NOM }}</option>
 								@endforeach
 						</select>
 					</div>
@@ -72,8 +72,8 @@
 					</div>
                     <!-- Zone de boutons -->
                     <hr>
-                    @if ($voteActif and (sizeof($teams) > 0))
 					<div class="form-group">
+                    	@if ($voteActif and (sizeof($teams) > 0))
 						<div class="col-md-6 col-butn">
 							<button onclick="location.href='{{ url('/votePlayoff') }}?poolCourant=<?=$poolCourant?>'" type="button" class="butn btn-width-100">
 								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
@@ -84,8 +84,16 @@
 							<i class="fa fa-btn fa-save"></i>{{ trans('general.butn_save') }}
 						</button>
 						</div>
+						@else
+						<div id="butnResetVotes" class="col-md-6 col-butn">
+							<button  type="button" onclick="resetVotes(this);" class="butn btn-width-100 has-spinner">
+							<i class="fa fa-btn fa-undo"></i>{{ trans('pool.butn_reset_vote') }} &nbsp;
+    						<span class="spinner"><i class="fa fa-spin fa-refresh"></i></span>
+						</button>
+						</div>
+						
+						@endif
 					</div>
-					@endif
 				</form> 
                 </div>
             </div>
@@ -114,5 +122,16 @@ for ($i = 0; $i < sizeof($teams); $i++)
 	}
 }
 ?>
+
+function resetVotes (butn) {
+	var $this = $(butn);
+	$this.addClass('active');
+
+	$.post('resetVotes', {action: 'submit', typePool: 'poolPlayoff', poolCourant: <?=$poolCourant?> ,  _token:tokenMobile}, function(data){
+		$(document.body).html(data);
+		window.scrollTo(0,0); 
+		$this.removeClass('active');
+	});
+}
 </script>
 @endsection

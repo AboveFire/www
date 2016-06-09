@@ -88,6 +88,9 @@ Route::get ('/voteSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@
 Route::post ('/inscription', ['middleware' => 'auth', 'uses' => 'PoolController@sinscrire']);
 
 Route::post ('/vote', ['middleware' => 'auth', 'uses' => 'PoolController@vote']);
+
+Route::post ('/resetVotes', ['middleware' => 'auth', 'uses' => 'PoolController@resetVotes']);
+
 Route::post ('/getChoicesPerWeek', ['middleware' => 'auth', 'uses' => 'PoolController@getChoicesPerWeek']);
 
 /*********************** RESULTS ***************************/
