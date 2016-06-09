@@ -4,13 +4,6 @@
 @endsection
 @section('content')
 <link type="text/css" rel="stylesheet" href="{{ URL::asset('css/pool_vote_classic.css') }}"></link>
-<style>
-.selectedBD
-{
-	border: 5px solid white;
-}
-</style>
-
 <div class="container">
 	@if (session('status'))
 	<div class="alert alert-success">
@@ -72,7 +65,7 @@
 									 @if ($game->CAN_VOTE == 'O') onclick="select(this);" @endif>
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
-									{{$game->DATE}}
+									{{substr($game->DATE, 0, strlen($game->DATE) - 3)}}
 									</div>
 									<div class="col-md-12">
 									(

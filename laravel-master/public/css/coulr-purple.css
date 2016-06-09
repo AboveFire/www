@@ -19,6 +19,11 @@ a.focus, a:focus
 	color: #914192;
 }
 
+.titre a:hover, .titre a, .titre a:active, .titre a:focus
+{
+	color: #FFFFFF;
+}
+
 .sidebar-nav > .sidebar-brand {
     color: #ffaec9;
 }
@@ -97,8 +102,10 @@ hr
 
 img
 {
-	border: 1px solid #000000;
+	border: 2px solid #000000;
 }
+
+
 .imageMenu:hover, .imageMenu:active, .imageMenu.hover, .imageMenu.active
 {
 	color: #A349A4;
@@ -208,7 +215,64 @@ input[type="file" i].active
     border-bottom: 2px solid #ffaec9;
 }
 
+/*Résultats et pools*/
+.black
+{
+	border-color: #888888;
+}
+
+.user_courant
+{
+	color: #FFFFFF;
+}
+
+.image .imgWin
+{
+	border: 5px solid #00a200;
+}
+
+.image .imgLose
+{
+	border: 5px solid #ca0000;
+}
+
+.image .imgEven
+{
+	border: 5px solid #333333;
+}
+
+.image-gauche:hover, .image-gauche:active, .image-gauche.hover, .image-gauche.active,
+.image-droite:hover, .image-droite:active, .image-droite.hover, .image-droite.active
+{
+	/*couleur 2*/
+	border: 5px solid #914192;
+}
+
 .selected
 {
-	border: 5px solid #ffaec9;
+	border: 5px solid #F6C113;
+}
+
+.selectedBD
+{
+	padding: 5px 5px 5px 5px !important;
+    background: #F6C113;
+    border: 5px solid #000000;
+}
+
+.notSelectedBD
+{
+	border: 2px solid #000000;
+}
+
+.selectedBD:hover, .selectedBD:active, .selectedBD.hover, .selectedBD.active
+{
+	padding: 5px 5px 5px 5px !important;
+    background: #F6C113;
+    border: 5px solid #000000;
+}
+
+.notSelectedBD:hover, .notSelectedBD:active, .notSelectedBD.hover, .notSelectedBD.active
+{
+	border: 2px solid #000000 !important;
 }

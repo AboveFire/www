@@ -53,7 +53,7 @@
 								<img onclick="voter(this);" id="p{{$game->PARTIE}}[{{$game->EQUIPE1}}]" src="{{{ asset('images/teams/' . $game->EQUIPE1 . '.png') }}}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-4 image image-gauche p{{$game->PARTIE}}">
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
-									{{$game->DATE}}
+									{{substr($game->DATE, 0, strlen($game->DATE) - 3)}}
 									</div>
 									<div class="col-md-12">
 									(
