@@ -30,7 +30,7 @@ return [
 		'noPlayoff' => 'The teams qualified for the playoffs have not been determined yet!',
 		'err_vote_classic' => 'Your votes were not accepted. Please check that you have voted for each match.',
 		'err_vote_survivor' => 'The team is not selected.',
-		'err_vote_survivor2' => 'The voting time as ended.',
+		'err_vote_survivor2' => 'Your action was denied because the voting time has ended.',
 		'err_vote_survivor3' => 'An error as occured.',
 		'alive' => 'Alive',
 		'dead' => 'Dead',
