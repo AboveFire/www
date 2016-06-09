@@ -295,11 +295,19 @@ class PoolController extends BaseController {
 	private function obtenScorePoolClasq ($utils, $pool)
 	{
 		$parties = $this::obtenPartiesPoolUtils($utils, $pool);
+		$partiesClean = [];
+		foreach($parties as $partie){
+			$partiesClean[] = $partie->PEQ_PAR_SEQNC;
+		}
+		$partiesWeek = DB::table("partie_par")->join("semaine_sem","PAR_SEM_SEQNC","=","SEM_SEQNC")->where("SEM_DATE_FIN","<",date('Y-m-d H:i:s'))->get();
 		$score = 0;
-	
-		foreach ($parties as $partie)
+		foreach ($partiesWeek as $partie)
 		{
-			$score += $this::obtenPointsVoteClasq ($utils, $pool, $partie->PEQ_PAR_SEQNC);
+			if(in_array($partie->PAR_SEQNC, $partiesClean)){
+				$score += $this::obtenPointsVoteClasq ($utils, $pool, $partie->PAR_SEQNC);
+			}else{
+				$score += 0.5;
+			}
 		}
 	
 		return $score;
@@ -312,9 +320,10 @@ class PoolController extends BaseController {
 			
 		foreach ($users as $user )
 		{
+			$tempScore = $this::obtenScorePoolClasq($user->UTI_SEQNC, $pool);
 			$stat = array ("utils" => $user->UTI_SEQNC,
 					"nom" => $user->UTI_CODE,
-					"score" => $this::obtenScorePoolClasq($user->UTI_SEQNC, $pool),
+					"score" => $tempScore,
 					"rang" => 1,
 			);
 			array_push ($stats, $stat);
