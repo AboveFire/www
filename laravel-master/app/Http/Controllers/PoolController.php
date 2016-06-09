@@ -968,7 +968,7 @@ class PoolController extends BaseController {
 	}
 	
 	public function obtenStatsPoolSurvrMobile (Request $request){
-		return json_encode(array($this->obtenStatsPoolSurvr($request["pool"])));
+		return json_encode($this->obtenStatsPoolSurvr($request["pool"]));
 	}
 	
 	public function getPoolSurvivor(Request $request)
