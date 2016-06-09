@@ -17,5 +17,7 @@
 		{{ trans('about.disclaimer2') }}
 	</p>
 	<p>{{ trans('about.moreInfo') }} <a href="samuel.dansereau@outlook.com" target="_top">samuel.dansereau@outlook.com</a>.</p>
+	<p><a href="{{ asset('docx/rules.docx') }}" target="_blank">{{ trans('about.rules')}}</a></p> 
+	<p><a href="{{ asset('apk/LivePool.apk') }}" target="_blank">{{ trans('about.apk')}}</a> </p>
 </div>
 @endsection

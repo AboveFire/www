@@ -69,6 +69,12 @@ Route::get('/about', function () {
 	return view('about');
 });
 
+Route::get('/rules', function () {
+	return Response::download(asset('docx/rules.docx'), 'rules.docx', [
+            'Content-Length: '. filesize(asset('docx/rules.docx'))
+        ]);
+});
+
 
 /********************** POOLS **********************/
 // REQUÊTES GET
