@@ -246,18 +246,23 @@ input[type="file" i].active
 	border: 5px solid #a9a9a9;
 }
 
-.selected
+.selected 
 {
-	border: 5px solid #F6C113;
+	border: 5px solid #B3B3B3;
 }
 
 .selectedBD
 {
-	padding: 5px 5px 5px 5px !important;
-    background: #F6C113;
     border: 5px solid #000000;
 }
 
+.selected.selectedBD
+{
+	padding: 5px 5px 5px 5px !important;
+    background: #B3B3B3;
+    border: 5px solid #000000;
+}
+/*
 .notSelectedBD
 {
 	border: 2px solid #000000;
@@ -273,4 +278,4 @@ input[type="file" i].active
 .notSelectedBD:hover, .notSelectedBD:active, .notSelectedBD.hover, .notSelectedBD.active
 {
 	border: 2px solid #000000 !important;
-}
+}*/
