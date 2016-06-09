@@ -47,10 +47,6 @@
 	width: 50%;
 }
 
-.user_courant
-{
-	color: #FFFFFF;
-}
 /* Parties */
 
 .parties h2
@@ -92,6 +88,11 @@
 	width: 75%;    
 }
 
+/*.user_courant
+{
+	color: #FFFFFF;
+}
+
 .image .imgWin
 {
 	border-color: #00a200;
@@ -104,8 +105,8 @@
 
 .image .imgEven
 {
-	border-color: white;	
-}
+	border-color: #FFFFFF;	
+}*/
 
 .milieu .parties .butn_vote button
 {

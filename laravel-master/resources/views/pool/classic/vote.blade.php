@@ -65,7 +65,7 @@
 									 @if (!isset($games[$i]->VOTED) || $games[$i]->VOTED == 'N') onclick="select(this);" @endif>
 								<div class="col-md-4 date-cote">
 									<div class="col-md-12">
-									{{$games[$i]->DATE}}
+									{{substr($games[$i]->DATE, 0, strlen($games[$i]->DATE) - 3)}}
 									</div>
 									<div class="col-md-12">
 									(
