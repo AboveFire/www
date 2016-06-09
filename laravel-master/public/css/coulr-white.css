@@ -213,12 +213,6 @@ input[type="file" i].active
     border-bottom: 2px solid #969696;
 }
 
-.selected
-{
-	border: 5px solid #969696;
-}
-
-
 /*Résultats et pools*/
 .black
 {
@@ -250,4 +244,33 @@ input[type="file" i].active
 {
 	/*couleur 2*/
 	border: 5px solid #a9a9a9;
+}
+
+.selected
+{
+	border: 5px solid #F6C113;
+}
+
+.selectedBD
+{
+	padding: 5px 5px 5px 5px !important;
+    background: #F6C113;
+    border: 5px solid #000000;
+}
+
+.notSelectedBD
+{
+	border: 2px solid #000000;
+}
+
+.selectedBD:hover, .selectedBD:active, .selectedBD.hover, .selectedBD.active
+{
+	padding: 5px 5px 5px 5px !important;
+    background: #F6C113;
+    border: 5px solid #000000;
+}
+
+.notSelectedBD:hover, .notSelectedBD:active, .notSelectedBD.hover, .notSelectedBD.active
+{
+	border: 2px solid #000000 !important;
 }
