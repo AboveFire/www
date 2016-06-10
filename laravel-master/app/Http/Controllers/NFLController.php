@@ -6,15 +6,128 @@ use Illuminate\Routing\Controller as BaseController;
 use DateTime;
 use DateTimeZone;
 use DB;
+use Schema;
 
 class NFLController extends BaseController
 {
-	public function test()
+	public function obtenStep()
+	{
+		return DB::select ('select step from demo where nom =  "STAT"')[0]->step;
+	}
+	
+	public function demo0()
+	{
+		if(Schema::hasTable('demo'))
+		{
+			DB::insert('insert into demo (nom) values (\'STAT\')');
+			dd('ok0');
+		}
+		else 
+		{
+			dd('create table pls');
+		}
+	}
+	
+	public function demo1 ()
+	{
+		if ($this->obtenStep() == 0)
+		{
+			DB::update('UPDATE saison_sai SET SAI_DATE_DEBUT = DATE_SUB(SAI_DATE_DEBUT, INTERVAL 4 MONTH), SAI_DATE_FIN = DATE_SUB(SAI_DATE_FIN, INTERVAL 4 MONTH)');
+			DB::update('UPDATE semaine_sem SET SEM_DATE_DEBUT = DATE_SUB(SEM_DATE_DEBUT, INTERVAL 4 MONTH), SEM_DATE_FIN = DATE_SUB(SEM_DATE_FIN, INTERVAL 4 MONTH)');
+			DB::update('UPDATE partie_par SET PAR_DATE = DATE_SUB(PAR_DATE, INTERVAL 4 MONTH), PAR_COTE = (FLOOR(RAND() * (10 - 0 + 1)) + 0)');
+			DB::update('UPDATE partie_equipe_peq SET PEQ_SCORE = (FLOOR(RAND() * (100 - 0 + 1)) + 0)');
+			DB::update('update demo set step = 1 where nom = "STAT"');
+			dd('ok1');
+		}
+		else
+		{
+			dd('1 = wrong step');
+		}
+	}
+	
+	public function demo2 ()
+	{
+		if ($this->obtenStep() == 1)
+		{
+			$seasonId = DB::table('saison_sai')->select('SAI_SEQNC')->orderBy('SAI_DATE_DEBUT', 'desc')->get()[0]->SAI_SEQNC;
+			DB::table('semaine_sem')->insert(['SEM_SEQNC' => 132, 'SEM_NUMR' => 22,'SEM_DATE_DEBUT' => '2016-06-19 08:30:00','SEM_DATE_FIN' => '2016-06-25 08:30:00','SEM_SAI_SEQNC' => $seasonId]);
+			
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 1000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-19 08:30:00']);
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 2000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-20 08:30:00']);
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 3000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-21 08:30:00']);
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 4000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-22 08:30:00']);
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 5000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-23 08:30:00']);
+			DB::table('partie_par')->insert(['PAR_SEQNC' => 6000, 'PAR_SEM_SEQNC' => 132,'PAR_DATE' => '2016-06-24 08:30:00']);
+			
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 1000, 'PEQ_PAR_SEQNC' => 1000,'PEQ_EQP_SEQNC' => 1, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 1001, 'PEQ_PAR_SEQNC' => 1000,'PEQ_EQP_SEQNC' => 2, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 2000, 'PEQ_PAR_SEQNC' => 2000,'PEQ_EQP_SEQNC' => 3, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 2001, 'PEQ_PAR_SEQNC' => 2000,'PEQ_EQP_SEQNC' => 4, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 3000, 'PEQ_PAR_SEQNC' => 3000,'PEQ_EQP_SEQNC' => 5, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 3001, 'PEQ_PAR_SEQNC' => 3000,'PEQ_EQP_SEQNC' => 6, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 4000, 'PEQ_PAR_SEQNC' => 4000,'PEQ_EQP_SEQNC' => 7, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 4001, 'PEQ_PAR_SEQNC' => 4000,'PEQ_EQP_SEQNC' => 8, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 5000, 'PEQ_PAR_SEQNC' => 5000,'PEQ_EQP_SEQNC' => 9, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 5001, 'PEQ_PAR_SEQNC' => 5000,'PEQ_EQP_SEQNC' => 10, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 6000, 'PEQ_PAR_SEQNC' => 6000,'PEQ_EQP_SEQNC' => 11, 'PEQ_INDIC_HOME' => 'O', 'PEQ_SCORE' => 0]);
+			DB::table('partie_equipe_peq')->insert(['PEQ_SEQNC' => 6001, 'PEQ_PAR_SEQNC' => 6000,'PEQ_EQP_SEQNC' => 12, 'PEQ_INDIC_HOME' => 'N', 'PEQ_SCORE' => 0]);
+			
+			DB::update('update demo set step = 2 where nom = "STAT"');
+			dd('ok2');
+		}
+		else
+		{
+			dd('2 = wrong step');
+		}
+		
+	}
+	
+	public function demo3 ()
+	{
+		if ($this->obtenStep() == 2)
+		{
+			$seasonId = DB::table('saison_sai')->select('SAI_SEQNC')->orderBy('SAI_DATE_DEBUT', 'desc')->get()[0]->SAI_SEQNC;
+			DB::update('update semaine_sem set SEM_DATE_DEBUT = DATE_SUB(SEM_DATE_DEBUT, INTERVAL 1 WEEK), SEM_DATE_FIN = DATE_SUB(SEM_DATE_FIN, INTERVAL 1 WEEK) where SEM_SEQNC = ?',
+				[132]);
+			DB::update('update partie_par set PAR_DATE = DATE_SUB(PAR_DATE, INTERVAL 1 WEEK) where PAR_SEM_SEQNC = ?',
+					[132]);
+			DB::update('UPDATE partie_equipe_peq SET PEQ_SCORE = (FLOOR(RAND() * (100 - 0 + 1)) + 0)');
+			DB::update('update demo set step = 3 where nom = "STAT"');
+			dd('ok3');
+		}
+		else
+		{
+			dd('3 = wrong step');
+		}
+		
+	}
+	
+	public function demoFin ()
+	{
+		if ($this->obtenStep() == 3)
+		{
+			DB::delete('delete from demo');
+			dd('okFin');
+		}
+		else
+		{
+			dd('Fin = wrong step');
+		}
+	}
+	
+	public function alimenterData()
 	{
 		ini_set('max_execution_time', 0);
 		$this->fillMatch();
 		ini_set('max_execution_time', 3000);
 	}
+	
 	public function testPOST()
 	{
 		$this->fillPlayOffs();

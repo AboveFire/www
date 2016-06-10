@@ -35,7 +35,7 @@ class PoolController extends BaseController {
 	}
 	
 	public function obtenCurrentSeason(){
-		return DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_DEBUT', '<=', date('Y-m-d H:i:s'))->where('SAI_DATE_FIN', '>=', date('Y-m-d H:i:s'))->get()[0]->SAI_SEQNC;
+		return DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_FIN', '>=', date('Y-m-d H:i:s'))->get()[0]->SAI_SEQNC;
 	}
 	
 	private function obtenPartiesPoolUtils ($utils, $pool)
@@ -508,7 +508,7 @@ class PoolController extends BaseController {
 					->join ( 'saison_sai', 'sem_sai_seqnc', '=', 'sai_seqnc' )
 					->join ( 'pool_poo', 'poo_sai_seqnc', '=', 'sai_seqnc' )
 					->select ( 'EQP_SEQNC', 'EQP_NOM', 'EQP_CODE' )
-					->where ( 'sem_numr', 1 )
+					->where ( 'sem_numr', 22 )
 					->where ( 'POO_SEQNC', $pool )
 					->take(12)
 					->get ();
@@ -541,7 +541,7 @@ class PoolController extends BaseController {
 					->join ( 'saison_sai', 'sem_sai_seqnc', '=', 'sai_seqnc' )
 					->join ( 'pool_poo', 'poo_sai_seqnc', '=', 'sai_seqnc' )
 					->select ( 'PEQ_SEQNC' )
-					->where ( 'sem_numr', 1 )
+					->where ( 'sem_numr', 22 )
 					->where ( 'peq_eqp_seqnc', $team )
 					->where ( 'POO_SEQNC', $pool )
 					->get ();

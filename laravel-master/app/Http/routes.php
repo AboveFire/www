@@ -29,6 +29,14 @@ Route::get('/',['middleware' => 'auth', function () {
 Route::auth();
 
 
+/********************** DÉMO **********************/
+Route::get('/demo0', 'NFLController@demo0');
+Route::get('/demo1', 'NFLController@demo1');
+Route::get('/demo2', 'NFLController@demo2');
+Route::get('/demo3', 'NFLController@demo3');
+Route::get('/demo4', 'NFLController@demoFin');
+
+
 /********************** PARAMÈTRES **********************/
 Route::get('/switchLangue', 'LangueController@switchLangue');
 
@@ -55,7 +63,7 @@ Route::get('/chat',['middleware' => 'auth', function () {
 
 
 /********************** DATA GENERATION **********************/
-Route::get('/test', 'NFLController@test');
+Route::get('/alimenterData', 'NFLController@alimenterData');
 Route::get('/testPOST', 'NFLController@testPOST');
 //Route::get('/test2', 'PoolController@obtenStatsPoolSurvr');
 //Normal route

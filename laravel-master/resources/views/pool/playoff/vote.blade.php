@@ -73,7 +73,8 @@
                     <!-- Zone de boutons -->
                     <hr>
 					<div class="form-group">
-                    	@if ($voteActif and (sizeof($teams) > 0))
+						@if ((sizeof($teams) > 0))
+                    	@if ($voteActif)
 						<div class="col-md-6 col-butn">
 							<button onclick="location.href='{{ url('/votePlayoff') }}?poolCourant=<?=$poolCourant?>'" type="button" class="butn btn-width-100">
 								<i class="fa fa-btn fa-times"></i>{{ trans('general.butn_cancel') }}
@@ -91,7 +92,7 @@
     						<span class="spinner"><i class="fa fa-spin fa-refresh"></i></span>
 						</button>
 						</div>
-						
+						@endif
 						@endif
 					</div>
 				</form> 
