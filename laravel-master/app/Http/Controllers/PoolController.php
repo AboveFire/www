@@ -1080,13 +1080,25 @@ class PoolController extends BaseController {
 			$codes = DB::table ( 'equipe_eqp' )
 						->join ( 'partie_equipe_peq', 'eqp_seqnc', '=', 'peq_eqp_seqnc' )
 					 	->join ( 'partie_par', 'par_seqnc', '=', 'peq_par_seqnc' )
-					 	->select ('EQP_CODE')
+					 	->select ('EQP_CODE', 'PEQ_SCORE')
 					 	->where ('par_seqnc', $partie[0]->PAR_SEQNC)
-					 	->orderBy('peq_score')
+					 	->orderBy('PEQ_INDIC_HOME', 'ASC')
 						->get();
-			
-			return array ('image1' => asset('images/teams/' . $codes[0]->EQP_CODE . '.png'),
-						  'image2' => asset('images/teams/' . $codes[1]->EQP_CODE . '.png'),
+			$classHome = "imgEven";
+			$classVisitor = "imgEven";
+			if($codes[0]->PEQ_SCORE > $codes[1]->PEQ_SCORE){
+				$classHome = "imgWin";
+				$classVisitor = "imgLose";
+			}elseif($codes[0]->PEQ_SCORE < $codes[1]->PEQ_SCORE){
+				$classHome = "imgLose";
+				$classVisitor = "imgWin";
+			}
+			return array (	'imageHome' => asset('images/teams/' . $codes[0]->EQP_CODE . '.png'),
+							'pointsHome' => $codes[0]->PEQ_SCORE,
+							'classHome' => $classHome,
+						  	'imageVisitor' => asset('images/teams/' . $codes[1]->EQP_CODE . '.png'),
+							'pointsVisitor' => $codes[1]->PEQ_SCORE,
+							'classVisitor' => $classVisitor,
 			);
 		}
 	}

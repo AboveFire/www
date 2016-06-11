@@ -95,12 +95,12 @@
 			@if ($partie_precd != null)
 			<div class="precedente col-md-12">
 				<h2>{{ trans ('pool.partiePrec') }}</h2>
-				<div class="images">
+					<div class="images">
 					<div class="image col-md-6">
-						<img src="{{ $partie_precd['image2'] }}" alt="image" class="imgWin">
+						<img src="{{ $partie_precd['imageHome'] }}" alt="image" class="{{ $partie_precd['classHome'] }}">
 					</div>
 					<div class="image col-md-6">
-						<img src="{{ $partie_precd['image1'] }}" alt="image" class="imgLose">
+						<img src="{{ $partie_precd['imageVisitor'] }}" alt="image" class="{{ $partie_precd['classVisitor'] }}">
 					</div>
 				</div>
 			</div>
@@ -110,10 +110,10 @@
 				<h2>{{ trans ('pool.partieSuiv') }}</h2>
 				<div class="images">
 					<div class="image col-md-6">
-						<img src="{{ $partie_suivt['image2'] }}" alt="image" class="imgEven">
+						<img src="{{ $partie_suivt['imageHome'] }}" alt="image" class="imgEven">
 					</div>
 					<div class="image col-md-6">
-						<img src="{{ $partie_suivt['image1'] }}" alt="image" class="imgEven">
+						<img src="{{ $partie_suivt['imageVisitor'] }}" alt="image" class="imgEven">
 					</div>
 				</div>
 			</div>
