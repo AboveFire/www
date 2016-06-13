@@ -35,7 +35,16 @@ class PoolController extends BaseController {
 	}
 	
 	public function obtenCurrentSeason(){
-		return DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_FIN', '>=', date('Y-m-d H:i:s'))->get()[0]->SAI_SEQNC;
+		$saison = DB::table('saison_sai')->select('SAI_SEQNC')->where('SAI_DATE_FIN', '>=', date('Y-m-d H:i:s'))->get();
+		
+		if(isset($saison[0]))
+		{
+			return $saison[0]->SAI_SEQNC;
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	private function obtenPartiesPoolUtils ($utils, $pool)
@@ -442,6 +451,13 @@ class PoolController extends BaseController {
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
+
+		if ($courn == null)
+		{
+			return View::make ( '/pool/classic/non-inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,)));
+		}
 		
 		if ($semCour == null and isset($semas[0])) {
 			$semCour = $semas [0]->SEM_NUMR;
@@ -757,6 +773,12 @@ class PoolController extends BaseController {
 		if ($courn == null and isset($pools[0])) {
 			$courn = $pools [0]->POO_SEQNC;
 		}
+		if ($courn == null)
+		{
+			return View::make ( '/pool/playoff/non-inscrit', array_merge (array (
+				'pools' => $pools,
+				'poolCourant' => $courn,)));
+		}
 		
 		$teams = $this::obtenTeamsPlayoff($courn);
 	
@@ -1021,6 +1043,13 @@ class PoolController extends BaseController {
 			$courn = $pools [0]->POO_SEQNC;
 		}
 	
+		if ($courn == null)
+		{
+			return View::make ( '/pool/survivor/non-inscrit', array_merge (array (
+					'pools' => $pools,
+					'poolCourant' => $courn,)));
+		}
+		
 		if ($semCour == null and isset($semas[0])) {
 			$semCour = $semas [0]->SEM_NUMR;
 		}
