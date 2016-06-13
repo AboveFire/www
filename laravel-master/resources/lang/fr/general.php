@@ -8,5 +8,6 @@ return [
     	'language' => 'English',
     	'user' => 'Utilisateur',
 		'success' => 'Les modifications ont bel et bien été apportées!',
+		'err_tail_fichr' => 'La résolution de l\'image a dépassée la limite permise.',
 ]
 ;

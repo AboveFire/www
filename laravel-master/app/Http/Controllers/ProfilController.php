@@ -13,7 +13,7 @@ class ProfilController extends Controller
 {
     public function update(Request $request)
     {
-		App::setLocale(strtolower(Auth::user()->getLangue()));
+    	
     	$this->validate($request, [
     		'telph' => 'Regex:/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/',
             'nom' => 'required|max:80',
@@ -30,7 +30,7 @@ class ProfilController extends Controller
             'uti_courl' => $request['courl'],
             'uti_telph' => $request['telph'],
         ]);
-    	
+
     	$path = $request->file('img');
     	$img_data = $type = null;
     	if ($path != '')
@@ -39,7 +39,13 @@ class ProfilController extends Controller
     		ob_start();
     		$content = file_get_contents($path);
     		$size = getimagesize($path);
-    		$png = imagepng(imagecreatefromstring($content));
+    		//dd('aldasdasda');
+    		if (($size[0] * $size[1]) > 2000000)
+    		{
+    			return back()->with('error', trans('general.err_tail_fichr'));
+    		}
+    		$temp = imagecreatefromstring($content);
+    		$png = imagepng($temp);
     		$png = ob_get_contents();
     		ob_end_clean();
     		
@@ -61,7 +67,7 @@ class ProfilController extends Controller
             'uti_paswd' =>  bcrypt($request['paswd']),
         	]);
     	}
-    	return back()->with('status', 'Les modifications ont bel et bien été apportées');
+    	return back()->with('status', trans('general.success'));
     	
     }
     

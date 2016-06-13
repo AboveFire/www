@@ -8,5 +8,6 @@ return [
     	'language' => 'Français',
     	'user' => 'User',
 		'success' => 'The requested changes have been successfully applied!',
+		'err_tail_fichr' => 'The picture is bigger than the required size.',
 ]
 ;

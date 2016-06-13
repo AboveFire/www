@@ -11,6 +11,11 @@
 		{{ session('status') }}
 	</div>
 	@endif
+	@if (session('error'))
+	<div class="alert alert-danger">
+		{{ session('error') }}
+	</div>
+	@endif
 	<hr>
 		<form id="form" class="form" role="form" method="POST" action="{{ url('/profil/save') }}" enctype="multipart/form-data">
 		{!! csrf_field() !!}
@@ -26,7 +31,7 @@
 					<img src="{{ Auth::user()->getImage() }}" onerror="this.src='{{{ asset('images/profile.png') }}}'" alt="image" class="col-md-12 image">
 				</div>
 					<div class="col-md-12 btnUpload">
-						<input type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
+						<input id="imageProfil" type="file" name="img" value="{{ Auth::user()->UTI_IMAGE}}"> 
 						@if ($errors->has('img')) 
 						<span class="help-block"> 
 							<strong>{{ $errors->first('img') }}</strong>
@@ -100,7 +105,7 @@
 				<label class="control-label">{{ trans('auth.mdp') }}</label>
 				<div class="margin-bottom-sm input-group">
 					<span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
-					<input type="password" class="form-control" name="paswd">
+					<input type="password" class="form-control" name="paswd" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
 				</div>
 					@if($errors->has('paswd')) 
 					<span class="help-block"> 
@@ -112,7 +117,7 @@
 	        	<label class="control-label">{{ trans('auth.mdpc') }}</label>
 				<div class="margin-bottom-sm input-group">
 					<span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
-					<input type="password" class="form-control" name="paswd_confirmation">
+					<input type="password" class="form-control" name="paswd_confirmation" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;">
 				</div>
 					@if ($errors->has('paswd_confirmation'))
 					<span class="help-block">
@@ -143,7 +148,6 @@
 	function save (butn) {
 		var $this = $(butn);
 		$this.addClass('active');
-
 		$('#form').submit();
 	}
 </script>
