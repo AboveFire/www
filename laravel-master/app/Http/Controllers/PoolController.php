@@ -481,11 +481,12 @@ class PoolController extends BaseController {
 	{
 		$courn = $request['poolCourant'];
 		$semCour = $request['semaineCourante'];
+		$partiesServeur = array();
 		$messageRetour = array('type' => 'status',
 				'contn' => trans('general.success')
 		);
 		
-		$partiesServeur = $this::obtenGamesVoted($courn, $this::obtenGames($semCour), Auth::user()->UTI_SEQNC);
+		$statsServeur = $this::obtenGamesVoted($courn, $this::obtenGames($semCour), Auth::user()->UTI_SEQNC);
 		
 		$partiesVotes = array();
 		
@@ -496,8 +497,12 @@ class PoolController extends BaseController {
 			array_push($partiesVotes, $this::obtenPartieDeString($vote));
 		}
 
-		//if ($partiesServeur !== $partiesVotes)
-		if (count(array_intersect($partiesVotes, array_column($partiesServeur, "PARTIE"))) != count($partiesVotes))
+		foreach ($statsServeur as $statServeur)
+		{
+			array_push($partiesServeur, $statServeur->PARTIE);
+		}
+		
+		if (count(array_intersect($partiesVotes, $partiesServeur)) != count($partiesVotes))
 		{
 			$messageRetour = array('type' => 'error',
 					'contn' => trans('pool.err_vote_classic')
