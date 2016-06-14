@@ -90,6 +90,8 @@ Route::get('/results', function () {
 	return view('results');
 });
 
+Route::get ('/weekId', ['middleware' => 'mobile', 'uses' => 'NFLController@getCurrentWeekID']);
+
 Route::get ('/poolClassic', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolClassic']);
 Route::get ('/poolPlayoff', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolPlayoff']);
 Route::get ('/poolSurvivor', ['middleware' => 'auth', 'uses' => 'PoolController@getPoolSurvivor']);

@@ -973,7 +973,9 @@ class PoolController extends BaseController {
 		$userInPool = $this->obtenUtilsPool($pool);
 		ksort($userAlive, SORT_NUMERIC);
 		$dead = [];
+		$started = false;
 		foreach($semaines as $semaine){
+			$started = true;
 			foreach($userInPool as $value){
 				if(array_key_exists($semaine->SEM_SEQNC, $userAlive) && in_array($value->UTI_SEQNC, $userAlive[$semaine->SEM_SEQNC]['alive'])){
 					if(!array_key_exists($value->UTI_SEQNC, $dead)){
@@ -984,6 +986,11 @@ class PoolController extends BaseController {
 						$dead[$value->UTI_SEQNC] = ["seqnc" => $value->UTI_SEQNC ,"week" => $semaine->SEM_SEQNC, "code" => $value->UTI_CODE];
 					}
 				}
+			}
+		}
+		if(!$started){
+			foreach($userInPool as $value){
+				$dead[$value->UTI_SEQNC] = ["seqnc" => $value->UTI_SEQNC ,"week" => -1, "code" => $value->UTI_CODE];
 			}
 		}
 		return $dead; 
