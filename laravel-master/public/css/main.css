@@ -437,6 +437,7 @@ input[type="file" i].active
     bottom: 0px;
 	height: 7vmin;
 	position: fixed;
+	z-index: 9000;
 }
 
 @media (max-height:800px)
