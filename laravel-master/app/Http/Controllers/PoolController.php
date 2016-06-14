@@ -454,9 +454,7 @@ class PoolController extends BaseController {
 
 		if ($courn == null)
 		{
-			return View::make ( '/pool/classic/non-inscrit', array_merge (array (
-					'pools' => $pools,
-					'poolCourant' => $courn,)));
+			return redirect('/pool/classic');
 		}
 		
 		if ($semCour == null and isset($semas[0])) {
