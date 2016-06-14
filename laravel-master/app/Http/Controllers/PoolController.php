@@ -951,7 +951,7 @@ class PoolController extends BaseController {
 		/*$players = $this->obtenUtilsPool($pool);
 		$saison = DB::table("pool_poo")->where("POO_SEQNC", "=", $pool)->get()[0]->POO_SAI_SEQNC;
 		$allWeeks = DB::table("semaine_sem")->where("SEM_SAI_SEQNC","=",$saison)->get();
-		foreach($allWeeks as $week){
+		foreach($allWeeks as $week){ 
 			if(!array_key_exists($week->SEM_SEQNC, $alive)){
 				$alive[$week->SEM_SEQNC]['alive'] = [];
 			}
