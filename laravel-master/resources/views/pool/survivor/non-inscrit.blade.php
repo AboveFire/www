@@ -46,6 +46,8 @@
 	</div>
 	<div class="milieu">
 		<div class="table-responsive col-md-6">
+			<h2 class="aliveTitle">{{ trans('pool.alive') }}</h2>
+			<hr class="aliveTitle">
 			<table class="table">
 				<thead>
 					<tr>
@@ -66,6 +68,8 @@
 					@endforeach
 				</tbody>
 			</table>
+			<h2 class="deadTitle">{{ trans('pool.dead') }}</h2>
+			<hr class="deadTitle">
 			<table class="table">
 				<thead>
 					<tr>
