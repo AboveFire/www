@@ -454,9 +454,7 @@ class PoolController extends BaseController {
 
 		if ($courn == null)
 		{
-			return View::make ( '/pool/classic/non-inscrit', array_merge (array (
-					'pools' => $pools,
-					'poolCourant' => $courn,)));
+			return redirect('/poolClassic');
 		}
 		
 		if ($semCour == null and isset($semas[0])) {
@@ -780,9 +778,7 @@ class PoolController extends BaseController {
 		}
 		if ($courn == null)
 		{
-			return View::make ( '/pool/playoff/non-inscrit', array_merge (array (
-				'pools' => $pools,
-				'poolCourant' => $courn,)));
+			return redirect('/poolPlayoff');
 		}
 		
 		$teams = $this::obtenTeamsPlayoff($courn);
@@ -1057,9 +1053,7 @@ class PoolController extends BaseController {
 	
 		if ($courn == null)
 		{
-			return View::make ( '/pool/survivor/non-inscrit', array_merge (array (
-					'pools' => $pools,
-					'poolCourant' => $courn,)));
+			return redirect('/poolSurvivor');
 		}
 		
 		if ($semCour == null and isset($semas[0])) {
