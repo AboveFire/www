@@ -314,6 +314,17 @@ class NFLController extends BaseController
 		return $obj['gms']['@attributes']['w'];
 	}
 	
+	public function getCurrentWeekID()
+	{
+		$temp = DB::table("semaine_sem")->select("SEM_SEQNC")->where("SEM_NUMR","=",$this->getCurrentWeek())->orderBy("SEM_DATE_DEBUT")->get();
+		if(empty($temp)){
+			$temp = 0;
+		}else{
+			$temp = $temp[0]->SEM_SEQNC;
+		}
+		return $temp;
+	}
+	
 	public function getCurrentPostSeasonWeek()
 	{
 		$xml = file_get_contents('http://www.nfl.com/liveupdate/scorestrip/postseason/ss.xml');
