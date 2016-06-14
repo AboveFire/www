@@ -21,3 +21,4 @@
 	<p><a href="{{ asset('apk/LivePool.apk') }}" target="_blank">{{ trans('about.apk')}}</a> </p>
 </div>
 @endsection
+ 
