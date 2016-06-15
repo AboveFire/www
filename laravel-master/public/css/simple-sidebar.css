@@ -213,16 +213,18 @@ li > .sub-bar {
         margin-left: 0;
     }
     
-    
+}
+
+@media(max-width:768px) {
 	@media(max-height:400px) {
-		#wrapper.left-toggled #left-sidebar-wrapper {
-	        width: 250px;
-	        margin-top: -2.5%;
-	    }
-	
-	    #wrapper.right-toggled #right-sidebar-wrapper {
-	        width: 250px;
-	        margin-top: -2.5%;
-	    }
+			#wrapper.left-toggled #left-sidebar-wrapper {
+		        width: 250px;
+		        margin-top: -2.5%;
+		    }
+		
+		    #wrapper.right-toggled #right-sidebar-wrapper {
+		        width: 250px;
+		        margin-top: -2.5%;
+		    }
 	}
 }
