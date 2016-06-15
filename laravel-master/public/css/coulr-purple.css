@@ -255,14 +255,14 @@ input[type="file" i].active
 
 .selectedBD
 {
-    border: 5px solid #000000;
+    border: 5px solid #FFFFFF;
 }
 
 .selected.selectedBD
 {
 	padding: 5px 5px 5px 5px !important;
     background: #A349A4;
-    border: 5px solid #000000;
+    border: 5px solid #FFFFFF;
 }
 /*
 .notSelectedBD
