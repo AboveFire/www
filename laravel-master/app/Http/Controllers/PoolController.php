@@ -339,7 +339,7 @@ class PoolController extends BaseController {
 			array_push ($stats, $stat);
 		}
 			
-		$stats = $this::sortBySubValue($stats, "score");
+		$stats = $this::sortBySubValue($stats, "score", false);
 			
 		if ((count ($stats) < 2) || $stats[0]["score"] != $stats[1]["score"])
 		{
@@ -672,6 +672,7 @@ class PoolController extends BaseController {
 			$canVote = false;
 			if (isset($games[$i]->PARTIE))
 			{
+				$blockChange = false;
 				$datePartie = new DateTime($games[$i]->DATE, $timeZone);
 				
 				if($datePartie > $now && !$blockChange)
@@ -695,7 +696,7 @@ class PoolController extends BaseController {
 						}
 					}
 					
-					if($blockChange)
+					if(!$blockChange)
 					{
 						if (!$revoteUsed)
 						{
