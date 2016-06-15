@@ -471,7 +471,6 @@ class PoolController extends BaseController {
 				'semas' => $semas,
 				'semaineCourante' => $semCour,
 				'poolCourant' => $courn,
-				
 		));
 	}
 	
