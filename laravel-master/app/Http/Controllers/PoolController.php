@@ -695,13 +695,16 @@ class PoolController extends BaseController {
 						}
 					}
 					
-					if($blockChange)
+					if(!$blockChange)
 					{
 						if (!$revoteUsed)
 						{
 							$canVote = true;
 						}
 					}
+				}
+				if($datePartie < $now){
+					$canVote = false;
 				}
 			}
 			
