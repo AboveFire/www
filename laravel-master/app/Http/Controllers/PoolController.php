@@ -633,7 +633,7 @@ class PoolController extends BaseController {
 			array_push ($stats, $stat);
 		}
 			
-		$stats = $this::sortBySubValue($stats, "score");
+		$stats = $this::sortBySubValue($stats, "score", false);
 			
 		if ((count ($stats) < 2) || $stats[0]["score"] != $stats[1]["score"])
 		{
