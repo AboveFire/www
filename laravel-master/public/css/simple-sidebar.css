@@ -65,10 +65,12 @@
 
 #wrapper.left-toggled #left-sidebar-wrapper {
     width: 250px;
+    margin-top: -2.5%;
 }
 
 #wrapper.right-toggled #right-sidebar-wrapper {
     width: 250px;
+    margin-top: -2.5%;
 }
 
 #page-content-wrapper {
@@ -188,10 +190,12 @@ li > .sub-bar {
 
     #wrapper.left-toggled #left-sidebar-wrapper {
         width: 250px;
+        margin-top: 0%;
     }
 
     #wrapper.right-toggled #right-sidebar-wrapper {
         width: 250px;
+        margin-top: 0%;
     }
 
     #page-content-wrapper {
@@ -208,5 +212,17 @@ li > .sub-bar {
         position: relative;
         margin-left: 0;
     }
-
+    
+    
+	@media(max-height:400px) {
+		#wrapper.left-toggled #left-sidebar-wrapper {
+	        width: 250px;
+	        margin-top: -2.5%;
+	    }
+	
+	    #wrapper.right-toggled #right-sidebar-wrapper {
+	        width: 250px;
+	        margin-top: -2.5%;
+	    }
+	}
 }
