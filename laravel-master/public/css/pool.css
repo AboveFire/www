@@ -166,8 +166,16 @@
 	border-color: #00a200;
 	text-align: center;
 }
+
+@media screen and (max-width: 1000px)
+{
+	.milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote
+	{
+		width: 100%;
+	}
+}
 	
-@media screen and (max-width: 767px)
+@media screen and (max-width: 768px)
 {
 	.parties 
 	{
@@ -183,6 +191,11 @@
 		text-align: center;
 		float: right;
 		font-weight: bold;
+	}
+	
+	.milieu .parties .precedente, .milieu .parties .suivante, .milieu .parties .butn_vote
+	{
+		width: 100%;
 	}
 
 	.butn
